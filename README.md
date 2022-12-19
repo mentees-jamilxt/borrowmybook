@@ -28,5 +28,7 @@
 - [ ] Apply Dynamic Query via JPA Specification
 
 ## Best Practices & Convention We've followed
+- Follow a Git Branching Strategy
+- Always use CLI, be comfortable with commands instead of GUI
 - Data Transfer Objects (DTOs) are objects created to only contain values and have no business logic except for getter and setter methods.
 - If you want to write a git commit message properly, you should use the imperative mood (e.g. Reformat the code)
