@@ -1,7 +1,5 @@
 package mentees.jamilxt.borrowmybook.service;
 
-
-
 import mentees.jamilxt.borrowmybook.entity.Role;
 import mentees.jamilxt.borrowmybook.entity.User;
 import mentees.jamilxt.borrowmybook.repositories.RoleRepository;
@@ -11,8 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-
 
 @Service
 public class UserService {
@@ -33,7 +29,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // Save Users
+    // Save Users with encoded password
     public User saveUser(User user) {
         encodePassword(user);
         return userRepository.save(user);
@@ -44,27 +40,28 @@ public class UserService {
         return userRepository.findById(id).get();
     }
 
+    // Get User by Email
     public User getUserByEmail(String s) {
         return userRepository.getUserByEmail(s);
     }
 
-    // Update User information
+    // Update User information and save
     public User updateUser(User user) {
         return userRepository.save(user);
     }
 
-    // delete User by their id
+    // Delete User by their ID
     public void deleteUserById(Integer id) {
         userRepository.deleteById(id);
     }
 
+    // Role List
     public List<Role> listRoles() {
         return (List<Role>) roleRepository.findAll();
     }
 
 
-
-
+    // Check if the email is unique or not.
     public boolean isEmailUnique(Integer id, String email) {
         User userByEmail = userRepository.getUserByEmail(email);
         if (userByEmail == null) {
@@ -78,7 +75,6 @@ public class UserService {
     }
 
 
-
     // Method of password encoder using User object
     private void encodePassword(User user) {
         String encodePassword = passwordEncoder.encode(user.getPassword());
@@ -89,7 +85,6 @@ public class UserService {
     public String encodePasswordUsingString(String password) {
         return passwordEncoder.encode(password);
     }
-
 
 
 }

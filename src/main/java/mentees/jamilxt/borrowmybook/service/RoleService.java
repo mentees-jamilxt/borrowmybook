@@ -15,11 +15,12 @@ public class RoleService {
     @Autowired
     RoleRepository roleRepository;
 
+    // List of Role
     public List<Role> listRoles() {
         return roleRepository.findAll();
     }
 
-
+    // Get specific role €using Role name
     public Set<Role> specificRole(String roleName) {
         List<Role> roleList = roleRepository.findAll();
         Set<Role> roles = new HashSet<>();

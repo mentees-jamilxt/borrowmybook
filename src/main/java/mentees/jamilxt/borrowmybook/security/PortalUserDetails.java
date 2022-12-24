@@ -1,6 +1,5 @@
 package mentees.jamilxt.borrowmybook.security;
 
-
 import mentees.jamilxt.borrowmybook.entity.Role;
 import mentees.jamilxt.borrowmybook.entity.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +12,6 @@ import java.util.List;
 import java.util.Set;
 
 public class PortalUserDetails implements UserDetails {
-
     private User user;
 
     public PortalUserDetails(User user) {
@@ -22,7 +20,7 @@ public class PortalUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // collection a list of roles assign to user
+        // Collection a list of roles assign to user
         Set<Role> roles = user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         roles.forEach(r -> authorities.add(new SimpleGrantedAuthority(r.getName())));
