@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.6'
+	id 'org.springframework.boot' version '2.7.7' // TODO: migrate this version to Spring Boot 3
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
@@ -13,15 +13,25 @@ repositories {
 }
 
 dependencies {
+	// web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.hibernate:hibernate-core'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	// validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// database
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	// https://mvnrepository.com/artifact/org.postgresql/postgresql
-	implementation 'org.postgresql:postgresql:42.5.1'
-	
-	//runtimeOnly 'com.mysql:mysql-connector-j'
+	implementation 'org.postgresql:postgresql:42.2.19'
+
+	// code generation
 	compileOnly 'org.projectlombok:lombok'
-	
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// util
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+	// test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
