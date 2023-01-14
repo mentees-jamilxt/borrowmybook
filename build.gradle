@@ -12,6 +12,14 @@ repositories {
 	mavenCentral() 
 }
 
+jar {  
+    manifest {  
+        attributes(
+                'Main-Class': 'mentees.jamilxt.borrowmybook.BorrowMyBookApplication'  
+        )  
+    }  
+}
+
 dependencies {
 	// web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
