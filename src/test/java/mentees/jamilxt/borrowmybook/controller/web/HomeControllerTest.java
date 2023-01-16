@@ -8,10 +8,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest(HomeController.class)
 class HomeControllerTest {
@@ -22,19 +20,16 @@ class HomeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    //Check if Application Context starts or not
     @Test
     public void contextLoads() throws Exception {
         assertThat(homeController).isNotNull();
     }
 
-    //Check if expected view is shown or not
     @Test
     public void shouldReturnExpectedView() throws Exception {
         this.mockMvc.perform(get("/"))
-                    .andExpect(status().isOk())
-                    .andExpect(view().name("index"))
-                    .andDo(print());
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"))
+                .andDo(print());
     }
-
 }
