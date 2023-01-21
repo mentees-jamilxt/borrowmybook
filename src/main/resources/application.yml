@@ -17,12 +17,12 @@ spring:
       # TODO: using "ddl-auto: none" is good practice. We will use Liquibase/FlyWay for db migration and versioning on UAT & PROD.
       ddl-auto: update
 
-#   To script-based schema creation and data population
-#    defer-datasource-initialization: true
-#  sql:
-#    init:
-#      mode: always
-#      data-locations: classpath:db/schema.sql
+      # To script-based schema creation and data population.
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: never
+      data-locations: classpath:db/schema.sql
 
 logging:
   level:
