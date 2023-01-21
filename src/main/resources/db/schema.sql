@@ -8,10 +8,10 @@ CREATE TABLE IF NOT EXISTS BOOK(
     book_id SERIAL PRIMARY KEY,
     book_name VARCHAR(500) NOT NULL,
     book_author VARCHAR(500) NOT NULL,
-    Price DECIMAL(10,2),
-    Publisher VARCHAR(500),
-    Edition VARCHAR(10),
-    Status VARCHAR(5),
-    isbn_number VARCHAR(100),
-    Category INTEGER REFERENCES BOOK_CATEGORY(category_id)
+    book_price DECIMAL(10,2),
+    book_publisher VARCHAR(500),
+    book_edition VARCHAR(10),
+    book_Status VARCHAR(5),
+    book_isbn_num VARCHAR(100),
+    book_category INTEGER REFERENCES BOOK_CATEGORY(category_id)
 );
