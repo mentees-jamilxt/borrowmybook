@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.7' // TODO: migrate this version to Spring Boot 3
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'application'
 }
 
 group = 'mentees.jamilxt'
@@ -9,21 +10,28 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
-	mavenCentral() 
+	mavenCentral()
 }
 
-jar {  
-    manifest {  
-        attributes(
-                'Main-Class': 'mentees.jamilxt.borrowmybook.BorrowMyBookApplication'  
-        )  
-    }  
+mainClassName = 'mentees.jamilxt.borrowmybook.BorrowMyBookApplication'
+
+jar {
+	manifest {
+		attributes(
+				'Main-Class': mainClassName
+		)
+	}
+}
+
+jar {
+	enabled = false
 }
 
 dependencies {
 	// web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-parent:2.4.1'
 
 	// validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
