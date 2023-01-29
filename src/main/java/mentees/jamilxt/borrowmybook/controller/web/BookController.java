@@ -10,12 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/books")
 public class BookController {
 
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/books")
+    @GetMapping("/all")
     public ModelAndView getAllBooks(){
         ModelAndView mav = new ModelAndView("dashboard/book/viewBooks");
         List<Book> books = bookService.fetchAllBooks();
@@ -23,7 +24,7 @@ public class BookController {
         return mav;
     }
 
-    @GetMapping("/add-book-form")
+    @GetMapping("/add-book")
     public ModelAndView addBookFrom(){
         ModelAndView mav = new ModelAndView("dashboard/book/addBook");
         Book newBook = new Book();
@@ -34,10 +35,10 @@ public class BookController {
     @PostMapping("/save-book")
     public String saveBook(@ModelAttribute Book book){
         bookService.saveBook(book);
-        return "redirect:/dashboard/book/viewBooks";
+        return "redirect:/books/all";
     }
 
-    @GetMapping("/update-book-form")
+    @GetMapping("/update-book")
     public ModelAndView showUpdateFrom(@RequestParam Long id){
         ModelAndView mav = new ModelAndView("dashboard/book/addBook");
         Book thisBook = bookService.fetchBookById(id);
@@ -48,7 +49,7 @@ public class BookController {
     @GetMapping("/delete-book")
     public String deleteBook(@RequestParam Long id){
         bookService.deleteById(id);
-        return "redirect:/dashboard/book/viewBooks";
+        return "redirect:/books/all";
     }
 
 }
