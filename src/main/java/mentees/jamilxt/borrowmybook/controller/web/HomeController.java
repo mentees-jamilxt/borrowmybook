@@ -8,7 +8,7 @@ public class HomeController {
 
     @GetMapping
     public String home() {
-        return "index"; // TODO: write test to verify
+        return "dashboard/index";
     }
     
 }
