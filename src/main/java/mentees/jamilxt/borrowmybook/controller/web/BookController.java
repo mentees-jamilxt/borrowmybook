@@ -18,7 +18,7 @@ public class BookController {
 
     @GetMapping("/all")
     public ModelAndView getAllBooks(){
-        ModelAndView mav = new ModelAndView("dashboard/book/viewBooks");
+        ModelAndView mav = new ModelAndView("dashboard/book/view-books");
         List<Book> books = bookService.fetchAllBooks();
         mav.addObject("books",books);
         return mav;
@@ -26,7 +26,7 @@ public class BookController {
 
     @GetMapping("/add-book")
     public ModelAndView addBookFrom(){
-        ModelAndView mav = new ModelAndView("dashboard/book/addBook");
+        ModelAndView mav = new ModelAndView("dashboard/book/add-book");
         Book newBook = new Book();
         mav.addObject("book",newBook);
         return mav;
@@ -40,7 +40,7 @@ public class BookController {
 
     @GetMapping("/update-book")
     public ModelAndView showUpdateFrom(@RequestParam Long id){
-        ModelAndView mav = new ModelAndView("dashboard/book/addBook");
+        ModelAndView mav = new ModelAndView("dashboard/book/add-book");
         Book thisBook = bookService.fetchBookById(id);
         mav.addObject("book",thisBook);
         return mav;

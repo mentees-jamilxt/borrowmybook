@@ -3,11 +3,11 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymelleaf.com">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>View Books</title>
+    <title>Add New Book</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -130,13 +130,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	                        </a>
 	                        <ul class="nav nav-treeview">
 	                            <li class="nav-item">
-	                                <a href="/addBook.html" class="nav-link">
+	                                <a href="add-book.html" class="nav-link">
 	                                    <i class="fas fa-plus nav-icon"></i>
 	                                    <p>Add New Book</p>
 	                                </a>
 	                            </li>
 	                            <li class="nav-item">
-	                                <a href="/viewBooks.html" class="nav-link">
+	                                <a th:href="@{/books/all}" class="nav-link">
 	                                    <i class="fas fa-eye nav-icon"></i>
 	                                    <p>View Books</p>
 	                                </a>
@@ -153,13 +153,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
 	                            <li class="nav-item">
-	                                <a href="/addCategory.html" class="nav-link">
+	                                <a href="addCategory.html" class="nav-link">
 	                                    <i class="fas fa-plus nav-icon"></i>
 	                                    <p>Add New Category</p>
 	                                </a>
 	                            </li>
 	                            <li class="nav-item">
-	                                <a href="/viewCategories.html" class="nav-link">
+	                                <a href="viewCategories.html" class="nav-link">
 	                                    <i class="fas fa-eye nav-icon"></i>
 	                                    <p>View Categories</p>
 	                                </a>
@@ -180,12 +180,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container-fluid">
                     <div class="row mb-2">
 	                    <div class="col-sm-6">
-	                        <h1 class="m-0">View Books</h1>
+	                        <h1 class="m-0">Add New Book</h1>
 	                    </div><!-- /.col -->
 	                    <div class="col-sm-6">
 	                        <ol class="breadcrumb float-sm-right">
 	                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-	                            <li class="breadcrumb-item active">View Books</li>
+	                            <li class="breadcrumb-item active">Add New Book</li>
 	                        </ol>
 	                    </div><!-- /.col -->
 	                </div><!-- /.row -->
@@ -193,86 +193,73 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <hr style="margin: 0; padding: 0">
             <!-- /.content-header -->
-            
-			
-			<!-- Starting Book Table -->
-			<div class="book-table p-3">
-	            <div class="card">
-	                <div class="card-header">
-	                    <h3 class="card-title">Book List</h3>
-	                </div>
-	                <!-- /.card-header -->
-	                <div class="card-body p-0">
-	                    <table class="table table-striped">
-	                        <thead>
-	                        <tr>
-	                            <th style="width: 10px">#</th>
-	                            <th>Title</th>
-	                            <th>Author</th>
-	                            <th>Publisher</th>
-	                            <th>Edition</th>
-	                            <th>ISBN Number</th>
-	                            <th>Pages</th>
-	                            <th>Status</th>
-	                            <th>Action</th>
-	                        </tr>
-	                        </thead>
-	                        <tbody>
-	                        <tr>
-	                            <td>1</td>
-	                            <td>Java Programming</td>
-	                            <td>ANM Bazlur Rahman</td>
-	                            <td>Dimik Prokashoni</td>
-	                            <td>2nd</td>
-	                            <td>1233-2838929</td>
-	                            <td>467</td>
-	                            <td><span class="badge bg-primary">Available</span></td>
-	                            <td>
-	                            	<a class="btn btn-sm btn-success" href=""><i class="fas fa-eye"></i></a>
-	                            	<a class="btn btn-sm btn-primary" href=""><i class="fas fa-pen"></i></a>
-	                            	<a class="btn btn-sm btn-danger" href=""><i class="fas fa-trash"></i></a>
-	                            </td>
-	                        </tr>
-	                        <tr>
-	                            <td>1</td>
-	                            <td>C Programming</td>
-	                            <td>Tamim Shahriar Shubin</td>
-	                            <td>Dimik Prokashoni</td>
-	                            <td>1st</td>
-	                            <td>1233-2838929</td>
-	                            <td>237</td>
-	                            <td><span class="badge bg-danger">Not Available</span></td>
-	                            <td>
-	                            	<a class="btn btn-sm btn-success" href=""><i class="fas fa-eye"></i></a>
-	                            	<a class="btn btn-sm btn-primary" href=""><i class="fas fa-pen"></i></a>
-	                            	<a class="btn btn-sm btn-danger" href=""><i class="fas fa-trash"></i></a>
-	                            </td>
-	                        </tr>
-	                        <tr>
-	                        	
-	                        </tr>
-	                        <tr>
-	                        	
-	                        </tr>
-	                        </tbody>
-	                    </table>
-	                </div>
-	                <!-- /.card-body -->
-	                <div class="card-footer pt-5">
-	                	<nav aria-label="Page navigation example">
-						    <ul class="pagination">
-						        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						        <li class="page-item"><a class="page-link" href="#">1</a></li>
-						        <li class="page-item"><a class="page-link" href="#">2</a></li>
-						        <li class="page-item"><a class="page-link" href="#">3</a></li>
-						        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-						  </ul>
-						</nav>
-	                </div>
-	                <!-- /.card-footer -->
-	            </div>
-			</div>
-			<!-- Ending Book Table -->
+
+			<!-- Starting Add Book Form -->
+            <div class="add-book-form p-3">
+            	<div class="row">
+            		<div class="col-lg-8 offset-lg-2" >
+            			<div class="card p-3">
+           					<h3 class="text-center my-3">Add Book</h3>
+           					<form th:action="@{/books/save-book}" th:object="${book}" method="POST">
+           						<div class="card-body">
+                              		<div class="form-group">
+	                                    <label for="title">Book Title</label>
+	                                    <input type="text" th:field="*{bookName}" class="form-control" name="title" id="title" placeholder="Enter Book Title">
+	                                </div>
+	                                <div class="form-group">
+	                                    <label for="title">Author</label>
+	                                    <input type="text" th:field="*{bookAuthor}" class="form-control" name="author" id="author" placeholder="Enter Author Name">
+	                                </div>
+                                    <div class="form-group">
+                                        <label for="title">Price</label>
+                                        <input type="text" th:field="*{bookPrice}" class="form-control" name="price" id="price" placeholder="Enter price">
+                                    </div>
+	                                <div class="form-group">
+	                                    <label for="title">Publisher</label>
+	                                    <input type="text" th:field="*{bookPublisher}" class="form-control" name="publisher" id="publisher" placeholder="Enter Publisher Name">
+	                                </div>
+	                                <div class="form-group">
+	                                    <label for="edition">Edition</label>
+	                                    <input type="text" th:field="*{bookEdition}" class="form-control" name="edition" id="edition" placeholder="Enter Book Edition">
+                                	</div>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <input type="text" th:field="*{bookStatus}" class="form-control" name="status" id="status" placeholder="Enter Status">
+                                    </div>
+                                	<div class="form-group">
+                                      	<label for="isbn">ISBN Number</label>
+                                      	<input type="text" th:field="*{bookIsbnNum}" class="form-control" name="isbn" id="isbn" placeholder="Enter ISBN Number">
+                                  	</div>
+
+                                    <input type="hidden" th:field="*{bookId}">
+
+                                    <div class="form-group">
+                                        <label for="cover">Cover Photo</label>
+                                        <div class="input-group">
+                                            <div class="custom-file"> 
+                                                <input type="file" class="custom-file-input" name="cover" id="cover">
+                                                <label class="custom-file-label" id="exampleInputFile" for="exampleInputFile">Choose File</label>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Upload</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name="terms" id="terms">
+                                        <label class="form-check-label" for="terms">Agrees terms and conditions</label>
+                                    </div>	
+	                                <div class="card-footer">
+	                                    <button type="submit" class="btn btn-primary">Submit</button>
+	                                </div>
+                                </div>
+                            </form>
+            			</div>
+            		</div>
+            	</div>
+            </div>
+            <!-- Ending Add Book Form -->
+
 
         </div>
         <!-- /.content-wrapper -->
