@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.7' // TODO: migrate this version to Spring Boot 3
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	// id 'application'
+	id 'application'
 }
 
 group = 'mentees.jamilxt'
