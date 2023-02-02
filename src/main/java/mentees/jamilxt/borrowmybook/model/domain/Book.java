@@ -22,5 +22,6 @@ public class Book {
     private String bookPublisher;
     private String bookEdition;
     private String bookStatus;
-    private String bookIsbnNum;
+    @Column(name = "book_isbn_number")
+    private String bookISBNNumber;
 }
