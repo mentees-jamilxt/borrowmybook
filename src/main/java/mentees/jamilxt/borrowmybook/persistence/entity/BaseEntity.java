@@ -25,10 +25,8 @@ import java.util.UUID;
 public abstract class BaseEntity implements Serializable {
 
     @Id
-    @Column(columnDefinition = "uniqueidentifier", nullable = false, updatable = false)
-    @Type(type = "uuid-char")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @GeneratedValue
+    @Column(columnDefinition = "uuid", nullable = false, updatable = false)
     private UUID id;
 
     @CreatedDate
@@ -46,9 +44,6 @@ public abstract class BaseEntity implements Serializable {
     @LastModifiedBy
     @Column(name = "updated_by")
     private String updatedBy;
-
-    @Column(name = "is_deleted", columnDefinition = "bit default 0")
-    private boolean deleted;
 
     @PrePersist
     void onCreate() {

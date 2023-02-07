@@ -1,17 +1,14 @@
-package mentees.jamilxt.borrowmybook.model.domain;
+package mentees.jamilxt.borrowmybook.model.dto.request;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Getter
 @Setter
-public class Book {
-    private UUID id;
+public class CreateBookRequest {
     private String name;
     private String author;
     private BigDecimal price;
