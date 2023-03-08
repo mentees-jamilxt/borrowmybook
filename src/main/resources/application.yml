@@ -26,4 +26,4 @@ spring:
 
 logging:
   level:
-    com.zaxxer.hikari: DEBUG # To check the log if the db connection has been established
+    com.zaxxer.hikari: off # To check the log if the db connection has been established
