@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -189,12 +185,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">View Books</h1>
+                        <h1 class="m-0">View Roles</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">View Books</li>
+                            <li class="breadcrumb-item active">View Roles</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -215,33 +211,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Price</th>
-                            <th>Publisher</th>
-                            <th>Edition</th>
-                            <th>Status</th>
-                            <th>ISBN Number</th>
+                            <th>Id</th>
+                            <th>Role</th>
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="book: ${books}">
-                            <td th:text="${book.id}"></td>
-                            <td th:text="${book.name}"></td>
-                            <td th:text="${book.author}"></td>
-                            <td th:text="${book.price}"></td>
-                            <td th:text="${book.publisher}"></td>
-                            <td th:text="${book.edition}"></td>
-                            <td th:text="${book.status}"></td>
-                            <td th:text="${book.isbnNumber}"></td>
-                            <!--	                            <td><span class="badge bg-primary">Available</span></td>-->
+                        <tr th:each="r: ${roles}">
+                            <td th:text="${r.id}"></td>
+                            <td th:text="${r.name}"></td>
+                            <td th:text="${r.description}"></td>
                             <td>
                                 <a class="btn btn-sm btn-success" href=""><i class="fas fa-eye"></i></a>
-                                <a class="btn btn-sm btn-primary" th:href="@{'/books/' + ${book.id} + '/update'}"><i
+                                <a class="btn btn-sm btn-primary" th:href="@{'/roles/' + ${r.id} + '/update'}"><i
                                         class="fas fa-pen"></i></a>
-                                <a class="btn btn-sm btn-danger" th:href="@{'/books/' + ${book.id} + '/delete'}"><i
+                                <a class="btn btn-sm btn-danger" th:href="@{'/roles/' + ${r.id} + '/delete'}"><i
                                         class="fas fa-trash"></i></a>
                             </td>
                         </tr>
@@ -286,3 +271,4 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="../../js/adminlte.min.js"></script>
 </body>
 </html>
+

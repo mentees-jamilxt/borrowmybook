@@ -32,6 +32,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+	// security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	// validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
@@ -42,6 +45,9 @@ dependencies {
 	// code generation
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// developer tools
+	compileOnly 'org.springframework.boot:spring-boot-devtools'
 
 	compileOnly "org.mapstruct:mapstruct:${mapStructVersion}"
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
