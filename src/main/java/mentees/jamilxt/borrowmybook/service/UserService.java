@@ -1,9 +1,9 @@
 package mentees.jamilxt.borrowmybook.service;
 
-import java.awt.print.Pageable;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -13,8 +13,8 @@ import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
 import mentees.jamilxt.borrowmybook.persistence.repository.UserRepository;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserService {
 	private static final String USER_NOT_FOUND = "User not found";
 	private final UserMapper userMapper;
