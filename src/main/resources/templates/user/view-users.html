@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text=${title}></title>
+    <title th:text="${title}"></title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -213,11 +213,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mehedi</td>
-                            <td>Hasan</td>
-                            <td>mehedihasan@gmail.com</td>
+                        <tr th:each="user, rowCount : ${users}">
+                            <td th:text="${rowCount.count}"></td>
+                            <td th:text="${user.firstName}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.email}"></td>
                             <td>
                                 <a class="btn btn-sm btn-success" href=""><i class="fas fa-eye"></i></a>
                                 <a class="btn btn-sm btn-primary" href=""><i class="fas fa-pen"></i></a>
