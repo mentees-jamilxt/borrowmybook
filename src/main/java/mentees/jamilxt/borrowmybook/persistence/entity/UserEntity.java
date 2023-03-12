@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import mentees.jamilxt.borrowmybook.constant.EntityConstant;
 
-@Setter
 @Getter
+@Setter
 @Entity
 @Table(name = EntityConstant.USER)
 public class UserEntity extends BaseEntity {
