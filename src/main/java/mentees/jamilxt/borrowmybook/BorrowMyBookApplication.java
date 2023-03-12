@@ -14,4 +14,22 @@ public class BorrowMyBookApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BorrowMyBookApplication.class, args);
 	}
+	
+	@Bean
+	public BookMapper bookMapper() {
+		return new BookMapper() {
+			
+			@Override
+			public BookEntity toEntity(CreateBookRequest request) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public Book toDomain(BookEntity bookEntity) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
+	}
 }
