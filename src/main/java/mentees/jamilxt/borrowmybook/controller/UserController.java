@@ -52,6 +52,21 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @GetMapping("/{id}/update")
+    public ModelAndView viewUpdateUserPage(@PathVariable UUID id) {
+        var modelAndView = new ModelAndView("user/update-user");
+        modelAndView.addObject("title", "Update User");
+        User user = userService.getUserById(id);
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @PostMapping("/update")
+    public String updateUser(@ModelAttribute CreateUserRequest request) {
+        userService.updateUser(request);
+        return "redirect:/users";
+    }
+
     @GetMapping("/{id}/delete")
     public String deleteUser(@PathVariable UUID id) {
         userService.deleteUser(id);

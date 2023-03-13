@@ -2,6 +2,7 @@ package mentees.jamilxt.borrowmybook.service;
 
 import java.util.UUID;
 
+import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,14 @@ public class UserService {
 	
 	public void createUser(CreateUserRequest request) {
 		var userEntity = userMapper.toEntity(request);
+		userRepository.save(userEntity);
+	}
+
+	public void updateUser(CreateUserRequest request) {
+		var userEntity = userRepository.findById(request.getId()).orElseThrow(()-> new NotFoundException(USER_NOT_FOUND));
+		userEntity.setFirstName(request.getFirstName());
+		userEntity.setLastName(request.getLastName());
+		userEntity.setEmail(request.getEmail());
 		userRepository.save(userEntity);
 	}
 	
