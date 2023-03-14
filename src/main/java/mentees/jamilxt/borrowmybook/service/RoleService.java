@@ -2,13 +2,9 @@ package mentees.jamilxt.borrowmybook.service;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.exception.custom.NotFoundException;
-import mentees.jamilxt.borrowmybook.mapper.BookMapper;
 import mentees.jamilxt.borrowmybook.mapper.RoleMapper;
-import mentees.jamilxt.borrowmybook.model.domain.Book;
 import mentees.jamilxt.borrowmybook.model.domain.Role;
-import mentees.jamilxt.borrowmybook.model.dto.request.CreateBookRequest;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateRoleRequest;
-import mentees.jamilxt.borrowmybook.persistence.repository.BookRepository;
 import mentees.jamilxt.borrowmybook.persistence.repository.RoleRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,9 +33,10 @@ public class RoleService {
         roleRepository.save(roleEntity);
     }
 
-
     public void updateRole(CreateRoleRequest request) {
-        var roleEntity = roleMapper.toEntity(request);
+        var roleEntity = roleRepository.findById(request.getId()).orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND));
+        roleEntity.setName(request.getName());
+        roleEntity.setDescription(request.getDescription());
         roleRepository.save(roleEntity);
     }
 

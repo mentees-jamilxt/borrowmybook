@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.Role;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateRoleRequest;
 import mentees.jamilxt.borrowmybook.service.RoleService;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,7 @@ public class RoleController {
 
     @GetMapping
     public ModelAndView getRoles() {
-        var modelAndView = new ModelAndView("rolelist/role-list");
+        var modelAndView = new ModelAndView("role/list");
         Page<Role> roles = roleService.getRoles(Pageable.unpaged());
         modelAndView.addObject("roles", roles);
         return modelAndView;
@@ -30,7 +29,7 @@ public class RoleController {
 
     @GetMapping("create")
     public ModelAndView createRolePage() {
-        var modelAndView = new ModelAndView("rolelist/role-new-form");
+        var modelAndView = new ModelAndView("role/new-role");
         var createRoleRequest = new CreateRoleRequest();
         modelAndView.addObject("role", createRoleRequest);
         return modelAndView;
@@ -44,21 +43,16 @@ public class RoleController {
 
     @GetMapping("{id}/update")
     public ModelAndView updateRolePage(@PathVariable UUID id) {
-        var mav = new ModelAndView("rolelist/role-update-form");
+        var mav = new ModelAndView("role/update-role");
         var role = roleService.getRole(id);
         mav.addObject("role", role);
         return mav;
     }
 
-    @PostMapping("{id}/update")
-    public ModelAndView updateRole(@ModelAttribute CreateRoleRequest request, @PathVariable UUID id) {
-        var mav = new ModelAndView("rolelist/role-update-form");
-        var role = roleService.getRole(id);
-        //role.setId(id);
-        role.setName(request.getName());
-        role.setDescription(request.getDescription());
+    @PostMapping("update")
+    public String updateRole(@ModelAttribute CreateRoleRequest request) {
         roleService.updateRole(request);
-        return mav;
+        return "redirect:/roles";
     }
 
     @GetMapping("{id}/delete")

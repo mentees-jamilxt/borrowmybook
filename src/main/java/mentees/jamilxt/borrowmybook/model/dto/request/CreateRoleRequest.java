@@ -2,13 +2,13 @@ package mentees.jamilxt.borrowmybook.model.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
-import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
-
-import java.math.BigDecimal;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class CreateRoleRequest {
+    private UUID id;
     private String name;
     private String description;
+
 }
