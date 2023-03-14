@@ -14,4 +14,12 @@ CREATE TABLE IF NOT EXISTS BOOK(
     book_Status VARCHAR(5),
     book_isbn_num VARCHAR(100),
     book_category INTEGER REFERENCES BOOK_CATEGORY(category_id)
+); 
+
+CREATE TABLE IF NOT EXISTS USER(
+	user_id SERIAL PRIMARY KEY,
+	user_first_name VARCHAR(255) NOT NULL,
+	user_last_name VARCHAR(255) NOT NULL,
+	user_email VARCHAR(255) NOT NULL,
+	user_password VARCHAR(64) NOT NULL
 );

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>View Books</title>
+    <title th:text="${title}"></title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -112,18 +112,10 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a th:href="@{/}" class="nav-link">
+                        <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a th:href="@{/roles}" class="nav-link">
-                            <i class="nav-icon fas fa-tablet-alt"></i>
-                            <p>
-                                Role
                             </p>
                         </a>
                     </li>
@@ -187,12 +179,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">View Books</h1>
+                        <h1 class="m-0">View Users</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">View Books</li>
+                            <li class="breadcrumb-item active">View Users</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -206,7 +198,7 @@
         <div class="book-table p-3">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Book List</h3>
+                    <h3 class="card-title">User List</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
@@ -214,33 +206,22 @@
                         <thead>
                         <tr>
                             <th style="width: 10px">#</th>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Price</th>
-                            <th>Publisher</th>
-                            <th>Edition</th>
-                            <th>Status</th>
-                            <th>ISBN Number</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="book: ${books}">
-                            <td th:text="${book.id}"></td>
-                            <td th:text="${book.name}"></td>
-                            <td th:text="${book.author}"></td>
-                            <td th:text="${book.price}"></td>
-                            <td th:text="${book.publisher}"></td>
-                            <td th:text="${book.edition}"></td>
-                            <td th:text="${book.status}"></td>
-                            <td th:text="${book.isbnNumber}"></td>
-                            <!--	                            <td><span class="badge bg-primary">Available</span></td>-->
+                        <tr th:each="user, rowCount : ${users}">
+                            <td th:text="${rowCount.count}"></td>
+                            <td th:text="${user.firstName}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.email}"></td>
                             <td>
-                                <a class="btn btn-sm btn-success" href=""><i class="fas fa-eye"></i></a>
-                                <a class="btn btn-sm btn-primary" th:href="@{'/books/' + ${book.id} + '/update'}"><i
-                                        class="fas fa-pen"></i></a>
-                                <a class="btn btn-sm btn-danger" th:href="@{'/books/' + ${book.id} + '/delete'}"><i
-                                        class="fas fa-trash"></i></a>
+                                <a class="btn btn-sm btn-success" th:href="@{/users/{id}/{name} (id = ${user.id}, name = ${user.firstName}+' '+${user.lastName}) }"><i class="fas fa-eye"></i></a>
+                                <a class="btn btn-sm btn-primary" th:href="@{/users/{id}/update (id = ${user.id}) }"><i class="fas fa-pen"></i></a>
+                                <a class="btn btn-sm btn-danger" th:href="@{/users/{id}/delete (id = ${user.id}) }"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         </tbody>

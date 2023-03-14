@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version "${springBootVersion}"
 	id 'io.spring.dependency-management' version "${springDepedencyManagementVersion}"
 	id 'application'
+    id 'com.diffplug.eclipse.apt' version '3.37.2' // Allow configuration calls for setting up the eclipse annotation processing configuration.
 }
 
 group = 'mentees.jamilxt'
