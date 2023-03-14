@@ -18,7 +18,7 @@ import java.util.UUID;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping
+    @GetMapping("/")
     public ModelAndView getUsers() {
     	var modelAndView = new ModelAndView("/user/list");
     	modelAndView.addObject("title", "View Users");
