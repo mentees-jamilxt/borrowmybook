@@ -17,29 +17,27 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        return new PortalUserDetailsService();
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    public DaoAuthenticationProvider daoAuthenticationProvider() {
-//        // will be base on database
-//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//        authenticationProvider.setUserDetailsService(userDetailsService());
-//        authenticationProvider.setPasswordEncoder(passwordEncoder());
-//        return authenticationProvider;
-//    }
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        // config will apply at runtime
-//        auth.authenticationProvider(daoAuthenticationProvider());
-//    }
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(daoAuthenticationProvider());
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -47,31 +45,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         String[] staticResources = {"/css/**", "/images/**", "/fonts/**", "/scripts/**", "/plugins/**", "/frontimages/**", "/frontlayout/**",
                 " /resources/**", "/js/**", "/login", "/api/**", "/", "/static/**", "/dist/css/**", "/dist/js/**", "/dist/img/**", "/dist/**"};
 
-//        http.authorizeRequests()
-//                .antMatchers(staticResources).permitAll()
-//                .antMatchers("/forgot-password", "/change-password", "/about/**", "/payment/**", "/about/dummy-user/**").permitAll()
-//                .antMatchers("/users/**").hasAnyAuthority("Admin")
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login").defaultSuccessUrl("/after-login-dashboard", true)
-//                .usernameParameter("email") //default parameter to login
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/")
-//                .invalidateHttpSession(true)
-//                .deleteCookies("JSESSIONID")
-//                .clearAuthentication(true)
-//                .permitAll()
-//                .and().rememberMe().key("AbcDefgHijKlmnOpqrs_1234567890") //this will be created session id (cookies) when login
-//                .tokenValiditySeconds(7 * 24 * 60 * 60);
+        http.authorizeRequests()
+                .antMatchers(staticResources).permitAll()
+                .antMatchers("/forgot-password", "/change-password", "/about/**", "/payment/**", "/about/dummy-user/**", "/", "/login").permitAll()
+                .antMatchers("/users/**").hasAnyAuthority("Admin")
+                .anyRequest().authenticated()
+
+                .and()
+                .formLogin()
+                .loginPage("/login").defaultSuccessUrl("/after-login-dashboard", true)
+                .usernameParameter("email") //default parameter to login
+                .permitAll()
+
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .clearAuthentication(true)
+                .permitAll()
+
+                .and()
+                .rememberMe()
+                .key("AbcDefgHijKlmnOpqrs_1234567890") //this will be created session id (cookies) when login
+                .tokenValiditySeconds(7 * 24 * 60 * 60);
 
         http.csrf().disable();
-        //return http.build();
+
+        // Security Disable
+        //http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated().and().csrf().disable();
 
     }
 
@@ -83,6 +86,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/js/**");
         web.ignoring().antMatchers("/webjars/**");
     }
-
-
 }

@@ -1,4 +1,4 @@
-package mentees.jamilxt.borrowmybook.controller;
+package mentees.jamilxt.borrowmybook.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.User;
@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping
     public ModelAndView getUsers() {
-    	var modelAndView = new ModelAndView("user/view-users");
+    	var modelAndView = new ModelAndView("/user/list");
     	modelAndView.addObject("title", "View Users");
         Page<User> users = userService.getUsers(Pageable.unpaged());
         modelAndView.addObject("users", users);
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/{id}/{name}")
     public ModelAndView getUserById(@PathVariable UUID id) {
-        var modelAndView = new ModelAndView("user/view-single-user");
+        var modelAndView = new ModelAndView("/user/single");
         modelAndView.addObject("title", "User Profile");
         User user = userService.getUserById(id);
         modelAndView.addObject("user", user);
@@ -38,7 +38,7 @@ public class UserController {
     
     @GetMapping("/create")
     public ModelAndView viewCreateUserPage() {
-    	var modelAndView = new ModelAndView("user/create-user");
+    	var modelAndView = new ModelAndView("/user/new-user");
         modelAndView.addObject("title", "Create User");
         var createUserRequest = new CreateUserRequest();
         modelAndView.addObject("user", createUserRequest);

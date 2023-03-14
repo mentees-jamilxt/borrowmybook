@@ -3,8 +3,10 @@ package mentees.jamilxt.borrowmybook.service;
 import java.util.UUID;
 
 import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,9 @@ public class UserService {
 	private static final String USER_NOT_FOUND = "User not found";
 	private final UserMapper userMapper;
 	private final UserRepository userRepository;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	public Page<User> getUsers(Pageable pageable) {
 		return userRepository.findAll(pageable).map(userMapper::toDomain);
@@ -32,6 +37,8 @@ public class UserService {
 	
 	public void createUser(CreateUserRequest request) {
 		var userEntity = userMapper.toEntity(request);
+		String encodedPassword = encodePasswordUsingString(request.getPassword());
+		userEntity.setPassword(encodedPassword);
 		userRepository.save(userEntity);
 	}
 
@@ -45,5 +52,9 @@ public class UserService {
 	
 	public void deleteUser(UUID id) {
 		userRepository.deleteById(id);
+	}
+
+	public String encodePasswordUsingString(String password) {
+		return passwordEncoder.encode(password);
 	}
 }
