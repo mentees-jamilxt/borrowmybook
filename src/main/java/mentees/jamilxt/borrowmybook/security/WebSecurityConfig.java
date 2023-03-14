@@ -87,3 +87,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/webjars/**");
     }
 }
+
+//admin_5_@gmail.com
+//p@ssw0rd
+//
+//imtiaz_hossain@gmail.com
+//p@ssw0rd

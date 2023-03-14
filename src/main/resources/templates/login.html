@@ -2,31 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Log in</title>
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+          rel="stylesheet">
     <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.css}">
     <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
 </head>
-
-
 <body class="hold-transition login-page">
 <div class="login-box">
-    <!-- /.login-logo -->
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <a href="#" class="h1">Borrow<b> My </b>Book</a>
+            <a class="h1" href="#">Borrow<b> My </b>Book</a>
         </div>
         <div class="card-body">
-
             <div style="justify-content: center; align-items: center; text-align: center; margin-bottom: 20px">
-                <img th:src="@{/images/img_1.png}"
-                     style="width: 120px">
+                <img style="width: 120px"
+                     th:src="@{/images/img_1.png}">
             </div>
-
-            <form th:action="@{/login}" method="post">
-
+            <form method="post" th:action="@{/login}">
                 <div th:if="${param.error}">
                     <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
                 </div>
@@ -34,7 +28,7 @@
                     <p class="text-warning">You have been logged out</p>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Email">
+                    <input class="form-control" name="email" placeholder="Email" type="email">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -42,7 +36,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="Password">
+                    <input class="form-control" name="password" placeholder="Password" type="password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -52,26 +46,23 @@
                 <div class="row">
                     <div class="col-8">
                         <div class="icheck-primary">
-                            <input type="checkbox" name="remember-me" id="remember">
+                            <input id="remember" name="remember-me" type="checkbox">
                             <label for="remember">
                                 Remember Me
                             </label>
                         </div>
                     </div>
                     <div class="col-4">
-                        <button type="submit" value="Login" class="btn btn-primary btn-block"><b>Sign In</b></button>
+                        <button class="btn btn-primary btn-block" type="submit" value="Login"><b>Sign In</b></button>
                     </div>
                 </div>
             </form>
         </div>
-
     </div>
 </div>
-
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/adminlte.min.js}"></script>
-
 </body>
 </html>
 

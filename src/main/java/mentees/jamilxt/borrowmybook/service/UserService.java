@@ -38,7 +38,7 @@ public class UserService {
 	public void createUser(CreateUserRequest request) {
 		var userEntity = userMapper.toEntity(request);
 		String encodedPassword = encodePasswordUsingString(request.getPassword());
-		userEntity.setPassword(encodedPassword);
+		request.setPassword(encodedPassword);
 		userRepository.save(userEntity);
 	}
 
