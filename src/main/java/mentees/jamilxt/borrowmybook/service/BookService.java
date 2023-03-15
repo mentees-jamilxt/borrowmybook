@@ -5,11 +5,13 @@ import mentees.jamilxt.borrowmybook.exception.custom.NotFoundException;
 import mentees.jamilxt.borrowmybook.mapper.BookMapper;
 import mentees.jamilxt.borrowmybook.model.domain.Book;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateBookRequest;
+import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
 import mentees.jamilxt.borrowmybook.persistence.repository.BookRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @RequiredArgsConstructor

@@ -230,8 +230,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                       	<label for="isbn">ISBN Number</label>
                                       	<input type="text" th:field="*{isbnNumber}" class="form-control" name="isbn" id="isbn" placeholder="Enter ISBN Number">
                                   	</div>
-
-<!--                                    <input type="hidden" th:field="*{bookId}">-->
+                                    <div class="form-group">
+                                        <input type="hidden" th:field="*{id}">
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="cover">Cover Photo</label>
