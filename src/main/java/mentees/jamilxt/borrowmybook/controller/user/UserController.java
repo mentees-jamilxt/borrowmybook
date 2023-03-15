@@ -3,6 +3,7 @@ package mentees.jamilxt.borrowmybook.controller.user;
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
+import mentees.jamilxt.borrowmybook.service.RoleService;
 import mentees.jamilxt.borrowmybook.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @RequestMapping(value = "/users")
 public class UserController {
     private final UserService userService;
+    private final RoleService roleService;
 
     @GetMapping
     public ModelAndView getUsers() {
@@ -39,9 +41,10 @@ public class UserController {
     @GetMapping("/create")
     public ModelAndView viewCreateUserPage() {
     	var modelAndView = new ModelAndView("/user/new-user");
-        modelAndView.addObject("title", "Create User");
         var createUserRequest = new CreateUserRequest();
         modelAndView.addObject("user", createUserRequest);
+        modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
+        modelAndView.addObject("title", "Create User");
         return modelAndView;
     }
 
@@ -55,9 +58,10 @@ public class UserController {
     @GetMapping("/{id}/update")
     public ModelAndView viewUpdateUserPage(@PathVariable UUID id) {
         var modelAndView = new ModelAndView("user/update-user");
-        modelAndView.addObject("title", "Update User");
         User user = userService.getUserById(id);
         modelAndView.addObject("user", user);
+        modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
+        modelAndView.addObject("title", "Update User");
         return modelAndView;
     }
 

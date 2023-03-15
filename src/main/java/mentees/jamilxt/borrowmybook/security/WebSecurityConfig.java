@@ -47,14 +47,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(staticResources).permitAll()
-                .antMatchers("/forgot-password", "/change-password", "/about/**", "/payment/**", "/about/dummy-user/**", "/", "/login").permitAll()
-                .antMatchers("/users/**").hasAnyAuthority("Admin")
+                .antMatchers("/forgot-password", "/change-password", "/about/**", "/", "/login").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
                 .loginPage("/login").defaultSuccessUrl("/after-login-dashboard", true)
-                .usernameParameter("email") //default parameter to login
+                .usernameParameter("email")
                 .permitAll()
 
                 .and()
@@ -72,10 +71,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(7 * 24 * 60 * 60);
 
         http.csrf().disable();
-
-        // Security Disable
-        //http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated().and().csrf().disable();
-
     }
 
     @Override
@@ -87,9 +82,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/webjars/**");
     }
 }
-
-//admin_5_@gmail.com
-//p@ssw0rd
-//
-//imtiaz_hossain@gmail.com
-//p@ssw0rd

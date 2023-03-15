@@ -4,7 +4,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title th:text="${title}"></title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
           rel="stylesheet">
@@ -34,13 +34,13 @@
                 <div class="navbar-search-block">
                     <form class="form-inline">
                         <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                   aria-label="Search">
+                            <input aria-label="Search" class="form-control form-control-navbar" placeholder="Search"
+                                   type="search">
                             <div class="input-group-append">
                                 <button class="btn btn-navbar" type="submit">
                                     <i class="fas fa-search"></i>
                                 </button>
-                                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                <button class="btn btn-navbar" data-widget="navbar-search" type="button">
                                     <i class="fas fa-times"></i>
                                 </button>
                             </div>
@@ -54,7 +54,8 @@
                     <button class="btn btn-sm dropdown-toggle dropdown-hover dropdown-icon mt-1"
                             data-toggle="dropdown"
                             type="button">
-                        <img style="height: 22px; width: 22px; margin-bottom: 8px" class="img img-circle" src="../../images/user1-128x128.jpg" />
+                        <img class="img img-circle" src="../../images/user1-128x128.jpg"
+                             style="height: 22px; width: 22px; margin-bottom: 8px"/>
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu" role="menu">
@@ -74,7 +75,7 @@
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="#" class="brand-link text-center">
+        <a class="brand-link text-center" href="#">
             <span class="brand-text font-weight-light">BorrowMyBook</span>
         </a>
 
@@ -82,17 +83,17 @@
         <div class="sidebar">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="../../images/user1-128x128.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img alt="User Image" class="img-circle elevation-2" src="../../images/user1-128x128.jpg">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Mehedi Hasan</a>
+                    <a class="d-block" href="#">Mehedi Hasan</a>
                 </div>
             </div>
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                    data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview"
+                    role="menu">
 
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/after-login-dashboard}">
@@ -135,7 +136,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a th:href="@{/logout}" class="nav-link ">
+                        <a class="nav-link " th:href="@{/logout}">
                             <i class="nav-icon fas fa-sign-out-alt"></i>
                             <p>
                                 Logout
@@ -176,49 +177,63 @@
                         <form method="POST" th:action="@{/users/update}" th:object="${user}">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <input type="hidden" th:field="*{id}" th:value="${user.id}">
+                                    <input th:field="*{id}" th:value="${user.id}" type="hidden">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="firstName">First Name</label>
                                     <input
-                                            type="text"
                                             class="form-control"
-                                            name="firstName"
                                             id="firstName"
+                                            name="firstName"
+                                            placeholder="Enter First Name"
                                             th:field="*{firstName}"
                                             th:value="${user.firstName}"
-                                            placeholder="Enter First Name"
+                                            type="text"
                                     >
                                 </div>
 
                                 <div class="form-group">
                                     <label for="lastName">Last Name</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           name="lastName"
+                                    <input class="form-control"
                                            id="lastName"
+                                           name="lastName"
+                                           placeholder="Enter Last Name"
                                            th:field="*{lastName}"
                                            th:value="${user.lastName}"
-                                           placeholder="Enter Last Name"
+                                           type="text"
                                     >
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input
-                                            type="email"
                                             class="form-control"
-                                            name="email"
                                             id="email"
+                                            name="email"
+                                            placeholder="Enter Email"
                                             th:field="*{email}"
                                             th:value="${user.email}"
-                                            placeholder="Enter Email"
+                                            type="email"
                                     >
                                 </div>
 
+                                <div class="form-group">
+                                    <label>Roles</label>
+                                    <div class="col-sm-8">
+                                        <th:block th:each="role : ${roles}">
+                                            <input class="m-2"
+                                                   th:field="*{roles}"
+                                                   th:text="${role.name}"
+                                                   th:value="${role.id}"
+                                                   type="checkbox"/>
+                                            <br>
+                                        </th:block>
+                                    </div>
+                                </div>
+
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button class="btn btn-primary" type="submit">Update</button>
                                 </div>
                             </div>
                         </form>
