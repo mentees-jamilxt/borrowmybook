@@ -48,6 +48,12 @@ public class BookController {
         return mav;
     }
 
+//    @PostMapping
+//    public String updateBook(@ModelAttribute CreateBookRequest request) {
+//        bookService.updateBook(request);
+//        return "redirect:/books";
+//    }
+
     @GetMapping("{id}/delete")
     public String deleteBook(@PathVariable UUID id) {
         bookService.deleteBook(id);

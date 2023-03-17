@@ -5,10 +5,12 @@ import lombok.Setter;
 import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class CreateBookRequest {
+    private UUID id;
     private String name;
     private String author;
     private BigDecimal price;
