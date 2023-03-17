@@ -1,0 +1,21 @@
+package mentees.jamilxt.borrowmybook.model.domain;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
+import lombok.Getter;
+import lombok.Setter;
+import mentees.jamilxt.borrowmybook.persistence.entity.RoleEntity;
+
+@Getter
+@Setter
+public class User {
+	private UUID id;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private boolean isEnable;
+	private Set<RoleEntity> roles = new HashSet<>();
+
+}

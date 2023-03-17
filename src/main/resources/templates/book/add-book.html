@@ -3,7 +3,9 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -113,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a th:href="@{/}" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Dashboard
@@ -121,50 +123,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
                         <li class="nav-item">
+
+                            <a th:href="@{/roles}" class="nav-link">
+                                <i class="nav-icon fas fa-tablet-alt"></i>
+                                <p>
+                                    Role
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
 	                        <a href="#" class="nav-link">
+
+	                        <a th:href="@{/books}" class="nav-link">
 	                            <i class="nav-icon fas fa-book"></i>
 	                            <p>
 	                                Books
-	                                <i class="fas fa-angle-left right"></i>
 	                            </p>
 	                        </a>
-	                        <ul class="nav nav-treeview">
-	                            <li class="nav-item">
-	                                <a class="nav-link">
-	                                    <i class="fas fa-plus nav-icon"></i>
-	                                    <p>Add New Book</p>
-	                                </a>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a th:href="@{/books}" class="nav-link">
-	                                    <i class="fas fa-eye nav-icon"></i>
-	                                    <p>View Books</p>
-	                                </a>
-	                            </li>
-	                        </ul>
 	                    </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     Book Categories
-                                    <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-	                            <li class="nav-item">
-	                                <a href="addCategory.html" class="nav-link">
-	                                    <i class="fas fa-plus nav-icon"></i>
-	                                    <p>Add New Category</p>
-	                                </a>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a href="viewCategories.html" class="nav-link">
-	                                    <i class="fas fa-eye nav-icon"></i>
-	                                    <p>View Categories</p>
-	                                </a>
-	                            </li>
-	                        </ul>
                         </li>
                     </ul>
                 </nav>

@@ -8,7 +8,17 @@ public class HomeController {
 
     @GetMapping
     public String home() {
+        return "home";
+    }
+
+    @GetMapping("/login")
+    public String viewLoginPage() {
+        return "login";
+    }
+
+    @GetMapping("/after-login-dashboard")
+    public String afterLogin() {
         return "dashboard/index";
     }
-    
+
 }
