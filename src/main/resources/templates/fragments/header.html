@@ -6,6 +6,16 @@
 </head>
 <body>
 
+<!-- Left navbar links Start -->
+<ul class="navbar-nav" th:fragment="leftNavbar">
+    <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+        <a class="nav-link" th:href="@{/after-login-dashboard}">Home</a>
+    </li>
+</ul>
+
 <!-- Right navbar links -->
 <ul class="navbar-nav ml-auto" th:fragment="rightNavbar">
     <li class="nav-item">
