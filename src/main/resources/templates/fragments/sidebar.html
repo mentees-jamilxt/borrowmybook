@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<!-- Left navbar links Start -->
+<ul class="navbar-nav" th:fragment="leftNavbar">
+    <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+        <a class="nav-link" th:href="@{/after-login-dashboard}">Home</a>
+    </li>
+</ul>
+
+<!-- Brand Logo Start-->
+<a class="brand-link" href="#" th:fragment="brandLogo">
+    <img alt="AdminLTE Logo" class="brand-image img-circle elevation-3 border-2 border-danger"
+         style="opacity: .8"
+         th:src="@{/images/avatar.png}">
+    <span class="brand-text font-weight-light">BorrowMyBook</span>
+</a>
+
+<!-- Sidebar Menu -->
+<nav class="mt-2" th:fragment="sidebarMenu">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview"
+        role="menu">
+
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/after-login-dashboard}">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Dashboard
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/users}">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                    User
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/roles}">
+                <i class="nav-icon fas fa-tablet-alt"></i>
+                <p>
+                    Role
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/books}">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                    Book
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="nav-icon fas fa-list"></i>
+                <p>
+                    Category
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " th:href="@{/logout}">
+                <i class="nav-icon fas fa-sign-out-alt"></i>
+                <p>
+                    Logout
+                </p>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+</body>
+</html>
