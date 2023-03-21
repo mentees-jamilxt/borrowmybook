@@ -48,7 +48,6 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Role</th>
                             <th>Description</th>
                             <th>Action</th>
@@ -56,7 +55,6 @@
                         </thead>
                         <tbody>
                         <tr th:each="r: ${roles}">
-                            <td th:text="${r.id}"></td>
                             <td th:text="${r.name}"></td>
                             <td th:text="${r.description}"></td>
                             <td>
