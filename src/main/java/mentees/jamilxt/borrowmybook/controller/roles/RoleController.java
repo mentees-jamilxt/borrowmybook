@@ -21,18 +21,19 @@ public class RoleController {
 
     @GetMapping
     public ModelAndView getRoles() {
-        var modelAndView = new ModelAndView("role/list");
         Page<Role> roles = roleService.getRoles(Pageable.unpaged());
+        var modelAndView = new ModelAndView("role/list");
         modelAndView.addObject("roles", roles);
+        modelAndView.addObject("pageTitle", "Role List");
         return modelAndView;
     }
 
     @GetMapping("/{id}/")
     public ModelAndView getRole(@PathVariable UUID id) {
-        var modelAndView = new ModelAndView("/role/single");
-        modelAndView.addObject("title", "Role Details");
         Role role = roleService.getRole(id);
+        var modelAndView = new ModelAndView("/role/single");
         modelAndView.addObject("role", role);
+        modelAndView.addObject("pageTitle", "Role Details");
         return modelAndView;
     }
 
@@ -41,6 +42,7 @@ public class RoleController {
         var modelAndView = new ModelAndView("role/new-role");
         var createRoleRequest = new CreateRoleRequest();
         modelAndView.addObject("role", createRoleRequest);
+        modelAndView.addObject("pageTitle", "Role Add");
         return modelAndView;
     }
 
@@ -52,10 +54,11 @@ public class RoleController {
 
     @GetMapping("{id}/update")
     public ModelAndView updateRolePage(@PathVariable UUID id) {
-        var mav = new ModelAndView("role/update-role");
+        var modelAndView = new ModelAndView("role/update-role");
         var role = roleService.getRole(id);
-        mav.addObject("role", role);
-        return mav;
+        modelAndView.addObject("role", role);
+        modelAndView.addObject("pageTitle", "Role Update");
+        return modelAndView;
     }
 
     @PostMapping("update")
