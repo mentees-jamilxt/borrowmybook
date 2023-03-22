@@ -59,6 +59,9 @@
                             <td th:text="${r.name}"></td>
                             <td th:text="${r.description}"></td>
                             <td>
+                                <a class="btn btn-sm btn-success"
+                                   th:href="@{/roles/{id}/ (id = ${r.id})}"><i
+                                        class="fas fa-eye"></i></a>
                                 <a class="btn btn-sm btn-primary" th:href="@{'/roles/' + ${r.id} + '/update'}"><i
                                         class="fas fa-pen"></i></a>
                                 <a class="btn btn-sm btn-danger" th:href="@{'/roles/' + ${r.id} + '/delete'}"><i

@@ -27,6 +27,15 @@ public class RoleController {
         return modelAndView;
     }
 
+    @GetMapping("/{id}/")
+    public ModelAndView getRole(@PathVariable UUID id) {
+        var modelAndView = new ModelAndView("/role/single");
+        modelAndView.addObject("title", "Role Details");
+        Role role = roleService.getRole(id);
+        modelAndView.addObject("role", role);
+        return modelAndView;
+    }
+
     @GetMapping("create")
     public ModelAndView createRolePage() {
         var modelAndView = new ModelAndView("role/new-role");
