@@ -5,6 +5,7 @@ import mentees.jamilxt.borrowmybook.model.domain.Book;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateBookRequest;
 import mentees.jamilxt.borrowmybook.service.BookService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,13 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public ModelAndView getBooks() {
+    public ModelAndView getBooks(@RequestParam(defaultValue = "0") int page) {
+        Page<Book> books = bookService.getBooks(PageRequest.of(page, 1));
         var modelAndView = new ModelAndView("/book/list");
-        Page<Book> books = bookService.getBooks(Pageable.unpaged());
         modelAndView.addObject("books", books);
+        modelAndView.addObject("pageTitle", "Book List");
+        modelAndView.addObject("pagesForPagination", books);
+        modelAndView.addObject("url", "/books");
         return modelAndView;
     }
 
@@ -31,6 +35,7 @@ public class BookController {
         var modelAndView = new ModelAndView("/book/new-book");
         var createBookRequest = new CreateBookRequest();
         modelAndView.addObject("book", createBookRequest);
+        modelAndView.addObject("pageTitle", "Book Add");
         return modelAndView;
     }
 
