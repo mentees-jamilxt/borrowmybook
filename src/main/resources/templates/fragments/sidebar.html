@@ -33,7 +33,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/users}">
+            <a class="nav-link" th:href="@{/users}"
+               th:classappend="${#httpServletRequest.getRequestURI().startsWith('/users') ? 'active':''}"
+               sec:authorize="hasAnyAuthority('Admin', 'RootAdmin', 'SuperAdmin')">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
                     User
