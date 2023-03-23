@@ -1,4 +1,4 @@
-package mentees.jamilxt.borrowmybook.controller;
+package mentees.jamilxt.borrowmybook.controller.book;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.Book;
@@ -20,7 +20,7 @@ public class BookController {
 
     @GetMapping
     public ModelAndView getBooks() {
-        var modelAndView = new ModelAndView("book/view-books");
+        var modelAndView = new ModelAndView("/book/list");
         Page<Book> books = bookService.getBooks(Pageable.unpaged());
         modelAndView.addObject("books", books);
         return modelAndView;
@@ -28,7 +28,7 @@ public class BookController {
 
     @GetMapping("create")
     public ModelAndView createBookPage() {
-        var modelAndView = new ModelAndView("book/add-book");
+        var modelAndView = new ModelAndView("/book/new-book");
         var createBookRequest = new CreateBookRequest();
         modelAndView.addObject("book", createBookRequest);
         return modelAndView;
@@ -42,7 +42,7 @@ public class BookController {
 
     @GetMapping("{id}/update")
     public ModelAndView updateBookPage(@PathVariable UUID id) {
-        var mav = new ModelAndView("book/add-book");
+        var mav = new ModelAndView("new-book");
         var book = bookService.getBook(id);
         mav.addObject("book", book);
         return mav;

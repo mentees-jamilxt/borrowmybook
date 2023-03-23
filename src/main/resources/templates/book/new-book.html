@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/stylesheets::head">
+
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul th:replace="fragments/header::leftNavbar"></ul>
+        <!-- Right navbar links -->
+        <ul th:replace="fragments/header::rightNavbar"></ul>
+    </nav>
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a th:replace="fragments/sidebar::brandLogo"></a>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav th:replace="fragments/sidebar::sidebarMenu"></nav>
+        </div>
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Add New Book</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Add New Book</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <hr style="margin: 0; padding: 0">
+        <!-- /.content-header -->
+
+        <!-- Starting Add Book Form -->
+        <div class="add-book-form p-3">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="card p-3">
+                        <h3 class="text-center my-3">Add Book</h3>
+                        <form method="POST" th:action="@{/books}" th:object="${book}">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="title">Book Title</label>
+                                    <input class="form-control" id="title" name="title" placeholder="Enter Book Title" th:field="*{name}"
+                                           type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">Author</label>
+                                    <input class="form-control" id="author" name="author" placeholder="Enter Author Name"
+                                           th:field="*{author}" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">Price</label>
+                                    <input class="form-control" id="price" name="price" placeholder="Enter price" th:field="*{price}"
+                                           type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="title">Publisher</label>
+                                    <input class="form-control" id="publisher" name="publisher" placeholder="Enter Publisher Name"
+                                           th:field="*{publisher}" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edition">Edition</label>
+                                    <input class="form-control" id="edition" name="edition" placeholder="Enter Book Edition"
+                                           th:field="*{edition}" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <input class="form-control" id="status" name="status" placeholder="Enter Status"
+                                           th:field="*{status}" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <label for="isbn">ISBN Number</label>
+                                    <input class="form-control" id="isbn" name="isbn" placeholder="Enter ISBN Number"
+                                           th:field="*{isbnNumber}" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input th:field="*{id}" type="hidden">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cover">Cover Photo</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input class="custom-file-input" id="cover" name="cover" type="file">
+                                            <label class="custom-file-label" for="exampleInputFile"
+                                                   id="exampleInputFile">Choose File</label>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="terms" name="terms" type="checkbox">
+                                    <label class="form-check-label" for="terms">Agrees terms and conditions</label>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Footer -->
+    <footer class="main-footer" th:replace="fragments/footer::footer"></footer>
+</div>
+<div th:replace="fragments/scripts :: scripts"></div>
+</body>
+</html>
