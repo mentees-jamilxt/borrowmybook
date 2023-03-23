@@ -27,6 +27,7 @@ public class UserController {
         var modelAndView = new ModelAndView("/user/list");
         modelAndView.addObject("users", users);
         modelAndView.addObject("pageTitle", "View Users");
+        modelAndView.addObject("pagesForPagination", users);
         modelAndView.addObject("url", "/users");
         return modelAndView;
     }
