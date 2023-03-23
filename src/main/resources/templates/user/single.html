@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/stylesheets::head">
 
 <body class="hold-transition sidebar-mini">
@@ -30,7 +31,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">User Profile</h1>
+                        <h1 class="m-0">Profile</h1>
                     </div>
                 </div>
             </div>
@@ -43,21 +44,30 @@
                 <div class="card card-widget widget-user-2">
                     <div class="widget-user-header bg-info">
                         <div class="widget-user-image">
-                            <img alt="User Avatar" class="img-circle elevation-2" src="../../images/user7-128x128.jpg">
+                            <img alt="User Avatar" class="img-circle elevation-2" th:src="@{/images/user7-128x128.jpg}">
                         </div>
-                        <h3 class="widget-user-username" th:text="${user.firstName+' '+user.lastName}"></h3>
-                        <h5 class="widget-user-desc" th:text="${user.email}"></h5>
+                        <h3 class="widget-user-username pt-3" th:text="${user.firstName+' '+user.lastName}"></h3>
                     </div>
                     <div class="card-footer p-0">
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    Total Books <span class="float-right badge bg-primary">12</span>
+                                    First Name <span class="float-right"><b th:text="${user.firstName}"></b></span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    Available Books <span class="float-right badge bg-info">8</span>
+                                    Last Name <span class="float-right"><b th:text="${user.lastName}"></b></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    Email <span class="float-right"><b th:text="${user.email}"></b></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    Roles <span class="float-right"><b th:text="${user.getRoles()}" ></b></span>
                                 </a>
                             </li>
                             <li class="nav-item">
