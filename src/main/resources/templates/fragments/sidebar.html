@@ -23,7 +23,9 @@
         role="menu">
 
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/after-login-dashboard}">
+            <a class="nav-link" th:href="@{/after-login-dashboard}"
+               th:classappend="${#httpServletRequest.getRequestURI().startsWith('/after-login-dashboard') ? 'active':''}"
+               sec:authorize="hasAnyAuthority('Admin', 'RootAdmin', 'SuperAdmin')">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                     Dashboard
