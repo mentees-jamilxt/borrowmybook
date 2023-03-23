@@ -5,7 +5,7 @@ import mentees.jamilxt.borrowmybook.model.domain.Role;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateRoleRequest;
 import mentees.jamilxt.borrowmybook.service.RoleService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,11 +20,12 @@ public class RoleController {
     private final RoleService roleService;
 
     @GetMapping
-    public ModelAndView getRoles() {
-        Page<Role> roles = roleService.getRoles(Pageable.unpaged());
+    public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page) {
+        Page<Role> roles = roleService.getRoles(PageRequest.of(page, 1));
         var modelAndView = new ModelAndView("role/list");
         modelAndView.addObject("roles", roles);
         modelAndView.addObject("pageTitle", "Role List");
+        modelAndView.addObject("url", "/roles");
         return modelAndView;
     }
 
