@@ -6,6 +6,7 @@ import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
 import mentees.jamilxt.borrowmybook.service.RoleService;
 import mentees.jamilxt.borrowmybook.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +22,12 @@ public class UserController {
     private final RoleService roleService;
 
     @GetMapping
-    public ModelAndView getUsers() {
-        Page<User> users = userService.getUsers(Pageable.unpaged());
+    public ModelAndView getUsers(@RequestParam(defaultValue = "0") int page) {
+        Page<User> users = userService.getUsers(PageRequest.of(page, 1));
         var modelAndView = new ModelAndView("/user/list");
         modelAndView.addObject("users", users);
         modelAndView.addObject("pageTitle", "View Users");
+        modelAndView.addObject("url", "/users");
         return modelAndView;
     }
 
