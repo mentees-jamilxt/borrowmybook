@@ -25,6 +25,7 @@ public class RoleController {
         var modelAndView = new ModelAndView("role/list");
         modelAndView.addObject("roles", roles);
         modelAndView.addObject("pageTitle", "Role List");
+        modelAndView.addObject("pagesForPagination", roles);
         modelAndView.addObject("url", "/roles");
         return modelAndView;
     }
