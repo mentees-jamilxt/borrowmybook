@@ -48,7 +48,6 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th style="width: 10px">#</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
@@ -57,7 +56,6 @@
                         </thead>
                         <tbody>
                         <tr th:each="user, rowCount : ${users}">
-                            <td th:text="${rowCount.count}"></td>
                             <td th:text="${user.firstName}"></td>
                             <td th:text="${user.lastName}"></td>
                             <td th:text="${user.email}"></td>
