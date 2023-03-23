@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/stylesheets::head">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<script th:fragment="scripts">
+    <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/adminlte.min.js}"></script>
+</script>
 
 </body>
 </html>
