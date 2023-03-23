@@ -55,12 +55,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user, rowCount : ${users}">
+                        <tr th:each="user : ${users}">
                             <td th:text="${user.firstName}"></td>
                             <td th:text="${user.lastName}"></td>
                             <td th:text="${user.email}"></td>
                             <td>
-                                <a class="btn btn-sm btn-success" th:href="@{/users/{id}/{name} (id = ${user.id}, name = ${user.firstName}+' '+${user.lastName}) }"><i class="fas fa-eye"></i></a>
+                                <a class="btn btn-sm btn-success" th:href="@{/users/{id}/ (id = ${user.id})}"><i class="fas fa-eye"></i></a>
                                 <a class="btn btn-sm btn-primary" th:href="@{/users/{id}/update (id = ${user.id}) }"><i class="fas fa-pen"></i></a>
                                 <a class="btn btn-sm btn-danger" th:href="@{/users/{id}/delete (id = ${user.id}) }"><i class="fas fa-trash"></i></a>
                             </td>

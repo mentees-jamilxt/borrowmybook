@@ -22,19 +22,19 @@ public class UserController {
 
     @GetMapping
     public ModelAndView getUsers() {
-    	var modelAndView = new ModelAndView("/user/list");
-    	modelAndView.addObject("title", "View Users");
         Page<User> users = userService.getUsers(Pageable.unpaged());
+        var modelAndView = new ModelAndView("/user/list");
         modelAndView.addObject("users", users);
+        modelAndView.addObject("pageTitle", "View Users");
         return modelAndView;
     }
 
-    @GetMapping("/{id}/{name}")
-    public ModelAndView getUserById(@PathVariable UUID id) {
+    @GetMapping("/{id}/")
+    public ModelAndView getUser(@PathVariable UUID id) {
         var modelAndView = new ModelAndView("/user/single");
-        modelAndView.addObject("title", "User Profile");
         User user = userService.getUserById(id);
         modelAndView.addObject("user", user);
+        modelAndView.addObject("pageTitle", "User Profile");
         return modelAndView;
     }
     
@@ -44,7 +44,7 @@ public class UserController {
         var createUserRequest = new CreateUserRequest();
         modelAndView.addObject("user", createUserRequest);
         modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
-        modelAndView.addObject("title", "Create User");
+        modelAndView.addObject("pageTitle", "Create User");
         return modelAndView;
     }
 
@@ -61,7 +61,7 @@ public class UserController {
         User user = userService.getUserById(id);
         modelAndView.addObject("user", user);
         modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
-        modelAndView.addObject("title", "Update User");
+        modelAndView.addObject("pageTitle", "Update User");
         return modelAndView;
     }
 
