@@ -68,7 +68,8 @@
                             <td th:text="${book.status}"></td>
                             <td th:text="${book.isbnNumber}"></td>
                             <td>
-                                <a class="btn btn-sm btn-success" href=""><i class="fas fa-eye"></i></a>
+                                <a class="btn btn-sm btn-success" th:href="@{/books/{id}/ (id = ${book.id})}"><i
+                                        class="fas fa-eye"></i></a>
                                 <a class="btn btn-sm btn-primary" th:href="@{'/books/' + ${book.id} + '/update'}"><i
                                         class="fas fa-pen"></i></a>
                                 <a class="btn btn-sm btn-danger" th:href="@{'/books/' + ${book.id} + '/delete'}"><i

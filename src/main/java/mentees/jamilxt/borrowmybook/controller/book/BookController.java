@@ -30,6 +30,15 @@ public class BookController {
         return modelAndView;
     }
 
+    @GetMapping("/{id}/")
+    public ModelAndView getBook(@PathVariable UUID id) {
+        Book book = bookService.getBook(id);
+        var modelAndView = new ModelAndView("/book/single");
+        modelAndView.addObject("book", book);
+        modelAndView.addObject("pageTitle", "Book Details");
+        return modelAndView;
+    }
+
     @GetMapping("create")
     public ModelAndView createBookPage() {
         var modelAndView = new ModelAndView("book/new-book");
