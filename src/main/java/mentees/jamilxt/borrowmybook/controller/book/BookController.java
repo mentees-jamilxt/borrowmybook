@@ -56,11 +56,11 @@ public class BookController {
 
     @GetMapping("{id}/update")
     public ModelAndView updateBookPage(@PathVariable UUID id) {
-        var mav = new ModelAndView("book/update-book");
+        var modelAndView = new ModelAndView("book/update-book");
         var book = bookService.getBook(id);
-        mav.addObject("book", book);
-        mav.addObject("pageTitle", "Role Update");
-        return mav;
+        modelAndView.addObject("book", book);
+        modelAndView.addObject("pageTitle", "Role Update");
+        return modelAndView;
     }
 
     @PostMapping("update")
