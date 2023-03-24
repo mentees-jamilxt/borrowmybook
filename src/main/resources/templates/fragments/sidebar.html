@@ -53,7 +53,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/books}">
+            <a class="nav-link" th:href="@{/books}"
+               th:classappend="${#httpServletRequest.getRequestURI().startsWith('/books') ? 'active':''}"
+               sec:authorize="hasAnyAuthority('Admin', 'RootAdmin', 'SuperAdmin')">
                 <i class="nav-icon fas fa-book"></i>
                 <p>
                     Book
