@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
 
+import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZE;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "/books")
@@ -21,7 +23,7 @@ public class BookController {
 
     @GetMapping
     public ModelAndView getBooks(@RequestParam(defaultValue = "0") int page) {
-        Page<Book> books = bookService.getBooks(PageRequest.of(page, 1));
+        Page<Book> books = bookService.getBooks(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         var modelAndView = new ModelAndView("/book/list");
         modelAndView.addObject("books", books);
         modelAndView.addObject("pageTitle", "Book List");

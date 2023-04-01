@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
 
+import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZE;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "/users")
@@ -23,7 +25,7 @@ public class UserController {
 
     @GetMapping
     public ModelAndView getUsers(@RequestParam(defaultValue = "0") int page) {
-        Page<User> users = userService.getUsers(PageRequest.of(page, 1));
+        Page<User> users = userService.getUsers(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         var modelAndView = new ModelAndView("/user/list");
         modelAndView.addObject("users", users);
         modelAndView.addObject("pageTitle", "View Users");

@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
 
+import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZE;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "/roles")
@@ -21,7 +23,7 @@ public class RoleController {
 
     @GetMapping
     public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page) {
-        Page<Role> roles = roleService.getRoles(PageRequest.of(page, 1));
+        Page<Role> roles = roleService.getRoles(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         var modelAndView = new ModelAndView("role/list");
         modelAndView.addObject("roles", roles);
         modelAndView.addObject("pageTitle", "Role List");
