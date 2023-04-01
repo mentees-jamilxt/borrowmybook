@@ -47,7 +47,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	// developer tools
-	compileOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 
 	compileOnly "org.mapstruct:mapstruct:${mapStructVersion}"
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
