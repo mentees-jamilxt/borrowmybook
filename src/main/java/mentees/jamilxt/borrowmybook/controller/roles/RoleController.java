@@ -5,12 +5,14 @@ import mentees.jamilxt.borrowmybook.model.domain.Role;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateRoleRequest;
 import mentees.jamilxt.borrowmybook.service.RoleService;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
+
+import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZE;
 
 @RequiredArgsConstructor
 @Controller
@@ -20,10 +22,22 @@ public class RoleController {
     private final RoleService roleService;
 
     @GetMapping
-    public ModelAndView getRoles() {
+    public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page) {
+        Page<Role> roles = roleService.getRoles(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         var modelAndView = new ModelAndView("role/list");
-        Page<Role> roles = roleService.getRoles(Pageable.unpaged());
         modelAndView.addObject("roles", roles);
+        modelAndView.addObject("pageTitle", "Role List");
+        modelAndView.addObject("pagesForPagination", roles);
+        modelAndView.addObject("url", "/roles");
+        return modelAndView;
+    }
+
+    @GetMapping("/{id}/")
+    public ModelAndView getRole(@PathVariable UUID id) {
+        Role role = roleService.getRole(id);
+        var modelAndView = new ModelAndView("/role/single");
+        modelAndView.addObject("role", role);
+        modelAndView.addObject("pageTitle", "Role Details");
         return modelAndView;
     }
 
@@ -32,6 +46,7 @@ public class RoleController {
         var modelAndView = new ModelAndView("role/new-role");
         var createRoleRequest = new CreateRoleRequest();
         modelAndView.addObject("role", createRoleRequest);
+        modelAndView.addObject("pageTitle", "Role Add");
         return modelAndView;
     }
 
@@ -43,10 +58,11 @@ public class RoleController {
 
     @GetMapping("{id}/update")
     public ModelAndView updateRolePage(@PathVariable UUID id) {
-        var mav = new ModelAndView("role/update-role");
+        var modelAndView = new ModelAndView("role/update-role");
         var role = roleService.getRole(id);
-        mav.addObject("role", role);
-        return mav;
+        modelAndView.addObject("role", role);
+        modelAndView.addObject("pageTitle", "Role Update");
+        return modelAndView;
     }
 
     @PostMapping("update")

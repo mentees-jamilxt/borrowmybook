@@ -6,12 +6,15 @@ import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
 import mentees.jamilxt.borrowmybook.service.RoleService;
 import mentees.jamilxt.borrowmybook.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
+
+import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZE;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,20 +24,22 @@ public class UserController {
     private final RoleService roleService;
 
     @GetMapping
-    public ModelAndView getUsers() {
-    	var modelAndView = new ModelAndView("/user/list");
-    	modelAndView.addObject("title", "View Users");
-        Page<User> users = userService.getUsers(Pageable.unpaged());
+    public ModelAndView getUsers(@RequestParam(defaultValue = "0") int page) {
+        Page<User> users = userService.getUsers(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+        var modelAndView = new ModelAndView("/user/list");
         modelAndView.addObject("users", users);
+        modelAndView.addObject("pageTitle", "View Users");
+        modelAndView.addObject("pagesForPagination", users);
+        modelAndView.addObject("url", "/users");
         return modelAndView;
     }
 
-    @GetMapping("/{id}/{name}")
-    public ModelAndView getUserById(@PathVariable UUID id) {
+    @GetMapping("/{id}/")
+    public ModelAndView getUser(@PathVariable UUID id) {
         var modelAndView = new ModelAndView("/user/single");
-        modelAndView.addObject("title", "User Profile");
         User user = userService.getUserById(id);
         modelAndView.addObject("user", user);
+        modelAndView.addObject("pageTitle", "User Profile");
         return modelAndView;
     }
     
@@ -44,7 +49,7 @@ public class UserController {
         var createUserRequest = new CreateUserRequest();
         modelAndView.addObject("user", createUserRequest);
         modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
-        modelAndView.addObject("title", "Create User");
+        modelAndView.addObject("pageTitle", "Create User");
         return modelAndView;
     }
 
@@ -61,7 +66,7 @@ public class UserController {
         User user = userService.getUserById(id);
         modelAndView.addObject("user", user);
         modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
-        modelAndView.addObject("title", "Update User");
+        modelAndView.addObject("pageTitle", "Update User");
         return modelAndView;
     }
 

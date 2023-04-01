@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/stylesheets::head">
 
 <body class="hold-transition sidebar-mini">
@@ -31,7 +30,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">User Profile</h1>
+                        <h1 class="m-0">View Book</h1>
                     </div>
                 </div>
             </div>
@@ -42,42 +41,49 @@
         <div class="row py-5">
             <div class="col-md-6 offset-md-3">
                 <div class="card card-widget widget-user-2">
-                    <div class="widget-user-header bg-info">
-                        <div class="widget-user-image">
-                            <img alt="User Avatar" class="img-circle elevation-2" th:src="@{/images/user7-128x128.jpg}">
-                        </div>
-                        <h3 class="widget-user-username pt-3" th:text="${user.firstName+' '+user.lastName}"></h3>
+                    <div class="bg-info p-4">
+                        <h3>Book Details</h3>
                     </div>
                     <div class="card-footer p-0">
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    First Name <span class="float-right"><b th:text="${user.firstName}"></b></span>
+                                    ID <span class="float-right"><b th:text="${book.id}"></b></span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    Last Name <span class="float-right"><b th:text="${user.lastName}"></b></span>
+                                    Book Name <span class="float-right"><b th:text="${book.name}"></b></span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    Email <span class="float-right"><b th:text="${user.email}"></b></span>
+                                    Author <span class="float-right"><b th:text="${book.author}"></b></span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    Roles <span class="float-right"><b th:text="${user.getRoles()}" ></b></span>
+                                    Price <span class="float-right"><b th:text="${book.price}"></b></span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    Borrowed <span class="float-right badge bg-success">2</span>
+                                    Publisher <span class="float-right"><b th:text="${book.publisher}"></b></span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    Shared <span class="float-right badge bg-danger">5</span>
+                                    Edition <span class="float-right"><b th:text="${book.edition}"></b></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    Status <span class="float-right"><b th:text="${book.status}"></b></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    ISBN Number <span class="float-right"><b th:text="${book.isbnNumber}"></b></span>
                                 </a>
                             </li>
                         </ul>
@@ -92,3 +98,4 @@
 <div th:replace="fragments/scripts :: scripts"></div>
 </body>
 </html>
+
