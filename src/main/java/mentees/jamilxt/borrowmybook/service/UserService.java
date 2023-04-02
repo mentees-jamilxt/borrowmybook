@@ -35,6 +35,11 @@ public class UserService {
 		return userMapper.toDomain(userEntity);
 	}
 	
+	public User getUserByUsername(String username) {
+		var userEntity = userRepository.getUserByEmail(username);
+		return userMapper.toDomain(userEntity);
+	}
+	
 	public void createUser(CreateUserRequest request) {
 		var userEntity = userMapper.toEntity(request);
 		String encodedPassword = encodePasswordUsingString(request.getPassword());
