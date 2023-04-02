@@ -16,7 +16,7 @@ public class HomeController {
 	
 	private final UserService userService;
 	
-	public void loadCommonData(ModelAndView modelAndView, Principal principal) {
+	public void loadUserDetails(ModelAndView modelAndView, Principal principal) {
 		String username = principal.getName();
 		User user = userService.getUserByUsername(username);
 		modelAndView.addObject("user", user);
@@ -35,7 +35,7 @@ public class HomeController {
     @GetMapping("/after-login-dashboard")
     public ModelAndView afterLoginAdminPanel(Principal principal) {
         var modelAndView = new ModelAndView("dashboard/index");
-        loadCommonData(modelAndView, principal);
+        loadUserDetails(modelAndView, principal);
         modelAndView.addObject("pageTitle", "Dashboard");
         return modelAndView;
     }
