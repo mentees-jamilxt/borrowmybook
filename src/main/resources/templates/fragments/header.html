@@ -39,7 +39,9 @@
             </form>
         </div>
     </li>
-
+	<li class="nav-item">
+		<p style="margin-top: 8px; margin-left: 15px" th:text="${user.firstName+' '+user.lastName}"></p>
+	</li>
     <li class="nav-item">
         <div class="btn-group">
             <button class="btn btn-sm dropdown-toggle dropdown-hover dropdown-icon mt-1"
@@ -52,7 +54,7 @@
             <div class="dropdown-menu" role="menu">
                 <a class="dropdown-item" href="#">Profile</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Logout</a>
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
             </div>
         </div>
     </li>
