@@ -48,8 +48,11 @@ dependencies {
 
 	// developer tools
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-
-	compileOnly "org.mapstruct:mapstruct:${mapStructVersion}"
+	
+	// mapstruct
+	implementation "org.mapstruct:mapstruct:${mapStructVersion}"
+	annotationProcessor "org.mapstruct:mapstruct:${mapStructVersion}"
+	implementation "org.mapstruct:mapstruct-processor:${mapStructVersion}"
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
 
 	// util
