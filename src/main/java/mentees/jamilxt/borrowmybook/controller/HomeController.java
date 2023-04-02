@@ -13,13 +13,12 @@ import mentees.jamilxt.borrowmybook.service.UserService;
 @RequiredArgsConstructor
 @Controller
 public class HomeController {
-	
 	private final UserService userService;
 	
 	public void loadUserDetails(ModelAndView modelAndView, Principal principal) {
 		String username = principal.getName();
-		User user = userService.getUserByUsername(username);
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.getUserByUsername(username);
+		modelAndView.addObject("loggedInUser", loggedInUser);
 	}
 
     @GetMapping
