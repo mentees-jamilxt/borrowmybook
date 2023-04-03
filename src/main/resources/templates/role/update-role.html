@@ -49,25 +49,38 @@
                                     <input th:field="*{id}" th:value="${role.id}" type="hidden">
                                 </div>
                                 <div class="form-group">
-                                    <label for="title">Role</label>
-                                    <input class="form-control"
-                                           id="title"
-                                           name="title"
-                                           placeholder="Enter Role Name"
-                                           th:field="*{name}"
-                                           type="text">
-                                </div>
+                                	<label for="title" class="form-label">Category Name</label>
+	                                <input
+	                                    type="text"
+	                                    class="form-control"
+	                                    id="name"
+	                                    th:field="*{name}"
+	                                    th:value="${role.name}"
+	                                    th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+	                                    placeholder="Enter Category Name"
+	                                >
+	
+	                                <div class="invalid-feedback" style="font-size: 15px" th:each="error : ${#fields.errors('name')}" th:text="${error}">
+										
+	                                </div>
+                            	</div>
                                 <div class="form-group">
-                                    <label for="title">Description</label>
-                                    <input class="form-control"
-                                           id="author"
-                                           name="author"
-                                           placeholder="Enter Role Description"
-                                           th:field="*{description}"
-                                           type="text">
+                                    <label for="description">Description</label>
+                                    <textarea   
+                                    	id="description" 
+                                    	class="form-control"
+                                    	rows="5"
+                                    	th:field="*{description}"
+                                    	th:text="${role.description}"
+                                    	placeholder="Enter Role Description"
+                                    	th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}"></textarea>
+                                    	
+                                    <div class="invalid-feedback" style="font-size: 15px" th:each="error : ${#fields.errors('description')}" th:text="${error}">
+										
+	                                </div>	
                                 </div>
                                 <div class="card-footer">
-                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                    <input type="submit" class="btn btn-primary" value="Submit">
                                 </div>
                             </div>
                         </form>
