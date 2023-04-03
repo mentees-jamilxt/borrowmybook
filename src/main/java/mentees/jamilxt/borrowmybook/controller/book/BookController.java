@@ -10,6 +10,7 @@ import mentees.jamilxt.borrowmybook.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,17 +27,17 @@ public class BookController {
     private final BookService bookService;
     private final UserService userService;
     
-    public void loadUserDetails(ModelAndView modelAndView, Principal principal) {
+    public void loadUserDetails(Model model, Principal principal) {
 		String username = principal.getName();
 		User loggedInUser = userService.getUserByUsername(username);
-		modelAndView.addObject("loggedInUser", loggedInUser);
+		model.addAttribute("loggedInUser", loggedInUser);
 	}
 
     @GetMapping
-    public ModelAndView getBooks(@RequestParam(defaultValue = "0") int page, Principal principal) {
+    public ModelAndView getBooks(@RequestParam(defaultValue = "0") int page, Model model, Principal principal) {
         Page<Book> books = bookService.getBooks(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         var modelAndView = new ModelAndView("/book/list");
-        loadUserDetails(modelAndView, principal);
+        loadUserDetails(model, principal);
         modelAndView.addObject("books", books);
         modelAndView.addObject("pageTitle", "Book List");
         modelAndView.addObject("pagesForPagination", books);
@@ -45,19 +46,19 @@ public class BookController {
     }
 
     @GetMapping("/{id}/")
-    public ModelAndView getBook(@PathVariable UUID id, Principal principal) {
+    public ModelAndView getBook(@PathVariable UUID id, Model model, Principal principal) {
         Book book = bookService.getBook(id);
         var modelAndView = new ModelAndView("/book/single");
-        loadUserDetails(modelAndView, principal);
+        loadUserDetails(model, principal);
         modelAndView.addObject("book", book);
         modelAndView.addObject("pageTitle", "Book Details");
         return modelAndView;
     }
 
     @GetMapping("create")
-    public ModelAndView createBookPage(Principal principal) {
+    public ModelAndView createBookPage(Model model, Principal principal) {
         var modelAndView = new ModelAndView("book/new-book");
-        loadUserDetails(modelAndView, principal);
+        loadUserDetails(model, principal);
         var createBookRequest = new CreateBookRequest();
         modelAndView.addObject("book", createBookRequest);
         modelAndView.addObject("pageTitle", "Book Add");
@@ -71,9 +72,9 @@ public class BookController {
     }
 
     @GetMapping("{id}/update")
-    public ModelAndView updateBookPage(@PathVariable UUID id, Principal principal) {
+    public ModelAndView updateBookPage(@PathVariable UUID id, Model model, Principal principal) {
         var modelAndView = new ModelAndView("book/update-book");
-        loadUserDetails(modelAndView, principal);
+        loadUserDetails(model, principal);
         var book = bookService.getBook(id);
         modelAndView.addObject("book", book);
         modelAndView.addObject("pageTitle", "Role Update");

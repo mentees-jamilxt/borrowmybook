@@ -1,4 +1,4 @@
-package mentees.jamilxt.borrowmybook.controller.roles;
+package mentees.jamilxt.borrowmybook.controller.role;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.Role;
@@ -10,6 +10,7 @@ import mentees.jamilxt.borrowmybook.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,17 +27,17 @@ public class RoleController {
     private final RoleService roleService;
     private final UserService userService;
     
-    public void loadUserDetails(ModelAndView modelAndView, Principal principal) {
+    public void loadUserDetails(Model model, Principal principal) {
 		String username = principal.getName();
 		User loggedInUser = userService.getUserByUsername(username);
-		modelAndView.addObject("loggedInUser", loggedInUser);
+		model.addAttribute("loggedInUser", loggedInUser);
 	}
 
     @GetMapping
-    public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page, Principal principal) {
+    public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page, Model model, Principal principal) {
         Page<Role> roles = roleService.getRoles(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         var modelAndView = new ModelAndView("role/list");
-        loadUserDetails(modelAndView, principal);
+        loadUserDetails(model, principal);
         modelAndView.addObject("roles", roles);
         modelAndView.addObject("pageTitle", "Role List");
         modelAndView.addObject("pagesForPagination", roles);
@@ -45,9 +46,9 @@ public class RoleController {
     }
 
     @GetMapping("/{id}/")
-    public ModelAndView getRole(@PathVariable UUID id, Principal principal) {
+    public ModelAndView getRole(@PathVariable UUID id, Model model, Principal principal) {
     	var modelAndView = new ModelAndView("/role/single");
-    	loadUserDetails(modelAndView, principal);
+    	loadUserDetails(model, principal);
         Role role = roleService.getRole(id);       
         modelAndView.addObject("role", role);
         modelAndView.addObject("pageTitle", "Role Details");
@@ -55,9 +56,9 @@ public class RoleController {
     }
 
     @GetMapping("create")
-    public ModelAndView createRolePage(Principal principal) {
+    public ModelAndView createRolePage(Model model, Principal principal) {
         var modelAndView = new ModelAndView("role/new-role");
-        loadUserDetails(modelAndView, principal);
+        loadUserDetails(model, principal);
         var createRoleRequest = new CreateRoleRequest();
         modelAndView.addObject("role", createRoleRequest);
         modelAndView.addObject("pageTitle", "Role Add");
@@ -71,9 +72,9 @@ public class RoleController {
     }
 
     @GetMapping("{id}/update")
-    public ModelAndView updateRolePage(@PathVariable UUID id, Principal principal) {
+    public ModelAndView updateRolePage(@PathVariable UUID id, Model model, Principal principal) {
         var modelAndView = new ModelAndView("role/update-role");
-        loadUserDetails(modelAndView, principal);
+        loadUserDetails(model, principal);
         var role = roleService.getRole(id);
         modelAndView.addObject("role", role);
         modelAndView.addObject("pageTitle", "Role Update");

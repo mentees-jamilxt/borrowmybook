@@ -3,6 +3,7 @@ package mentees.jamilxt.borrowmybook.controller;
 import java.security.Principal;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,10 +16,10 @@ import mentees.jamilxt.borrowmybook.service.UserService;
 public class HomeController {
 	private final UserService userService;
 	
-	public void loadUserDetails(ModelAndView modelAndView, Principal principal) {
+	public void loadUserDetails(Model model, Principal principal) {
 		String username = principal.getName();
 		User loggedInUser = userService.getUserByUsername(username);
-		modelAndView.addObject("loggedInUser", loggedInUser);
+		model.addAttribute("loggedInUser", loggedInUser);
 	}
 
     @GetMapping
@@ -32,9 +33,9 @@ public class HomeController {
     }
 
     @GetMapping("/after-login-dashboard")
-    public ModelAndView afterLoginAdminPanel(Principal principal) {
+    public ModelAndView afterLoginAdminPanel(Model model, Principal principal) {
         var modelAndView = new ModelAndView("dashboard/index");
-        loadUserDetails(modelAndView, principal);
+        loadUserDetails(model, principal);
         modelAndView.addObject("pageTitle", "Dashboard");
         return modelAndView;
     }
