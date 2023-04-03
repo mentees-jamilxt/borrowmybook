@@ -11,11 +11,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.UUID;
+
+import javax.validation.Valid;
 
 import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZE;
 
@@ -55,20 +58,37 @@ public class RoleController {
         return modelAndView;
     }
 
-    @GetMapping("create")
+    @GetMapping("/create")
     public ModelAndView createRolePage(Model model, Principal principal) {
         var modelAndView = new ModelAndView("role/new-role");
         loadUserDetails(model, principal);
         var createRoleRequest = new CreateRoleRequest();
         modelAndView.addObject("role", createRoleRequest);
-        modelAndView.addObject("pageTitle", "Role Add");
+        modelAndView.addObject("pageTitle", "Add Role");
         return modelAndView;
     }
 
     @PostMapping
-    public String createRole(@ModelAttribute CreateRoleRequest request) {
-        roleService.createRole(request);
-        return "redirect:/roles";
+    public String createRole(
+    	@Valid @ModelAttribute CreateRoleRequest request,
+    	BindingResult bindingResult,
+    	Model model,
+    	Principal principal
+    ) {
+    	try {
+			if(bindingResult.hasErrors()) {
+				System.out.println(bindingResult.toString());
+				loadUserDetails(model, principal);
+		    	model.addAttribute("pageTitle", "Add Role");
+				model.addAttribute("role", request);
+				return "role/new-role";
+			}
+			roleService.createRole(request);
+	        return "redirect:/roles";
+		} 
+    	catch (Exception e) {
+			return "redirect:/roles/create";
+		}
     }
 
     @GetMapping("{id}/update")
