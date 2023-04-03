@@ -70,8 +70,7 @@ public class RoleController {
 
     @PostMapping
     public String createRole(
-    	@Valid @ModelAttribute CreateRoleRequest request,
-    	BindingResult bindingResult,
+    	@Valid @ModelAttribute("role") CreateRoleRequest request, BindingResult bindingResult,
     	Model model,
     	Principal principal
     ) {

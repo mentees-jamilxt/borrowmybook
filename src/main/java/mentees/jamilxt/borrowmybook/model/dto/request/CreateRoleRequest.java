@@ -17,7 +17,6 @@ public class CreateRoleRequest {
     private String name;
     
     @NotEmpty(message = "Role description is required")
-    @Size(message = "Role description must be between 10 to 1000 characters.")
+    @Size(min = 10, max = 1000, message = "Role description must be between 10 to 1000 characters.")
     private String description;
-
 }
