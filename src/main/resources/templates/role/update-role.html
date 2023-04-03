@@ -43,7 +43,7 @@
                 <div class="col-lg-8 offset-lg-2">
                     <div class="card p-3">
                         <h3 class="text-center my-3">Role Details</h3>
-                        <form method="post" th:action="@{/roles/{id}/update (id = ${role.id})}" th:object="${role}">
+                        <form method="post" th:action="@{/roles/update}" th:object="${role}">
                             <div class="card-body">
                                 <div class="form-group">
                                     <input th:field="*{id}" th:value="${role.id}" type="hidden">

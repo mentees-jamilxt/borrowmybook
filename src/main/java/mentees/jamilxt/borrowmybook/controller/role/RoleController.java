@@ -101,7 +101,7 @@ public class RoleController {
         return modelAndView;
     }
 
-    @PostMapping("/{id}/update")
+    @PostMapping("/update")
     public String updateRole(
     	@Valid @ModelAttribute("role") CreateRoleRequest request,
     	BindingResult bindingResult,
