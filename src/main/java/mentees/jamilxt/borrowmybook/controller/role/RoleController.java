@@ -70,7 +70,8 @@ public class RoleController {
 
     @PostMapping
     public String createRole(
-    	@Valid @ModelAttribute("role") CreateRoleRequest request, BindingResult bindingResult,
+    	@Valid @ModelAttribute("role") CreateRoleRequest request, 
+    	BindingResult bindingResult,
     	Model model,
     	Principal principal
     ) {
@@ -90,20 +91,37 @@ public class RoleController {
 		}
     }
 
-    @GetMapping("{id}/update")
+    @GetMapping("/{id}/update")
     public ModelAndView updateRolePage(@PathVariable UUID id, Model model, Principal principal) {
         var modelAndView = new ModelAndView("role/update-role");
         loadUserDetails(model, principal);
         var role = roleService.getRole(id);
         modelAndView.addObject("role", role);
-        modelAndView.addObject("pageTitle", "Role Update");
+        modelAndView.addObject("pageTitle", "Update Update");
         return modelAndView;
     }
 
-    @PostMapping("update")
-    public String updateRole(@ModelAttribute CreateRoleRequest request) {
-        roleService.updateRole(request);
-        return "redirect:/roles";
+    @PostMapping("/{id}/update")
+    public String updateRole(
+    	@Valid @ModelAttribute("role") CreateRoleRequest request,
+    	BindingResult bindingResult,
+    	Model model,
+    	Principal principal
+    ) {
+    	try {
+			if(bindingResult.hasErrors()) {
+				System.out.println(bindingResult.toString());
+				loadUserDetails(model, principal);
+		    	model.addAttribute("pageTitle", "Update Role");
+				model.addAttribute("role", request);
+				return "role/update-role";
+			}
+			roleService.updateRole(request);
+	        return "redirect:/roles";
+		} 
+    	catch (Exception e) {
+			return "redirect:/roles";
+		}    
     }
 
     @GetMapping("{id}/delete")

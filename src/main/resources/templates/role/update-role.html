@@ -43,13 +43,13 @@
                 <div class="col-lg-8 offset-lg-2">
                     <div class="card p-3">
                         <h3 class="text-center my-3">Role Details</h3>
-                        <form method="post" th:action="@{/roles/update}" th:object="${role}">
+                        <form method="post" th:action="@{/roles/{id}/update (id = ${role.id})}" th:object="${role}">
                             <div class="card-body">
                                 <div class="form-group">
                                     <input th:field="*{id}" th:value="${role.id}" type="hidden">
                                 </div>
                                 <div class="form-group">
-                                	<label for="title" class="form-label">Category Name</label>
+                                	<label for="title" class="form-label">Role Name</label>
 	                                <input
 	                                    type="text"
 	                                    class="form-control"
@@ -57,7 +57,7 @@
 	                                    th:field="*{name}"
 	                                    th:value="${role.name}"
 	                                    th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
-	                                    placeholder="Enter Category Name"
+	                                    placeholder="Enter Role Name"
 	                                >
 	
 	                                <div class="invalid-feedback" style="font-size: 15px" th:each="error : ${#fields.errors('name')}" th:text="${error}">
