@@ -52,6 +52,7 @@ public class UserService {
 		userEntity.setFirstName(request.getFirstName());
 		userEntity.setLastName(request.getLastName());
 		userEntity.setEmail(request.getEmail());
+		userEntity.setRoles(request.getRoles());
 		userRepository.save(userEntity);
 	}
 	
