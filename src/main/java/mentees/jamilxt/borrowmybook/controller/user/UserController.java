@@ -68,7 +68,7 @@ public class UserController {
         var createUserRequest = new CreateUserRequest();
         modelAndView.addObject("user", createUserRequest);
         modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
-        modelAndView.addObject("pageTitle", "Create User");
+        modelAndView.addObject("pageTitle", "Add User");
         return modelAndView;
     }
 
@@ -120,14 +120,39 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@ModelAttribute CreateUserRequest request) {
-        userService.updateUser(request);
-        return "redirect:/users";
+    public String updateUser(
+    	@Valid @ModelAttribute("user")
+    	CreateUserRequest request,
+    	BindingResult bindingResult,
+    	RedirectAttributes redirectAttributes,
+    	Model model, 
+    	Principal principal
+    ) {
+        try {      	       	
+        	if(bindingResult.hasFieldErrors("id") || bindingResult.hasFieldErrors("firstName") || bindingResult.hasFieldErrors("lastName") || bindingResult.hasFieldErrors("email")) {
+        		loadUserDetails(model, principal);
+        		model.addAttribute("pageTitle", "Update User");
+        		model.addAttribute("user", request);
+        		model.addAttribute("roles", roleService.getRoles(Pageable.unpaged()));
+        		return "user/update-user";
+        	}
+        	
+        	if(request.getRoles().isEmpty()) {
+        		throw new Exception("Please select a role and submit again.");
+        	}
+        	
+            userService.updateUser(request);
+            return "redirect:/users";
+        }
+        catch (Exception e) {
+        	redirectAttributes.addFlashAttribute("responseMessage", new ResponseMessage("alert-danger", "Something went wrong. " + e.getMessage()));
+			return "redirect:/users/" + request.getId() + "/update";
+		}
     }
 
     @GetMapping("/{id}/delete")
-    public String deleteUser(@PathVariable UUID id) {
-        userService.deleteUser(id);
-        return "redirect:/users";
+    public String deleteUser(@PathVariable UUID id) { 
+    	userService.deleteUser(id);
+    	return "redirect:/users";
     }
 }
