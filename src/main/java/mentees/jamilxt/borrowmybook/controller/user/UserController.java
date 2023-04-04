@@ -11,11 +11,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.UUID;
+
+import javax.validation.Valid;
 
 import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZE;
 
@@ -66,10 +69,26 @@ public class UserController {
     }
 
     @PostMapping
-    public String createUser(@ModelAttribute CreateUserRequest request) {
-        request.setEnable(true);
-        userService.createUser(request);
-        return "redirect:/users";
+    public String createUser(
+    	@Valid @ModelAttribute("user") CreateUserRequest request,
+    	BindingResult bindingResult,
+    	Model model, 
+    	Principal principal
+    ) {
+        try {
+        	if(bindingResult.hasErrors()) {
+        		loadUserDetails(model, principal);
+        		model.addAttribute("title", "Add User");
+        		model.addAttribute("user", request);
+        		return "user/new-user";
+        	}
+        	request.setEnable(true);
+            userService.createUser(request);
+            return "redirect:/users";
+        }
+        catch (Exception e) {
+			return "redirect:/users";
+		}
     }
 
     @GetMapping("/{id}/update")

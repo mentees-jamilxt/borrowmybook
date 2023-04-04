@@ -77,7 +77,6 @@ public class RoleController {
     ) {
     	try {
 			if(bindingResult.hasErrors()) {
-				System.out.println(bindingResult.toString());
 				loadUserDetails(model, principal);
 		    	model.addAttribute("pageTitle", "Add Role");
 				model.addAttribute("role", request);
