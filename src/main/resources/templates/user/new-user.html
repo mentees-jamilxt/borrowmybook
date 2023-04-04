@@ -42,7 +42,13 @@
         <div class="add-book-form p-3">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
-                    <div class="card p-3">
+                    <div class="card p-3">                    
+                    	<!-- FLASH RESPONSE MESSAGE START -->
+                        <div th:if="${responseMessage}" class="ml-auto mr-auto">
+                            <div class="alert text-center" th:classappend="${responseMessage.type}" role="alert" th:text="${responseMessage.message}">
+                            </div>
+                        </div>
+                        <!-- FLASH RESPONSE MESSAGE END -->                 
                         <h3 class="text-center my-3">User Details</h3>
                         <form method="POST" th:action="@{/users}" th:object="${user}">
                             <div class="card-body">
@@ -130,14 +136,10 @@
 											    	name="roles"
 											    	th:field="*{roles}"
 											    	th:value="${role.id}"
-											    	th:classappend="${#fields.hasErrors('roles') ? 'is-invalid' : ''}"
 											    >
 											    <label class="form-check-label" th:text="${role.name}"></label>
 											</div>
                                         </th:block>
-                                        <div class="invalid-feedback" style="font-size: 15px" th:each="error : ${#fields.errors('roles')}" th:text="${error}">
-                                    
-                                    	</div>
                                     </div>
                                 </div>
 

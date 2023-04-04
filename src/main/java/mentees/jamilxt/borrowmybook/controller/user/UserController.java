@@ -1,8 +1,11 @@
 package mentees.jamilxt.borrowmybook.controller.user;
 
 import lombok.RequiredArgsConstructor;
+import mentees.jamilxt.borrowmybook.exception.custom.AlreadyExistsException;
+import mentees.jamilxt.borrowmybook.helper.ResponseMessage;
 import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
+import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import mentees.jamilxt.borrowmybook.service.RoleService;
 import mentees.jamilxt.borrowmybook.service.UserService;
 
@@ -14,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.UUID;
@@ -72,22 +76,35 @@ public class UserController {
     public String createUser(
     	@Valid @ModelAttribute("user") CreateUserRequest request,
     	BindingResult bindingResult,
+    	RedirectAttributes redirectAttributes,
     	Model model, 
     	Principal principal
     ) {
-        try {
+        try {      	       	
         	if(bindingResult.hasErrors()) {
         		loadUserDetails(model, principal);
-        		model.addAttribute("title", "Add User");
+        		model.addAttribute("pageTitle", "Add User");
         		model.addAttribute("user", request);
+        		model.addAttribute("roles", roleService.getRoles(Pageable.unpaged()));
         		return "user/new-user";
         	}
+        	
+        	if(request.getRoles().isEmpty()) {
+        		throw new Exception("Please select a role and submit again.");
+        	}
+        	
+        	User existingUser = userService.getUserByUsername(request.getEmail());
+        	if(existingUser != null) {
+        		throw new AlreadyExistsException("User already exists with email " + request.getEmail()+ ".");
+        	}
+        	
         	request.setEnable(true);
             userService.createUser(request);
             return "redirect:/users";
         }
         catch (Exception e) {
-			return "redirect:/users";
+        	redirectAttributes.addFlashAttribute("responseMessage", new ResponseMessage("alert-danger", "Something went wrong. " + e.getMessage()));
+			return "redirect:/users/create";
 		}
     }
 
