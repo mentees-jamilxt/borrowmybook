@@ -52,7 +52,7 @@ public class BookController {
     @GetMapping("/create")
     public ModelAndView createBookPage(Principal principal) {
         var modelAndView = new ModelAndView("book/new-book");
-        modelAndView.addObject("pageTitle", "Book Add");
+        modelAndView.addObject("pageTitle", "Add Book");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         var createBookRequest = new CreateBookRequest();
         modelAndView.addObject("book", createBookRequest);
@@ -68,7 +68,7 @@ public class BookController {
     @GetMapping("/{id}/update")
     public ModelAndView updateBookPage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("book/update-book");
-        modelAndView.addObject("pageTitle", "Role Update");
+        modelAndView.addObject("pageTitle", "Update Book");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         var book = bookService.getBook(id);
         modelAndView.addObject("book", book);

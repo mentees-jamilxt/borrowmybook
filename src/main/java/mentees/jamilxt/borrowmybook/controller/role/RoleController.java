@@ -86,7 +86,7 @@ public class RoleController {
     @GetMapping("/{id}/update")
     public ModelAndView updateRolePage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("role/update-role");
-        modelAndView.addObject("pageTitle", "Update Update");
+        modelAndView.addObject("pageTitle", "Update Role");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         var role = roleService.getRole(id);
         modelAndView.addObject("role", role);      
