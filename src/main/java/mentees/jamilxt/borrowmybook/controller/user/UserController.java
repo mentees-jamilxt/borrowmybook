@@ -5,7 +5,6 @@ import mentees.jamilxt.borrowmybook.exception.custom.AlreadyExistsException;
 import mentees.jamilxt.borrowmybook.helper.ResponseMessage;
 import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
-import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import mentees.jamilxt.borrowmybook.service.RoleService;
 import mentees.jamilxt.borrowmybook.service.UserService;
 
@@ -32,43 +31,37 @@ import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZ
 public class UserController {
     private final UserService userService;
     private final RoleService roleService;
-    
-    public void loadUserDetails(Model model, Principal principal) {
-		String username = principal.getName();
-		User loggedInUser = userService.getUserByUsername(username);
-		model.addAttribute("loggedInUser", loggedInUser);
-	}
 
     @GetMapping
-    public ModelAndView getUsers(@RequestParam(defaultValue = "0") int page, Model model, Principal principal) {
-        Page<User> users = userService.getUsers(PageRequest.of(page, DEFAULT_PAGE_SIZE));
-        var modelAndView = new ModelAndView("/user/list");
-        loadUserDetails(model, principal);
-        modelAndView.addObject("users", users);
+    public ModelAndView getUsers(@RequestParam(defaultValue = "0") int page, Principal principal) {       
+        var modelAndView = new ModelAndView("/user/list");      
         modelAndView.addObject("pageTitle", "View Users");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+        Page<User> users = userService.getUsers(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+        modelAndView.addObject("users", users);
         modelAndView.addObject("pagesForPagination", users);
         modelAndView.addObject("url", "/users");
         return modelAndView;
     }
 
     @GetMapping("/{id}/")
-    public ModelAndView getUser(@PathVariable UUID id, Model model, Principal principal) {
+    public ModelAndView getUser(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("/user/single");
-        loadUserDetails(model, principal);
-        User user = userService.getUserById(id);
-        modelAndView.addObject("user", user);
         modelAndView.addObject("pageTitle", "User Profile");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+        User user = userService.getUserById(id);
+        modelAndView.addObject("user", user);     
         return modelAndView;
     }
     
     @GetMapping("/create")
-    public ModelAndView viewCreateUserPage(Model model, Principal principal) {
+    public ModelAndView viewCreateUserPage(Principal principal) {
     	var modelAndView = new ModelAndView("/user/new-user");
-    	loadUserDetails(model, principal);
+    	modelAndView.addObject("pageTitle", "Add User");
+    	modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         var createUserRequest = new CreateUserRequest();
         modelAndView.addObject("user", createUserRequest);
-        modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
-        modelAndView.addObject("pageTitle", "Add User");
+        modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));       
         return modelAndView;
     }
 
@@ -82,8 +75,8 @@ public class UserController {
     ) {
         try {      	       	
         	if(bindingResult.hasErrors()) {
-        		loadUserDetails(model, principal);
         		model.addAttribute("pageTitle", "Add User");
+        		model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
         		model.addAttribute("user", request);
         		model.addAttribute("roles", roleService.getRoles(Pageable.unpaged()));
         		return "user/new-user";
@@ -109,13 +102,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}/update")
-    public ModelAndView viewUpdateUserPage(@PathVariable UUID id, Model model, Principal principal) {
+    public ModelAndView viewUpdateUserPage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("user/update-user");
-        loadUserDetails(model, principal);
+        modelAndView.addObject("pageTitle", "Update User");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         User user = userService.getUserById(id);
         modelAndView.addObject("user", user);
         modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
-        modelAndView.addObject("pageTitle", "Update User");
         return modelAndView;
     }
 
@@ -130,8 +123,8 @@ public class UserController {
     ) {
         try {      	       	
         	if(bindingResult.hasFieldErrors("id") || bindingResult.hasFieldErrors("firstName") || bindingResult.hasFieldErrors("lastName") || bindingResult.hasFieldErrors("email")) {
-        		loadUserDetails(model, principal);
         		model.addAttribute("pageTitle", "Update User");
+        		model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
         		model.addAttribute("user", request);
         		model.addAttribute("roles", roleService.getRoles(Pageable.unpaged()));
         		return "user/update-user";
