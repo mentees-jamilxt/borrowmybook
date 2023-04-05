@@ -57,13 +57,13 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-primary">
                         <div class="inner">
-                            <h3>12</h3>
-                            <p>Total Categories</p>
+                            <h3 th:text="${totalBook}"></h3>
+                            <p>Total Book</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-list"></i>
                         </div>
-                        <a class="small-box-footer" href="#">
+                        <a class="small-box-footer" th:href="@{/books}">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -71,8 +71,8 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-success text-white">
                         <div class="inner">
-                            <h3>572</h3>
-                            <p>Total Books</p>
+                            <h3>5</h3>
+                            <p>Total Category</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-book"></i>

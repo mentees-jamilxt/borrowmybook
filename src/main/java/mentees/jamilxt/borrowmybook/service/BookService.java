@@ -49,4 +49,9 @@ public class BookService {
     public void deleteBook(UUID id) {
         bookRepository.deleteById(id);
     }
+    
+    public long countTotalBook() {
+    	long totalBook = bookRepository.count();
+    	return totalBook;
+    }
 }

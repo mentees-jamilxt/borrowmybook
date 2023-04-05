@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.RequiredArgsConstructor;
+import mentees.jamilxt.borrowmybook.service.BookService;
 import mentees.jamilxt.borrowmybook.service.UserService;
 
 @RequiredArgsConstructor
 @Controller
 public class HomeController {
 	private final UserService userService;
+	private final BookService bookService;
 
     @GetMapping
     public String home() {
@@ -30,6 +32,7 @@ public class HomeController {
         modelAndView.addObject("pageTitle", "Dashboard");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("totalUser", userService.countTotalUser());
+        modelAndView.addObject("totalBook", bookService.countTotalBook());
         return modelAndView;
     }
 
