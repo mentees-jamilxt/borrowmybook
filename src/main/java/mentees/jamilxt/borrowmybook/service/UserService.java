@@ -1,8 +1,8 @@
 package mentees.jamilxt.borrowmybook.service;
 
+import java.security.Principal;
 import java.util.UUID;
 
-import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +38,12 @@ public class UserService {
 	public User getUserByUsername(String username) {
 		var userEntity = userRepository.getUserByEmail(username);
 		return userMapper.toDomain(userEntity);
+	}
+	
+	public User getLoggedInUser(Principal principal) {
+		String username = principal.getName();
+		User user = getUserByUsername(username);
+		return user;
 	}
 	
 	public void createUser(CreateUserRequest request) {
