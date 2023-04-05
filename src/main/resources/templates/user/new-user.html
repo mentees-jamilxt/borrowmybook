@@ -114,7 +114,7 @@
                                         id="password"
                                         name="password"
                                         th:field="*{password}"
-                                        th:text="${user.password}"
+                                        th:value="${user.password}"
                                         placeholder="Enter Password"
                                         th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
                                     >
