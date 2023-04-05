@@ -29,42 +29,36 @@ public class RoleController {
 
     private final RoleService roleService;
     private final UserService userService;
-    
-    public void loadUserDetails(Model model, Principal principal) {
-		String username = principal.getName();
-		User loggedInUser = userService.getUserByUsername(username);
-		model.addAttribute("loggedInUser", loggedInUser);
-	}
 
     @GetMapping
-    public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page, Model model, Principal principal) {
-        Page<Role> roles = roleService.getRoles(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+    public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("role/list");
-        loadUserDetails(model, principal);
-        modelAndView.addObject("roles", roles);
         modelAndView.addObject("pageTitle", "Role List");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+        Page<Role> roles = roleService.getRoles(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+        modelAndView.addObject("roles", roles);
         modelAndView.addObject("pagesForPagination", roles);
         modelAndView.addObject("url", "/roles");
         return modelAndView;
     }
 
     @GetMapping("/{id}/")
-    public ModelAndView getRole(@PathVariable UUID id, Model model, Principal principal) {
+    public ModelAndView getRole(@PathVariable UUID id, Principal principal) {
     	var modelAndView = new ModelAndView("/role/single");
-    	loadUserDetails(model, principal);
+    	modelAndView.addObject("pageTitle", "Role Details");
+    	modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         Role role = roleService.getRole(id);       
-        modelAndView.addObject("role", role);
-        modelAndView.addObject("pageTitle", "Role Details");
+        modelAndView.addObject("role", role);        
         return modelAndView;
     }
 
     @GetMapping("/create")
-    public ModelAndView createRolePage(Model model, Principal principal) {
+    public ModelAndView createRolePage(Principal principal) {
         var modelAndView = new ModelAndView("role/new-role");
-        loadUserDetails(model, principal);
+        modelAndView.addObject("pageTitle", "Add Role");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         var createRoleRequest = new CreateRoleRequest();
         modelAndView.addObject("role", createRoleRequest);
-        modelAndView.addObject("pageTitle", "Add Role");
         return modelAndView;
     }
 
@@ -77,8 +71,8 @@ public class RoleController {
     ) {
     	try {
 			if(bindingResult.hasErrors()) {
-				loadUserDetails(model, principal);
 		    	model.addAttribute("pageTitle", "Add Role");
+		    	model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
 				model.addAttribute("role", request);
 				return "role/new-role";
 			}
@@ -93,10 +87,10 @@ public class RoleController {
     @GetMapping("/{id}/update")
     public ModelAndView updateRolePage(@PathVariable UUID id, Model model, Principal principal) {
         var modelAndView = new ModelAndView("role/update-role");
-        loadUserDetails(model, principal);
-        var role = roleService.getRole(id);
-        modelAndView.addObject("role", role);
         modelAndView.addObject("pageTitle", "Update Update");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+        var role = roleService.getRole(id);
+        modelAndView.addObject("role", role);      
         return modelAndView;
     }
 
@@ -109,9 +103,8 @@ public class RoleController {
     ) {
     	try {
 			if(bindingResult.hasErrors()) {
-				System.out.println(bindingResult.toString());
-				loadUserDetails(model, principal);
-		    	model.addAttribute("pageTitle", "Update Role");
+				model.addAttribute("pageTitle", "Update Role");
+				model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
 				model.addAttribute("role", request);
 				return "role/update-role";
 			}
