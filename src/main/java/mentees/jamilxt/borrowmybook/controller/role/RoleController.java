@@ -2,7 +2,6 @@ package mentees.jamilxt.borrowmybook.controller.role;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.Role;
-import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateRoleRequest;
 import mentees.jamilxt.borrowmybook.service.RoleService;
 import mentees.jamilxt.borrowmybook.service.UserService;
@@ -85,7 +84,7 @@ public class RoleController {
     }
 
     @GetMapping("/{id}/update")
-    public ModelAndView updateRolePage(@PathVariable UUID id, Model model, Principal principal) {
+    public ModelAndView updateRolePage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("role/update-role");
         modelAndView.addObject("pageTitle", "Update Update");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));

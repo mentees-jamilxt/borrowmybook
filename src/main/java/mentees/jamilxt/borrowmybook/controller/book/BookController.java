@@ -26,42 +26,36 @@ public class BookController {
 
     private final BookService bookService;
     private final UserService userService;
-    
-    public void loadUserDetails(Model model, Principal principal) {
-		String username = principal.getName();
-		User loggedInUser = userService.getUserByUsername(username);
-		model.addAttribute("loggedInUser", loggedInUser);
-	}
 
     @GetMapping
-    public ModelAndView getBooks(@RequestParam(defaultValue = "0") int page, Model model, Principal principal) {
-        Page<Book> books = bookService.getBooks(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+    public ModelAndView getBooks(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("/book/list");
-        loadUserDetails(model, principal);
-        modelAndView.addObject("books", books);
         modelAndView.addObject("pageTitle", "Book List");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+        Page<Book> books = bookService.getBooks(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+        modelAndView.addObject("books", books);
         modelAndView.addObject("pagesForPagination", books);
         modelAndView.addObject("url", "/books");
         return modelAndView;
     }
 
     @GetMapping("/{id}/")
-    public ModelAndView getBook(@PathVariable UUID id, Model model, Principal principal) {
-        Book book = bookService.getBook(id);
+    public ModelAndView getBook(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("/book/single");
-        loadUserDetails(model, principal);
-        modelAndView.addObject("book", book);
         modelAndView.addObject("pageTitle", "Book Details");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+        Book book = bookService.getBook(id);
+        modelAndView.addObject("book", book);
         return modelAndView;
     }
 
-    @GetMapping("create")
-    public ModelAndView createBookPage(Model model, Principal principal) {
+    @GetMapping("/create")
+    public ModelAndView createBookPage(Principal principal) {
         var modelAndView = new ModelAndView("book/new-book");
-        loadUserDetails(model, principal);
+        modelAndView.addObject("pageTitle", "Book Add");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         var createBookRequest = new CreateBookRequest();
         modelAndView.addObject("book", createBookRequest);
-        modelAndView.addObject("pageTitle", "Book Add");
         return modelAndView;
     }
 
@@ -71,17 +65,17 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @GetMapping("{id}/update")
-    public ModelAndView updateBookPage(@PathVariable UUID id, Model model, Principal principal) {
+    @GetMapping("/{id}/update")
+    public ModelAndView updateBookPage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("book/update-book");
-        loadUserDetails(model, principal);
+        modelAndView.addObject("pageTitle", "Role Update");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         var book = bookService.getBook(id);
         modelAndView.addObject("book", book);
-        modelAndView.addObject("pageTitle", "Role Update");
         return modelAndView;
     }
 
-    @PostMapping("update")
+    @PostMapping("/update")
     public String updateBook(@ModelAttribute CreateBookRequest request) {
         bookService.updateBook(request);
         return "redirect:/books";
