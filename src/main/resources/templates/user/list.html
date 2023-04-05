@@ -82,6 +82,7 @@
     <footer class="main-footer" th:replace="fragments/footer::footer"></footer>
 </div>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 	function deleteUser(id) {
 		
@@ -95,6 +96,7 @@
 			.then((willDelete) => {
 				if (willDelete) {
 				    window.location = '/users/' + id + '/delete';
+				    swal("Deleted!", "User has been deleted.", "success");
 				} 
 				else {
 				    swal("User is safe!");
