@@ -44,43 +44,39 @@
                 <div class="card card-widget widget-user-2">
                     <div class="widget-user-header bg-info">
                         <div class="widget-user-image">
-                            <img alt="User Avatar" class="img-circle elevation-2" th:src="@{/images/user7-128x128.jpg}">
+                            <img alt="User Avatar" class="img-circle elevation-2" th:src="@{/images/user1-128x128.jpg}">
                         </div>
                         <h3 class="widget-user-username pt-3" th:text="${user.firstName+' '+user.lastName}"></h3>
                     </div>
                     <div class="card-footer p-0">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    First Name <span class="float-right"><b th:text="${user.firstName}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Last Name <span class="float-right"><b th:text="${user.lastName}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Email <span class="float-right"><b th:text="${user.email}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Roles <span class="float-right"><b th:text="${user.getRoles()}" ></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Borrowed <span class="float-right badge bg-success">2</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Shared <span class="float-right badge bg-danger">5</span>
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="table-responsive">
+	                        <table class="table">
+	                            <tbody>
+	                                <tr>
+	                                    <th scope="row">First Name</th>
+	                                    <td th:text="${user.firstName}"></td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">Last Name</th>
+	                                    <td th:text="${user.lastName}"></td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">Email</th>
+	                                    <td th:text="${user.email}"></td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">Roles</th>
+	                                    <td>
+	                                    	<span class="badge badge-warning" th:each="role : ${user.roles}" th:text="${role.name}"></span>
+	                                    </td>
+	                                </tr>
+	                                <tr>
+	                                	<td><a class="btn btn-primary mt-2" th:href="@{/users/{id}/update (id = ${user.id}) }">Edit Profile</a></td>
+	                                	<td></td>
+	                                </tr>
+	                            </tbody>
+	                        </table>
+                    	</div>
                     </div>
                 </div>
             </div>
