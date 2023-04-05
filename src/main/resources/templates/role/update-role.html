@@ -54,6 +54,7 @@
 	                                    type="text"
 	                                    class="form-control"
 	                                    id="name"
+	                                    name="name"
 	                                    th:field="*{name}"
 	                                    th:value="${role.name}"
 	                                    th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
@@ -67,8 +68,9 @@
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <textarea   
-                                    	id="description" 
                                     	class="form-control"
+                                    	id="description" 
+                                    	name="description"
                                     	rows="5"
                                     	th:field="*{description}"
                                     	th:text="${role.description}"
