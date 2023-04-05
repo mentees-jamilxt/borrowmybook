@@ -45,48 +45,44 @@
                         <h3>Book Details</h3>
                     </div>
                     <div class="card-footer p-0">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    ID <span class="float-right"><b th:text="${book.id}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Book Name <span class="float-right"><b th:text="${book.name}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Author <span class="float-right"><b th:text="${book.author}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Price <span class="float-right"><b th:text="${book.price}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Publisher <span class="float-right"><b th:text="${book.publisher}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Edition <span class="float-right"><b th:text="${book.edition}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Status <span class="float-right"><b th:text="${book.status}"></b></span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    ISBN Number <span class="float-right"><b th:text="${book.isbnNumber}"></b></span>
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="table-responsive">
+	                        <table class="table">
+	                            <tbody>
+	                                <tr>
+	                                    <th scope="row">Title</th>
+	                                    <td th:text="${book.name}"></td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">Author</th>
+	                                    <td th:text="${book.author}"></td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">Publisher</th>
+	                                    <td th:text="${book.publisher}"></td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">Edition</th>
+	                                    <td th:text="${book.edition}"></td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">ISBN Number</th>
+	                                    <td th:text="${book.isbnNumber}"></td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">Price</th>
+	                                    <td th:text="${book.price}"></td>
+	                                </tr>
+	                                <tr>
+	                                    <th scope="row">Status</th>
+	                                    <td><span class="badge badge-success" th:text="${book.status}"></span></td>
+	                                </tr>
+	                                <tr>
+	                                	<td><a class="btn btn-primary mt-2" th:href="@{/books/{id}/update (id = ${book.id}) }">Edit Profile</a></td>
+	                                	<td></td>
+	                                </tr>
+	                            </tbody>
+	                        </table>
+                    	</div>
                     </div>
                 </div>
             </div>
