@@ -69,4 +69,9 @@ public class UserService {
 	public String encodePasswordUsingString(String password) {
 		return passwordEncoder.encode(password);
 	}
+	
+	public long countTotalUser() {
+		long totalUser = userRepository.count();
+		return totalUser;
+	}
 }

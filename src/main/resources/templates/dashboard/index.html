@@ -43,14 +43,13 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
-
-                            <p>Total Users</p>
+                            <h3 th:text="${totalUser}"></h3>
+                            <p>Total User</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user"></i>
                         </div>
-                        <a class="small-box-footer" href="#">
+                        <a class="small-box-footer" th:href="@{/users}">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>

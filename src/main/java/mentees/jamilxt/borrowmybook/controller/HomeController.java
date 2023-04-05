@@ -29,6 +29,7 @@ public class HomeController {
         var modelAndView = new ModelAndView("dashboard/index");
         modelAndView.addObject("pageTitle", "Dashboard");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+        modelAndView.addObject("totalUser", userService.countTotalUser());
         return modelAndView;
     }
 
