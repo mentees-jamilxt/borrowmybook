@@ -8,6 +8,7 @@ import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -21,4 +22,5 @@ public class BookEntity extends BaseEntity {
     private String edition;
     private BookStatus status;
     private String isbnNumber;
+    private UUID categoryId;
 }
