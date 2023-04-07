@@ -11,4 +11,5 @@ public class CreateBookCategoryRequest {
     private UUID categoryId;
     private String categoryName;
     private String categoryDesc;
+
 }
