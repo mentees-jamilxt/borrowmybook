@@ -22,5 +22,4 @@ public class BookEntity extends BaseEntity {
     private String edition;
     private BookStatus status;
     private String isbnNumber;
-    private UUID categoryId;
 }

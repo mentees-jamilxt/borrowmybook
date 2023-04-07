@@ -20,6 +20,6 @@ public class BookCategoryEntity extends BaseEntity{
     private String categoryDesc;
 
     @OneToMany(targetEntity = BookEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "bc_fk",referencedColumnName = "id")
+    @JoinColumn(name = "categoryId",referencedColumnName = "id")
     private List<Book> books ;
 }
