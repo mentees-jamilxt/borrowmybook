@@ -14,10 +14,10 @@ import java.util.List;
 @Table(name = EntityConstant.BOOK_CATEGORY)
 public class BookCategoryEntity extends BaseEntity{
     @Column(length = 100)
-    private String categoryName;
+    private String name;
 
     @Column(length = 1000)
-    private String categoryDesc;
+    private String description;
 
     @OneToMany(targetEntity = BookEntity.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "categoryId",referencedColumnName = "id")
