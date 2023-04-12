@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.helper.ResponseMessage;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateBookCategoryRequest;
+import mentees.jamilxt.borrowmybook.service.BookCategoryService;
 import mentees.jamilxt.borrowmybook.service.UserService;
 
 @RequiredArgsConstructor
@@ -24,6 +25,7 @@ import mentees.jamilxt.borrowmybook.service.UserService;
 @RequestMapping(value = "/book-categories")
 public class BookCategoryController {
 	private final UserService userService;
+	private final BookCategoryService bookCategoryService;
 	
 	@GetMapping("/create")
 	public ModelAndView viewCreateBookCategoryPage(Principal principal) {
@@ -50,6 +52,8 @@ public class BookCategoryController {
 				model.addAttribute("bookCategory", request);
 				return "bookCategory/new-category";
 			}
+			
+			bookCategoryService.createBookCategory(request);
 			return "redirect:/book-categories";
 		} 
 		catch (Exception e) {
