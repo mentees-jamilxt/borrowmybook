@@ -10,8 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.Locale.Category;
-import java.util.UUID;
 
 @Setter
 @Getter
@@ -26,5 +24,5 @@ public class BookEntity extends BaseEntity {
     private BookStatus status;
     private String isbnNumber;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Category category;
+    private BookCategoryEntity category;
 }
