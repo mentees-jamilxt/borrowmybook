@@ -8,7 +8,7 @@ import java.util.UUID;
 @Setter
 @Getter
 public class BookCategory {
-    private UUID categoryId;
-    private String categoryName;
-    private String categoryDesc;
+    private UUID id;
+    private String name;
+    private String description;
 }
