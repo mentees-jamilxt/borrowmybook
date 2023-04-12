@@ -2,8 +2,8 @@ package mentees.jamilxt.borrowmybook.model.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
-import mentees.jamilxt.borrowmybook.model.domain.BookCategory;
 import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
+import mentees.jamilxt.borrowmybook.persistence.entity.BookCategoryEntity;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -19,5 +19,5 @@ public class CreateBookRequest {
     private String edition;
     private BookStatus status;
     private String isbnNumber;
-    private BookCategory bookCategory;
+    private BookCategoryEntity bookCategory;
 }
