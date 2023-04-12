@@ -11,9 +11,9 @@ import java.util.UUID;
 @Setter
 @Getter
 public class CreateBookCategoryRequest {
-    private UUID categoryId;
-    private String categoryName;
-    private String categoryDesc;
+    private UUID id;
+    private String name;
+    private String description;
     private List<Book> books = new ArrayList<>();
 
 }
