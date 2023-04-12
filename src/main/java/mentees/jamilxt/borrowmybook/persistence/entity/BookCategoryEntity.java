@@ -19,6 +19,6 @@ public class BookCategoryEntity extends BaseEntity{
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Book> books ; 
+    @OneToMany(mappedBy = "bookCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BookEntity> books ; 
 }

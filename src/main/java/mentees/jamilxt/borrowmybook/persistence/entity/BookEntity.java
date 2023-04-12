@@ -24,5 +24,5 @@ public class BookEntity extends BaseEntity {
     private BookStatus status;
     private String isbnNumber;
     @ManyToOne(fetch = FetchType.EAGER)
-    private BookCategoryEntity category;
+    private BookCategoryEntity bookCategory;
 }
