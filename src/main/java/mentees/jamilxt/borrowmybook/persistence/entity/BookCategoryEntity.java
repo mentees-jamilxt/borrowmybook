@@ -19,7 +19,6 @@ public class BookCategoryEntity extends BaseEntity{
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(targetEntity = BookEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "categoryId",referencedColumnName = "id")
-    private List<Book> books ;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Book> books ; 
 }

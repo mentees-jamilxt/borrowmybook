@@ -6,8 +6,11 @@ import mentees.jamilxt.borrowmybook.constant.EntityConstant;
 import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Locale.Category;
 import java.util.UUID;
 
 @Setter
@@ -22,4 +25,6 @@ public class BookEntity extends BaseEntity {
     private String edition;
     private BookStatus status;
     private String isbnNumber;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Category category;
 }
