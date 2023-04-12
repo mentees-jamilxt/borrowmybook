@@ -1,6 +1,5 @@
 package mentees.jamilxt.borrowmybook.model.domain;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
@@ -19,4 +18,5 @@ public class Book {
     private String edition;
     private BookStatus status;
     private String isbnNumber;
+    private BookCategory bookCategory;
 }
