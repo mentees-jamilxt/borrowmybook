@@ -35,10 +35,9 @@ public class BookCategoryService {
     }
 
     public void updateBookCategory(CreateBookCategoryRequest request){
-        var bookCategoryEntity = bookCategoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new NotFoundException(BOOK_CATEGORY_NOT_FOUND));
-        bookCategoryEntity.setCategoryName(request.getCategoryName());
-        bookCategoryEntity.setCategoryDesc(request.getCategoryDesc());
-        bookCategoryEntity.setBooks(request.getBooks());
+        var bookCategoryEntity = bookCategoryRepository.findById(request.getId()).orElseThrow(() -> new NotFoundException(BOOK_CATEGORY_NOT_FOUND));
+        bookCategoryEntity.setName(request.getName());
+        bookCategoryEntity.setDescription(request.getDescription());
         bookCategoryRepository.save(bookCategoryEntity);
     }
 
