@@ -42,6 +42,12 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <div class="card p-3">
+                    	<!-- FLASH RESPONSE MESSAGE START -->
+                        <div th:if="${responseMessage}" class="ml-auto mr-auto">
+                            <div class="alert text-center" th:classappend="${responseMessage.type}" role="alert" th:text="${responseMessage.message}">
+                            </div>
+                        </div>
+                        <!-- FLASH RESPONSE MESSAGE END -->
                         <h3 class="text-center my-3">Category Details</h3>
                         <form method="POST" th:action="@{/book-categories}" th:object="${bookCategory}">
                             <div class="card-body">
