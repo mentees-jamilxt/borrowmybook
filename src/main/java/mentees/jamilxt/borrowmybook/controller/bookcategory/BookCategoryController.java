@@ -90,4 +90,14 @@ public class BookCategoryController {
 			return "redirect:/book-categories/create";
 		}
 	}
+	
+	@GetMapping("/{id}/update")
+	public ModelAndView viewUpdateBookCategoryPage(@PathVariable UUID id, Principal principal) {
+		var modelAndView = new ModelAndView("/bookcategory/update-category");
+		modelAndView.addObject("pageTitle", "Update Book Category");
+		modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+		BookCategory bookCategory = bookCategoryService.getBookCategory(id);
+		modelAndView.addObject("bookCategory", bookCategory);
+		return modelAndView;
+	}
 }
