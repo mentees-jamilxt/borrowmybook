@@ -1,6 +1,7 @@
 package mentees.jamilxt.borrowmybook.controller.bookcategory;
 
 import java.security.Principal;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +43,16 @@ public class BookCategoryController {
 		modelAndView.addObject("bookCategories", bookCategories);
 		modelAndView.addObject("pagesForPagination", bookCategories);
 		modelAndView.addObject("url", "/book-categories");
+		return modelAndView;
+	}
+	
+	@GetMapping("/{id}")
+	public ModelAndView getBookCategory(@PathVariable UUID id, Principal principal) {
+		var modelAndView = new ModelAndView("/bookcategory/single");
+		modelAndView.addObject("pageTitle", "Book Category Details");
+		modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+		BookCategory bookCategory = bookCategoryService.getBookCategory(id);
+		modelAndView.addObject("bookCategory", bookCategory);
 		return modelAndView;
 	}
 	
