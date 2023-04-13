@@ -55,11 +55,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Novel</td>
-                            <td>This category contains Novels.</td>
+                        <tr th:each="bookCategory : ${bookCategories}">
+                            <td th:text="${bookCategory.name}"></td>
+                            <td th:text="${#strings.abbreviate(bookCategory.description, 40)}"></td>
                             <td>
-                                <a class="btn btn-sm btn-success" href=""><i
+                                <a class="btn btn-sm btn-success" th:href="@{/book-categories/{id} (id = ${bookCategory.id})}"><i
                                         class="fas fa-eye"></i></a>
                                 <a class="btn btn-sm btn-primary" href=""><i
                                         class="fas fa-pen"></i></a>
