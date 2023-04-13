@@ -127,7 +127,7 @@ public class BookCategoryController {
 		}
 	}
 	
-	@PostMapping("/{id}/delete")
+	@GetMapping("/{id}/delete")
 	public void deleteBookCategory(@PathVariable UUID id) {
 		bookCategoryService.deleteBook(id);
 	}
