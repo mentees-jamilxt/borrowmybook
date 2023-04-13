@@ -128,7 +128,8 @@ public class BookCategoryController {
 	}
 	
 	@GetMapping("/{id}/delete")
-	public void deleteBookCategory(@PathVariable UUID id) {
+	public String deleteBookCategory(@PathVariable UUID id) {
 		bookCategoryService.deleteBook(id);
+		return "redirect:/book-categories";
 	}
 }
