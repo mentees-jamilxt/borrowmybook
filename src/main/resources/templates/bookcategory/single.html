@@ -50,11 +50,13 @@
 	                            <tbody>
 	                                <tr>
 	                                    <th scope="row">Category</th>
-	                                    <td>Novels</td>
+	                                    <td th:text="${bookCategory.name}"></td>
 	                                </tr>
 	                                <tr>
 	                                    <th scope="row">Description</th>
-	                                    <td>This category contain Novels.</td>
+	                                    <td>
+	                                    	<p th:text="${bookCategory.description}"></p>
+	                                    </td>
 	                                </tr>
 	                                <tr>
 	                                	<td><a class="btn btn-primary mt-2" th:href="@{/book-categories/{id}/update (id = ${bookCategory.id}) }">Edit Category</a></td>
