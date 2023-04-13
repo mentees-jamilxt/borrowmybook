@@ -63,7 +63,7 @@
                                         class="fas fa-eye"></i></a>
                                 <a class="btn btn-sm btn-primary" th:href="@{/book-categories/{id}/update (id = ${bookCategory.id})}"><i
                                         class="fas fa-pen"></i></a>
-                                <a class="btn btn-sm btn-danger" href="#" th:onclick=""><i
+                                <a class="btn btn-sm btn-danger" href="#" th:onclick="deleteBookCategory([[${bookCategory.id}]])"><i
                                         class="fas fa-trash"></i></a>
                             </td>
                         </tr>
@@ -77,6 +77,30 @@
     <!-- Main Footer -->
     <footer class="main-footer" th:replace="fragments/footer::footer"></footer>
 </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+	function deleteBookCategory(id) {
+		
+		swal({
+			  title: "Are you sure to delete this category?",
+			  text: "Once deleted, you will not be able to recover this category!",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+				    window.location = '/book-categories/' + id + '/delete';
+				    swal("Deleted!", "Category has been deleted.", "success");
+				} 
+				else {
+				    swal("Category is safe!");
+				}
+			});
+		
+	}
+</script>
 
 <div th:replace="fragments/scripts :: scripts"></div>
 
