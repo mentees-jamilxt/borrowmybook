@@ -126,4 +126,9 @@ public class BookCategoryController {
 			return "redirect:/book-categories/" + request.getId() + "/update";
 		}
 	}
+	
+	@PostMapping("/{id}/delete")
+	public void deleteBookCategory(@PathVariable UUID id) {
+		bookCategoryService.deleteBook(id);
+	}
 }
