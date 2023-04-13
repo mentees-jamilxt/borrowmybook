@@ -100,4 +100,30 @@ public class BookCategoryController {
 		modelAndView.addObject("bookCategory", bookCategory);
 		return modelAndView;
 	}
+	
+
+	@PostMapping("/update")
+	public String updateBookCategory(
+		@Valid @ModelAttribute("bookCategory") CreateBookCategoryRequest request,
+		BindingResult bindingResult,
+		RedirectAttributes redirectAttributes,
+		Model model,
+		Principal principal
+	) {
+		try {
+			if(bindingResult.hasErrors()) {
+				model.addAttribute("pageTitle", "Update Book Category");
+				model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
+				model.addAttribute("bookCategory", request);
+				return "bookcategory/update-category";
+			}
+			
+			bookCategoryService.updateBookCategory(request);
+			return "redirect:/book-categories";
+		} 
+		catch (Exception e) {
+			redirectAttributes.addFlashAttribute("responseMessage", new ResponseMessage("alert-danger", "Something went wrong. " + e.getMessage()));
+			return "redirect:/book-categories/" + request.getId() + "/update";
+		}
+	}
 }
