@@ -63,7 +63,7 @@
                                         class="fas fa-eye"></i></a>
                                 <a class="btn btn-sm btn-primary" th:href="@{'/roles/' + ${role.id} + '/update'}"><i
                                         class="fas fa-pen"></i></a>
-                                <a class="btn btn-sm btn-danger" href="#" th:onclick="deleteRole([[${role.id}]])"><i
+                                <a class="btn btn-sm btn-danger" href="#" th:onclick="deleteItem([[${role.id}]], '/roles/', 'Role')"><i
                                         class="fas fa-trash"></i></a>
                             </td>
                         </tr>
@@ -77,30 +77,6 @@
     <!-- Main Footer -->
     <footer class="main-footer" th:replace="fragments/footer::footer"></footer>
 </div>
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-	function deleteRole(id) {
-		
-		swal({
-			  title: "Are you sure to delete this role?",
-			  text: "Once deleted, you will not be able to recover this role!",
-			  icon: "warning",
-			  buttons: true,
-			  dangerMode: true,
-			})
-			.then((willDelete) => {
-				if (willDelete) {
-				    window.location = '/roles/' + id + '/delete';
-				    swal("Deleted!", "Role has been deleted.", "success");
-				} 
-				else {
-				    swal("Role is safe!");
-				}
-			});
-		
-	}
-</script>
 
 <div th:replace="fragments/scripts :: scripts"></div>
 

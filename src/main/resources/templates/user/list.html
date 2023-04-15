@@ -68,7 +68,7 @@
                             <td>
                                 <a class="btn btn-sm btn-success" th:href="@{/users/{id}/ (id = ${user.id})}"><i class="fas fa-eye"></i></a>
                                 <a class="btn btn-sm btn-primary" th:href="@{/users/{id}/update (id = ${user.id}) }"><i class="fas fa-pen"></i></a>
-                                <a class="btn btn-sm btn-danger" href="#" th:onclick="deleteUser([[${user.id}]])"><i class="fas fa-trash"></i></a>
+                                <a class="btn btn-sm btn-danger" href="#" th:onclick="deleteItem([[${user.id}]], '/users/', 'User')"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         </tbody>
@@ -81,31 +81,6 @@
     <!-- Main Footer -->
     <footer class="main-footer" th:replace="fragments/footer::footer"></footer>
 </div>
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-	function deleteUser(id) {
-		
-		swal({
-			  title: "Are you sure to delete this user?",
-			  text: "Once deleted, you will not be able to recover this user!",
-			  icon: "warning",
-			  buttons: true,
-			  dangerMode: true,
-			})
-			.then((willDelete) => {
-				if (willDelete) {
-				    window.location = '/users/' + id + '/delete';
-				    swal("Deleted!", "User has been deleted.", "success");
-				} 
-				else {
-				    swal("User is safe!");
-				}
-			});
-		
-	}
-</script>
-
 <div th:replace="fragments/scripts :: scripts"></div>
 </body>
 </html>
