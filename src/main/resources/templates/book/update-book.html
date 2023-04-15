@@ -75,15 +75,23 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status</label>
-                                    <input class="form-control" id="status" name="status" placeholder="Enter Status"
-                                           th:field="*{status}" type="text">
+                                    <select class="form-control" id="status" name="status" th:field="*{status}">
+                                        <option th:each="s : ${status}"
+                                                th:value="${s}" th:text="${s}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Category</label>
+                                    <select class="form-control" id="category" name="category" th:field="*{bookCategory.id}">
+                                        <option value="">-- Select Category --</option>
+                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="isbn">ISBN Number</label>
                                     <input class="form-control" id="isbn" name="isbn" placeholder="Enter ISBN Number"
                                            th:field="*{isbnNumber}" type="text">
                                 </div>
-
                                 <div class="card-footer">
                                     <button class="btn btn-primary" type="submit">Submit</button>
                                 </div>

@@ -47,33 +47,49 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Book Title</label>
-                                    <input class="form-control" id="title" name="title" placeholder="Enter Book Title" th:field="*{name}"
+                                    <input class="form-control" id="title" name="title" placeholder="Enter Book Title"
+                                           th:field="*{name}"
                                            type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Author</label>
-                                    <input class="form-control" id="author" name="author" placeholder="Enter Author Name"
+                                    <input class="form-control" id="author" name="author"
+                                           placeholder="Enter Author Name"
                                            th:field="*{author}" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Price</label>
-                                    <input class="form-control" id="price" name="price" placeholder="Enter price" th:field="*{price}"
+                                    <input class="form-control" id="price" name="price" placeholder="Enter price"
+                                           th:field="*{price}"
                                            type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Publisher</label>
-                                    <input class="form-control" id="publisher" name="publisher" placeholder="Enter Publisher Name"
+                                    <input class="form-control" id="publisher" name="publisher"
+                                           placeholder="Enter Publisher Name"
                                            th:field="*{publisher}" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="edition">Edition</label>
-                                    <input class="form-control" id="edition" name="edition" placeholder="Enter Book Edition"
+                                    <input class="form-control" id="edition" name="edition"
+                                           placeholder="Enter Book Edition"
                                            th:field="*{edition}" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status</label>
-                                    <input class="form-control" id="status" name="status" placeholder="Enter Status"
-                                           th:field="*{status}" type="text">
+                                    <select class="form-control" id="status" name="status" th:field="*{status}">
+                                        <option th:each="status : ${status}"
+                                                th:text="${status}" th:value="${status}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Category</label>
+                                    <select class="form-control" id="category" name="category"
+                                            th:field="*{bookCategory.id}">
+                                        <option value="">-- Select Category --</option>
+                                        <option th:each="category : ${categories}" th:text="${category.name}"
+                                                th:value="${category.id}"></option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="isbn">ISBN Number</label>
@@ -83,7 +99,6 @@
                                 <div class="form-group">
                                     <input th:field="*{id}" type="hidden">
                                 </div>
-
                                 <div class="card-footer">
                                     <button class="btn btn-primary" type="submit">Submit</button>
                                 </div>

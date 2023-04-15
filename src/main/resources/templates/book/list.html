@@ -54,6 +54,7 @@
                             <th>Publisher</th>
                             <th>Edition</th>
                             <th>Status</th>
+                            <th>Category</th>
                             <th>ISBN Number</th>
                             <th>Action</th>
                         </tr>
@@ -66,6 +67,7 @@
                             <td th:text="${book.publisher}"></td>
                             <td th:text="${book.edition}"></td>
                             <td th:text="${book.status}"></td>
+                            <td th:text="${book.bookCategory.name}"></td>
                             <td th:text="${book.isbnNumber}"></td>
                             <td>
                                 <a class="btn btn-sm btn-success" th:href="@{/books/{id}/ (id = ${book.id})}"><i
