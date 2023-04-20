@@ -13,12 +13,12 @@ import javax.validation.constraints.Size;
 public class CreateBookCategoryRequest {
     private UUID id;
     
-    @NotEmpty(message = "Category name is required.")
-    @Size(min = 4, max = 50, message = "Category name must be between 4 to 50 characters.")
+    @NotEmpty(message = "Please enter a Category name.")
+    @Size(min = 4, max = 50, message = "Category name must be between 4 to 50 characters in length.")
     private String name;
     
-    @NotEmpty(message = "Category description is required.")
-    @Size(min = 10, max = 1000, message = "Category description must be between 10 to 1000 characters.")
+    @NotEmpty(message = "Description is required.")
+    @Size(min = 10, max = 1000, message = "Category description must be between 10 to 1000 characters in length.")
     private String description;
 
 }
