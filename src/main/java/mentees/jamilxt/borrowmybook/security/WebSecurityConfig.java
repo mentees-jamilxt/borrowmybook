@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -52,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .formLogin()
-                .loginPage("/login").defaultSuccessUrl("/after-login-dashboard", true)
+                .loginPage("/login").defaultSuccessUrl("/", true)
                 .usernameParameter("email")
                 .permitAll()
 
@@ -69,6 +70,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .key("AbcDefgHijKlmnOpqrs_1234567890") //this will be created session id (cookies) when login
                 .tokenValiditySeconds(7 * 24 * 60 * 60);
+
+        http.addFilterAfter(new LoggedInUserFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.csrf().disable();
     }

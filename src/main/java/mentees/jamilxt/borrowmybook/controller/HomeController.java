@@ -2,6 +2,7 @@ package mentees.jamilxt.borrowmybook.controller;
 
 import java.security.Principal;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,17 +18,12 @@ public class HomeController {
 	private final BookService bookService;
 
     @GetMapping
-    public String home() {
-        return "home";
+    public String afterLoginAdminPanel() {
+        return "redirect:/dashboard";
     }
 
-    @GetMapping("/login")
-    public String viewLoginPage() {
-        return "login";
-    }
-
-    @GetMapping("/after-login-dashboard")
-    public ModelAndView afterLoginAdminPanel(Principal principal) {
+    @GetMapping("/dashboard")
+    public ModelAndView dashboard(Principal principal) {
         var modelAndView = new ModelAndView("dashboard/index");
         modelAndView.addObject("pageTitle", "Dashboard");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
@@ -36,4 +32,9 @@ public class HomeController {
         return modelAndView;
     }
 
+    @GetMapping("/login")
+    @Secured("!isAuthenticated()")
+    public String viewLoginPage() {
+        return "login";
+    }
 }
