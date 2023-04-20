@@ -12,9 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.UUID;
 
@@ -65,9 +68,22 @@ public class BookController {
     }
 
     @PostMapping
-    public String createBook(@ModelAttribute CreateBookRequest request) {
-        bookService.createBook(request);
-        return "redirect:/books";
+    public String createBook(@Valid @ModelAttribute("book") CreateBookRequest request, BindingResult bindingResult, Model model, Principal principal) {
+        Page<BookCategory> bookCategories = bookCategoryService.getBookCategories(Pageable.unpaged());
+        try {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("pageTitle", "Add Book");
+                model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
+                model.addAttribute("book", request);
+                model.addAttribute("categories", bookCategories);
+                model.addAttribute("status", BookStatus.values());
+                return "book/new-book";
+            }
+            bookService.createBook(request);
+            return "redirect:/books";
+        } catch (Exception exception) {
+            return "redirect:/books/create";
+        }
     }
 
     @GetMapping("/{id}/update")

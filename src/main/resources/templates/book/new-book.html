@@ -49,31 +49,63 @@
                                     <label for="title">Book Title</label>
                                     <input class="form-control" id="title" name="title" placeholder="Enter Book Title"
                                            th:field="*{name}"
-                                           type="text">
+                                           type="text"
+                                           th:value="${book.name}"
+                                           th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+                                    >
+                                    <div class="invalid-feedback" style="font-size: 15px"
+                                         th:each="error : ${#fields.errors('name')}" th:text="${error}">
+                                    </div>
                                 </div>
+
+
                                 <div class="form-group">
                                     <label for="title">Author</label>
                                     <input class="form-control" id="author" name="author"
                                            placeholder="Enter Author Name"
-                                           th:field="*{author}" type="text">
+                                           th:field="*{author}" type="text"
+                                           th:value="${book.author}"
+                                           th:classappend="${#fields.hasErrors('author') ? 'is-invalid' : ''}"
+                                    >
+                                    <div class="invalid-feedback" style="font-size: 15px"
+                                         th:each="error : ${#fields.errors('author')}" th:text="${error}">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Price</label>
                                     <input class="form-control" id="price" name="price" placeholder="Enter price"
                                            th:field="*{price}"
-                                           type="text">
+                                           type="text"
+                                           th:value="${book.price}"
+                                           th:classappend="${#fields.hasErrors('price') ? 'is-invalid' : ''}"
+                                    >
+                                    <div class="invalid-feedback" style="font-size: 15px"
+                                         th:each="error : ${#fields.errors('price')}" th:text="${error}">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Publisher</label>
                                     <input class="form-control" id="publisher" name="publisher"
                                            placeholder="Enter Publisher Name"
-                                           th:field="*{publisher}" type="text">
+                                           th:field="*{publisher}" type="text"
+                                           th:value="${book.publisher}"
+                                           th:classappend="${#fields.hasErrors('publisher') ? 'is-invalid' : ''}"
+                                    >
+                                    <div class="invalid-feedback" style="font-size: 15px"
+                                         th:each="error : ${#fields.errors('publisher')}" th:text="${error}">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="edition">Edition</label>
                                     <input class="form-control" id="edition" name="edition"
                                            placeholder="Enter Book Edition"
-                                           th:field="*{edition}" type="text">
+                                           th:field="*{edition}" type="text"
+                                           th:value="${book.edition}"
+                                           th:classappend="${#fields.hasErrors('edition') ? 'is-invalid' : ''}"
+                                    >
+                                    <div class="invalid-feedback" style="font-size: 15px"
+                                         th:each="error : ${#fields.errors('edition')}" th:text="${error}">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status</label>
@@ -86,7 +118,6 @@
                                     <label for="category">Category</label>
                                     <select class="form-control" id="category" name="category"
                                             th:field="*{bookCategory.id}">
-                                        <option value="">-- Select Category --</option>
                                         <option th:each="category : ${categories}" th:text="${category.name}"
                                                 th:value="${category.id}"></option>
                                     </select>
@@ -94,7 +125,13 @@
                                 <div class="form-group">
                                     <label for="isbn">ISBN Number</label>
                                     <input class="form-control" id="isbn" name="isbn" placeholder="Enter ISBN Number"
-                                           th:field="*{isbnNumber}" type="text">
+                                           th:field="*{isbnNumber}" type="text"
+                                           th:value="${book.isbnNumber}"
+                                           th:classappend="${#fields.hasErrors('isbnNumber') ? 'is-invalid' : ''}"
+                                    >
+                                    <div class="invalid-feedback" style="font-size: 15px"
+                                         th:each="error : ${#fields.errors('isbnNumber')}" th:text="${error}">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <input th:field="*{id}" type="hidden">
