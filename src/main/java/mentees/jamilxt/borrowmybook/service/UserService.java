@@ -45,12 +45,18 @@ public class UserService {
 		User user = getUserByUsername(username);
 		return user;
 	}
-	
+
 	public void createUser(CreateUserRequest request) {
 		var userEntity = userMapper.toEntity(request);
 		String encodedPassword = encodePasswordUsingString(request.getPassword());
 		userEntity.setPassword(encodedPassword);
 		userRepository.save(userEntity);
+	}
+
+	public UUID getLoggedInUserId(Principal principal) {
+		String username = principal.getName();
+		User user = getUserByUsername(username);
+		return user.getId();
 	}
 
 	public void updateUser(CreateUserRequest request) {
@@ -59,6 +65,12 @@ public class UserService {
 		userEntity.setLastName(request.getLastName());
 		userEntity.setEmail(request.getEmail());
 		userEntity.setRoles(request.getRoles());
+		userRepository.save(userEntity);
+	}
+
+	public void updateUserPassword(String userName, String password) {
+		var userEntity = userRepository.getUserByEmail(userName);
+		userEntity.setPassword(password);
 		userRepository.save(userEntity);
 	}
 	
