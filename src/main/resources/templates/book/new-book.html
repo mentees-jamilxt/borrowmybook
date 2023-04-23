@@ -75,7 +75,7 @@
                                     <label for="title">Price</label>
                                     <input class="form-control" id="price" name="price" placeholder="Enter price"
                                            th:field="*{price}"
-                                           type="text"
+                                           type="number"
                                            th:value="${book.price}"
                                            th:classappend="${#fields.hasErrors('price') ? 'is-invalid' : ''}"
                                     >
