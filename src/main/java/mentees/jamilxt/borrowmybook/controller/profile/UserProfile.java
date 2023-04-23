@@ -1,7 +1,6 @@
 package mentees.jamilxt.borrowmybook.controller.profile;
 
 import lombok.RequiredArgsConstructor;
-import mentees.jamilxt.borrowmybook.service.RoleService;
 import mentees.jamilxt.borrowmybook.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.security.Principal;
 
 @RequiredArgsConstructor
@@ -17,7 +18,14 @@ import java.security.Principal;
 public class UserProfile {
 
     private final UserService userService;
-    private final RoleService roleService;
+
+    @GetMapping("/view")
+    public ModelAndView profileView(Principal principal) {
+        var modelAndView = new ModelAndView("/profile/profile");
+        modelAndView.addObject("pageTitle", "Profile");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+        return modelAndView;
+    }
 
     @GetMapping("/update-password")
     public String updatePassword() {

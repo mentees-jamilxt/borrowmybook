@@ -31,10 +31,10 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div class="dropdown-menu" role="menu">
-                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" th:href="@{/profile/view}">Profile</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" th:href="@{/profile/update-password}">Update Password</a>
-                <div class="dropdown-divider"></div>
+<!--                <a class="dropdown-item" th:href="@{/profile/update-password}">Update Password</a>-->
+<!--                <div class="dropdown-divider"></div>-->
                 <a class="dropdown-item" th:href="@{/logout}">Logout</a>
             </div>
         </div>
