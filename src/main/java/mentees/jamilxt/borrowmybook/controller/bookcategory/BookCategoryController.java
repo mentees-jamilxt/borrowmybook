@@ -60,10 +60,8 @@ public class BookCategoryController {
     }
 
     @PostMapping
-    public String createBookCategory(
-            @Valid @ModelAttribute("bookCategory") CreateBookCategoryRequest request,
-            BindingResult bindingResult, RedirectAttributes redirectAttributes,
-            Model model, Principal principal) {
+    public String createBookCategory(@Valid @ModelAttribute("bookCategory") CreateBookCategoryRequest request,
+                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, Principal principal) {
         try {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("pageTitle", "Add Category");
@@ -91,10 +89,8 @@ public class BookCategoryController {
 
 
     @PostMapping("/update")
-    public String updateBookCategory(
-            @Valid @ModelAttribute("bookCategory") CreateBookCategoryRequest request,
-            BindingResult bindingResult, RedirectAttributes redirectAttributes,
-            Model model, Principal principal) {
+    public String updateBookCategory(@Valid @ModelAttribute("bookCategory") CreateBookCategoryRequest request,
+                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, Principal principal) {
         try {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("pageTitle", "Update Book Category");

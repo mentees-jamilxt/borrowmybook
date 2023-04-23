@@ -32,9 +32,9 @@ public class RoleController {
     @GetMapping
     public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("role/list");
+        Page<Role> roles = roleService.getRoles(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         modelAndView.addObject("pageTitle", "Role List");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
-        Page<Role> roles = roleService.getRoles(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         modelAndView.addObject("roles", roles);
         modelAndView.addObject("pagesForPagination", roles);
         modelAndView.addObject("url", "/roles");
@@ -43,76 +43,66 @@ public class RoleController {
 
     @GetMapping("/{id}/")
     public ModelAndView getRole(@PathVariable UUID id, Principal principal) {
-    	var modelAndView = new ModelAndView("/role/single");
-    	modelAndView.addObject("pageTitle", "Role Details");
-    	modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
-        Role role = roleService.getRole(id);       
-        modelAndView.addObject("role", role);        
+        var modelAndView = new ModelAndView("/role/single");
+        Role role = roleService.getRole(id);
+        modelAndView.addObject("pageTitle", "Role Details");
+        modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
+        modelAndView.addObject("role", role);
         return modelAndView;
     }
 
     @GetMapping("/create")
     public ModelAndView createRolePage(Principal principal) {
         var modelAndView = new ModelAndView("role/new-role");
+        var createRoleRequest = new CreateRoleRequest();
         modelAndView.addObject("pageTitle", "Add Role");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
-        var createRoleRequest = new CreateRoleRequest();
         modelAndView.addObject("role", createRoleRequest);
         return modelAndView;
     }
 
     @PostMapping
-    public String createRole(
-    	@Valid @ModelAttribute("role") CreateRoleRequest request, 
-    	BindingResult bindingResult,
-    	Model model,
-    	Principal principal
-    ) {
-    	try {
-			if(bindingResult.hasErrors()) {
-		    	model.addAttribute("pageTitle", "Add Role");
-		    	model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
-				model.addAttribute("role", request);
-				return "role/new-role";
-			}
-			roleService.createRole(request);
-	        return "redirect:/roles";
-		} 
-    	catch (Exception e) {
-			return "redirect:/roles/create";
-		}
+    public String createRole(@Valid @ModelAttribute("role") CreateRoleRequest request,
+                             BindingResult bindingResult, Model model, Principal principal) {
+        try {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("pageTitle", "Add Role");
+                model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
+                model.addAttribute("role", request);
+                return "role/new-role";
+            }
+            roleService.createRole(request);
+            return "redirect:/roles";
+        } catch (Exception e) {
+            return "redirect:/roles/create";
+        }
     }
 
     @GetMapping("/{id}/update")
     public ModelAndView updateRolePage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("role/update-role");
+        var role = roleService.getRole(id);
         modelAndView.addObject("pageTitle", "Update Role");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
-        var role = roleService.getRole(id);
-        modelAndView.addObject("role", role);      
+        modelAndView.addObject("role", role);
         return modelAndView;
     }
 
     @PostMapping("/update")
-    public String updateRole(
-    	@Valid @ModelAttribute("role") CreateRoleRequest request,
-    	BindingResult bindingResult,
-    	Model model,
-    	Principal principal
-    ) {
-    	try {
-			if(bindingResult.hasErrors()) {
-				model.addAttribute("pageTitle", "Update Role");
-				model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
-				model.addAttribute("role", request);
-				return "role/update-role";
-			}
-			roleService.updateRole(request);
-	        return "redirect:/roles";
-		} 
-    	catch (Exception e) {
-			return "redirect:/roles";
-		}    
+    public String updateRole(@Valid @ModelAttribute("role") CreateRoleRequest request,
+                             BindingResult bindingResult, Model model, Principal principal) {
+        try {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("pageTitle", "Update Role");
+                model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
+                model.addAttribute("role", request);
+                return "role/update-role";
+            }
+            roleService.updateRole(request);
+            return "redirect:/roles";
+        } catch (Exception e) {
+            return "redirect:/roles";
+        }
     }
 
     @GetMapping("{id}/delete")

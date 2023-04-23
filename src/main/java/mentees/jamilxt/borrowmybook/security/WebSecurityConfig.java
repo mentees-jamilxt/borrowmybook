@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_TOKEN_VALIDITY_SECONDS;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -69,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .key("AbcDefgHijKlmnOpqrs_1234567890") //this will be created session id (cookies) when login
-                .tokenValiditySeconds(7 * 24 * 60 * 60);
+                .tokenValiditySeconds(DEFAULT_TOKEN_VALIDITY_SECONDS);
 
         http.addFilterAfter(new LoggedInUserFilter(), UsernamePasswordAuthenticationFilter.class);
 
