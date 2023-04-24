@@ -1,4 +1,4 @@
-package mentees.jamilxt.borrowmybook.controller.role;
+package mentees.jamilxt.borrowmybook.controller;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.Role;

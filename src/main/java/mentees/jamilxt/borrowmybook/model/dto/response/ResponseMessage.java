@@ -1,4 +1,4 @@
-package mentees.jamilxt.borrowmybook.helper;
+package mentees.jamilxt.borrowmybook.model.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

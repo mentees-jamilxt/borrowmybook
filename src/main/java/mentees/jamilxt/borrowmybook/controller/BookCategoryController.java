@@ -1,8 +1,8 @@
-package mentees.jamilxt.borrowmybook.controller.bookcategory;
+package mentees.jamilxt.borrowmybook.controller;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.constant.AppConstant;
-import mentees.jamilxt.borrowmybook.helper.ResponseMessage;
+import mentees.jamilxt.borrowmybook.model.dto.response.ResponseMessage;
 import mentees.jamilxt.borrowmybook.model.domain.BookCategory;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateBookCategoryRequest;
 import mentees.jamilxt.borrowmybook.service.BookCategoryService;

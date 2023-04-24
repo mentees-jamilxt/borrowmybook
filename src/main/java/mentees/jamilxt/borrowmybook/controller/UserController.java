@@ -1,8 +1,8 @@
-package mentees.jamilxt.borrowmybook.controller.user;
+package mentees.jamilxt.borrowmybook.controller;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.exception.custom.AlreadyExistsException;
-import mentees.jamilxt.borrowmybook.helper.ResponseMessage;
+import mentees.jamilxt.borrowmybook.model.dto.response.ResponseMessage;
 import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
 import mentees.jamilxt.borrowmybook.service.RoleService;

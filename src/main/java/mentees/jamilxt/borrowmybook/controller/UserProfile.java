@@ -1,4 +1,4 @@
-package mentees.jamilxt.borrowmybook.controller.profile;
+package mentees.jamilxt.borrowmybook.controller;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.service.UserService;
