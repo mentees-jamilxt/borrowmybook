@@ -1,23 +1,23 @@
 package mentees.jamilxt.borrowmybook.security;
 
+import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.exception.custom.NotFoundException;
-import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import mentees.jamilxt.borrowmybook.persistence.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    public static final String COULD_NOT_FIND_USER_WITH_EMAIL = "Could not find user with email: ";
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws NotFoundException {
-        UserEntity userEntity = userRepository.getUserByEmail(email);
-        if (userEntity != null) {
-            return new UserDetailsImpl(userEntity);
-        }
-        throw new NotFoundException("Could not find user with email: " + email);
+        var userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException(COULD_NOT_FIND_USER_WITH_EMAIL + email));
+        return new UserDetailsImpl(userEntity);
     }
 }

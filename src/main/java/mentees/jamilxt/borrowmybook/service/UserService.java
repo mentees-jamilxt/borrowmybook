@@ -36,7 +36,7 @@ public class UserService {
 	}
 	
 	public User getUserByUsername(String username) {
-		var userEntity = userRepository.getUserByEmail(username);
+		var userEntity = userRepository.findByEmail(username).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
 		return userMapper.toDomain(userEntity);
 	}
 	
@@ -69,7 +69,7 @@ public class UserService {
 	}
 
 	public void updateUserPassword(String userName, String password) {
-		var userEntity = userRepository.getUserByEmail(userName);
+		var userEntity = userRepository.findByEmail(userName).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
 		userEntity.setPassword(password);
 		userRepository.save(userEntity);
 	}
