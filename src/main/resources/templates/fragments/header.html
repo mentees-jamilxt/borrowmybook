@@ -18,28 +18,9 @@
 
 <!-- Right navbar links -->
 <ul class="navbar-nav ml-auto" th:fragment="rightNavbar">
-    <li class="nav-item">
-        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-            <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-            <form class="form-inline">
-                <div class="input-group input-group-sm">
-                    <input aria-label="Search" class="form-control form-control-navbar" placeholder="Search"
-                           type="search">
-                    <div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                        <button class="btn btn-navbar" data-widget="navbar-search" type="button">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </li>
-
+	<li class="nav-item">
+		<p style="margin-top: 8px; margin-left: 15px" th:text="${loggedInUser.firstName+' '+loggedInUser.lastName}"></p>
+	</li>
     <li class="nav-item">
         <div class="btn-group">
             <button class="btn btn-sm dropdown-toggle dropdown-hover dropdown-icon mt-1"
@@ -50,16 +31,13 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <div class="dropdown-menu" role="menu">
-                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" th:href="@{/profile/view}">Profile</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Logout</a>
+<!--                <a class="dropdown-item" th:href="@{/profile/update-password}">Update Password</a>-->
+<!--                <div class="dropdown-divider"></div>-->
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
             </div>
         </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-            <i class="fas fa-expand-arrows-alt"></i>
-        </a>
     </li>
 </ul>
 

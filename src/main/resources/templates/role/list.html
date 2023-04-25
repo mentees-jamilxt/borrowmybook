@@ -31,8 +31,8 @@
                 <div class="row mb-2">
                     <div class="d-flex align-items-center justify-content-between">
                         <h1 class="m-0 mr-3">Roles </h1>
-                        <a class="btn btn-sm btn-primary" th:href="@{'/roles/create'}"><i class="fas fa-plus">
-                            Add</i></a>
+                        <!--                        <a class="btn btn-sm btn-primary" th:href="@{'/roles/create'}"><i class="fas fa-plus">-->
+                        <!--                            Add</i></a>-->
                     </div>
                 </div>
             </div>
@@ -51,21 +51,21 @@
                         <tr>
                             <th>Role</th>
                             <th>Description</th>
-                            <th>Action</th>
+                            <!--                            <th>Action</th>-->
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="r: ${roles}">
-                            <td th:text="${r.name}"></td>
-                            <td th:text="${r.description}"></td>
-                            <td>
-                                <a class="btn btn-sm btn-success" th:href="@{/roles/{id}/ (id = ${r.id})}"><i
-                                        class="fas fa-eye"></i></a>
-                                <a class="btn btn-sm btn-primary" th:href="@{'/roles/' + ${r.id} + '/update'}"><i
-                                        class="fas fa-pen"></i></a>
-                                <a class="btn btn-sm btn-danger" th:href="@{'/roles/' + ${r.id} + '/delete'}"><i
-                                        class="fas fa-trash"></i></a>
-                            </td>
+                        <tr th:each="role: ${roles}">
+                            <td th:text="${role.name}"></td>
+                            <td th:text="${role.description}"></td>
+                            <!--                            <td>-->
+                            <!--                                <a class="btn btn-sm btn-success" th:href="@{/roles/{id}/ (id = ${role.id})}"><i-->
+                            <!--                                        class="fas fa-eye"></i></a>-->
+                            <!--                                <a class="btn btn-sm btn-primary" th:href="@{'/roles/' + ${role.id} + '/update'}"><i-->
+                            <!--                                        class="fas fa-pen"></i></a>-->
+                            <!--                                <a class="btn btn-sm btn-danger" href="#" th:onclick="deleteItem([[${role.id}]], '/roles/', 'Role')"><i-->
+                            <!--                                        class="fas fa-trash"></i></a>-->
+                            <!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>

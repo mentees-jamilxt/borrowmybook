@@ -5,8 +5,7 @@ import lombok.Setter;
 import mentees.jamilxt.borrowmybook.constant.EntityConstant;
 import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Setter
@@ -21,4 +20,7 @@ public class BookEntity extends BaseEntity {
     private String edition;
     private BookStatus status;
     private String isbnNumber;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_category_id")
+    private BookCategoryEntity bookCategory;
 }

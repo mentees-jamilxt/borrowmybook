@@ -1,8 +1,8 @@
 package mentees.jamilxt.borrowmybook.service;
 
+import java.security.Principal;
 import java.util.UUID;
 
-import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +35,17 @@ public class UserService {
 		return userMapper.toDomain(userEntity);
 	}
 	
+	public User getUserByUsername(String username) {
+		var userEntity = userRepository.findByEmail(username).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+		return userMapper.toDomain(userEntity);
+	}
+	
+	public User getLoggedInUser(Principal principal) {
+		String username = principal.getName();
+		User user = getUserByUsername(username);
+		return user;
+	}
+
 	public void createUser(CreateUserRequest request) {
 		var userEntity = userMapper.toEntity(request);
 		String encodedPassword = encodePasswordUsingString(request.getPassword());
@@ -42,11 +53,24 @@ public class UserService {
 		userRepository.save(userEntity);
 	}
 
+	public UUID getLoggedInUserId(Principal principal) {
+		String username = principal.getName();
+		User user = getUserByUsername(username);
+		return user.getId();
+	}
+
 	public void updateUser(CreateUserRequest request) {
 		var userEntity = userRepository.findById(request.getId()).orElseThrow(()-> new NotFoundException(USER_NOT_FOUND));
 		userEntity.setFirstName(request.getFirstName());
 		userEntity.setLastName(request.getLastName());
 		userEntity.setEmail(request.getEmail());
+		userEntity.setRoles(request.getRoles());
+		userRepository.save(userEntity);
+	}
+
+	public void updateUserPassword(String userName, String password) {
+		var userEntity = userRepository.findByEmail(userName).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+		userEntity.setPassword(password);
 		userRepository.save(userEntity);
 	}
 	
@@ -56,5 +80,10 @@ public class UserService {
 
 	public String encodePasswordUsingString(String password) {
 		return passwordEncoder.encode(password);
+	}
+	
+	public long countTotalUser() {
+		long totalUser = userRepository.count();
+		return totalUser;
 	}
 }

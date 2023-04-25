@@ -43,14 +43,13 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
-
-                            <p>Total Users</p>
+                            <h3 th:text="${totalUser}"></h3>
+                            <p>Total User</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user"></i>
                         </div>
-                        <a class="small-box-footer" href="#">
+                        <a class="small-box-footer" th:href="@{/users}">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
@@ -58,8 +57,22 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-primary">
                         <div class="inner">
-                            <h3>12</h3>
-                            <p>Total Categories</p>
+                            <h3 th:text="${totalBook}"></h3>
+                            <p>Total Book</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <a class="small-box-footer" th:href="@{/books}">
+                            More info <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-success text-white">
+                        <div class="inner">
+                            <h3>5</h3>
+                            <p>Total Category</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-list"></i>
@@ -69,21 +82,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success text-white">
-                        <div class="inner">
-                            <h3>572</h3>
-                            <p>Total Books</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <a class="small-box-footer" href="#">
-                            More info <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-3 col-6 d-none">
                     <div class="small-box bg-warning">
                         <div class="inner">
                             <h3>423</h3>
@@ -101,7 +100,7 @@
         </div>
 
         <!-- User and Books statistics -->
-        <div class="stats px-3">
+        <div class="stats px-3 d-none">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">

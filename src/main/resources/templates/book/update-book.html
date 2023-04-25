@@ -61,7 +61,7 @@
                                 <div class="form-group">
                                     <label for="title">Price</label>
                                     <input class="form-control" id="price" name="price" placeholder="Enter price" th:field="*{price}"
-                                           type="text">
+                                           type="number">
                                 </div>
                                 <div class="form-group">
                                     <label for="title">Publisher</label>
@@ -75,26 +75,22 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status</label>
-                                    <input class="form-control" id="status" name="status" placeholder="Enter Status"
-                                           th:field="*{status}" type="text">
+                                    <select class="form-control" id="status" name="status" th:field="*{status}">
+                                        <option th:each="s : ${status}"
+                                                th:value="${s}" th:text="${s}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Category</label>
+                                    <select class="form-control" id="category" name="category" th:field="*{bookCategory.id}">
+                                        <option value="">-- Select Category --</option>
+                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="isbn">ISBN Number</label>
                                     <input class="form-control" id="isbn" name="isbn" placeholder="Enter ISBN Number"
                                            th:field="*{isbnNumber}" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <label for="cover">Cover Photo</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input class="custom-file-input" id="cover" name="cover" type="file">
-                                            <label class="custom-file-label" for="exampleInputFile"
-                                                   id="exampleInputFile">Choose File</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">Upload</span>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="card-footer">
                                     <button class="btn btn-primary" type="submit">Submit</button>

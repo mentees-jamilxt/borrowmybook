@@ -6,11 +6,30 @@
 </head>
 <body>
 
-<script th:fragment="scripts">
-    <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
-<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/js/adminlte.min.js}"></script>
-</script>
+<div th:fragment="scripts">
+ 	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/adminlte.min.js}"></script>
+	<script th:src="@{/js/sweetalert.js}"></script>
+	<script>
+		function deleteItem(id, url, itemName) {
+			swal({
+				title: "Are you sure to delete this " + itemName + "?",
+				text: "Once deleted, you will not be able to recover this " + itemName + "!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			}).then((willDelete) => {
+				if (willDelete) {
+					window.location = url + id + '/delete';
+					swal("Deleted!", itemName + " has been deleted.", "success");
+				} else {
+					swal(itemName + " is safe!");
+				}
+			});
+		}
+	</script>
+</div>
 
 </body>
 </html>
