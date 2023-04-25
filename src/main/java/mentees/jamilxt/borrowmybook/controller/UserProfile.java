@@ -21,7 +21,7 @@ public class UserProfile {
 
     @GetMapping("/view")
     public ModelAndView profileView(Principal principal) {
-        var modelAndView = new ModelAndView("/profile/profile");
+        var modelAndView = new ModelAndView("profile/profile");
         modelAndView.addObject("pageTitle", "Profile");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         return modelAndView;
@@ -29,7 +29,7 @@ public class UserProfile {
 
     @GetMapping("/update-password")
     public String updatePassword() {
-        return "/profile/change-password";
+        return "profile/change-password";
     }
 
     @PostMapping("/change-user-password")
@@ -48,13 +48,13 @@ public class UserProfile {
 
         if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
             model.addAttribute("errorMessage", "All fields are required.");
-            return "/profile/change-password";
+            return "profile/change-password";
         } else if (!userDetails.getPassword().equals(encodedOldPassword)) {
             model.addAttribute("errorMessage", "Old password is incorrect.");
-            return "/profile/change-password";
+            return "profile/change-password";
         } else if (!newPassword.equals(confirmPassword)) {
             model.addAttribute("errorMessage", "Password does not match.");
-            return "/profile/change-password";
+            return "profile/change-password";
         } else {
             String encodedNewPassword = userService.encodePasswordUsingString(newPassword);
             userService.updateUserPassword(userDetails.getUsername(), encodedNewPassword);
