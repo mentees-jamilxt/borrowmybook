@@ -81,11 +81,6 @@ public class UserController {
                 throw new Exception("Please select a role and submit again.");
             }
 
-            User existingUser = userService.getUserByUsername(request.getEmail());
-            if (existingUser != null) {
-                throw new AlreadyExistsException("User already exists with email " + request.getEmail() + ".");
-            }
-
             request.setEnable(true);
             userService.createUser(request);
             return "redirect:/users";

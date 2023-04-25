@@ -3,6 +3,7 @@ package mentees.jamilxt.borrowmybook.service;
 import java.security.Principal;
 import java.util.UUID;
 
+import mentees.jamilxt.borrowmybook.exception.custom.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,10 +48,18 @@ public class UserService {
 	}
 
 	public void createUser(CreateUserRequest request) {
+		this.validateCreatingUser(request);
 		var userEntity = userMapper.toEntity(request);
 		String encodedPassword = encodePasswordUsingString(request.getPassword());
 		userEntity.setPassword(encodedPassword);
 		userRepository.save(userEntity);
+	}
+
+	private void validateCreatingUser(CreateUserRequest request) {
+		boolean userExist = userRepository.existsByEmail(request.getEmail());
+		if (userExist) {
+			throw new AlreadyExistsException("User already exists with email " + request.getEmail() + ".");
+		}
 	}
 
 	public UUID getLoggedInUserId(Principal principal) {
