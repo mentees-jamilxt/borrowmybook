@@ -43,7 +43,7 @@ public class RoleController {
 
     @GetMapping("/{id}/")
     public ModelAndView getRole(@PathVariable UUID id, Principal principal) {
-        var modelAndView = new ModelAndView("/role/single");
+        var modelAndView = new ModelAndView("role/single");
         Role role = roleService.getRole(id);
         modelAndView.addObject("pageTitle", "Role Details");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));

@@ -34,7 +34,7 @@ public class BookController {
 
     @GetMapping
     public ModelAndView getBooks(@RequestParam(defaultValue = "0") int page, Principal principal) {
-        var modelAndView = new ModelAndView("/book/list");
+        var modelAndView = new ModelAndView("book/list");
         Page<Book> books = bookService.getBooks(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         modelAndView.addObject("pageTitle", "Book List");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
@@ -46,7 +46,7 @@ public class BookController {
 
     @GetMapping("/{id}/")
     public ModelAndView getBook(@PathVariable UUID id, Principal principal) {
-        var modelAndView = new ModelAndView("/book/single");
+        var modelAndView = new ModelAndView("book/single");
         Book book = bookService.getBook(id);
         modelAndView.addObject("pageTitle", "Book Details");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));

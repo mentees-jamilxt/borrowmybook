@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping
     public ModelAndView getUsers(@RequestParam(defaultValue = "0") int page, Principal principal) {
-        var modelAndView = new ModelAndView("/user/list");
+        var modelAndView = new ModelAndView("user/list");
         Page<User> users = userService.getUsers(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         modelAndView.addObject("pageTitle", "View Users");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
@@ -46,7 +46,7 @@ public class UserController {
 
     @GetMapping("/{id}/")
     public ModelAndView getUser(@PathVariable UUID id, Principal principal) {
-        var modelAndView = new ModelAndView("/user/single");
+        var modelAndView = new ModelAndView("user/single");
         User user = userService.getUserById(id);
         modelAndView.addObject("pageTitle", "User Profile");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
@@ -56,7 +56,7 @@ public class UserController {
 
     @GetMapping("/create")
     public ModelAndView viewCreateUserPage(Principal principal) {
-        var modelAndView = new ModelAndView("/user/new-user");
+        var modelAndView = new ModelAndView("user/new-user");
         var createUserRequest = new CreateUserRequest();
         modelAndView.addObject("pageTitle", "Add User");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
