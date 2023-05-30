@@ -5,6 +5,7 @@ import mentees.jamilxt.borrowmybook.exception.custom.NotFoundException;
 import mentees.jamilxt.borrowmybook.mapper.RoleMapper;
 import mentees.jamilxt.borrowmybook.model.domain.Role;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateRoleRequest;
+import mentees.jamilxt.borrowmybook.model.dto.request.UpdateRoleRequest;
 import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import mentees.jamilxt.borrowmybook.persistence.repository.RoleRepository;
 import mentees.jamilxt.borrowmybook.persistence.repository.UserRepository;
@@ -38,8 +39,8 @@ public class RoleService {
         roleRepository.save(roleEntity);
     }
 
-    public void updateRole(CreateRoleRequest request) {
-        var roleEntity = roleRepository.findById(request.getId()).orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND));
+    public void updateRole(UpdateRoleRequest request, UUID id) {
+        var roleEntity = roleRepository.findById(id).orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND));
         roleEntity.setName(request.getName());
         roleEntity.setDescription(request.getDescription());
         roleRepository.save(roleEntity);

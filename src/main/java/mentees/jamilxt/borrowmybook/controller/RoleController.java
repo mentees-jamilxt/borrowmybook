@@ -3,9 +3,9 @@ package mentees.jamilxt.borrowmybook.controller;
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.Role;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateRoleRequest;
+import mentees.jamilxt.borrowmybook.model.dto.request.UpdateRoleRequest;
 import mentees.jamilxt.borrowmybook.service.RoleService;
 import mentees.jamilxt.borrowmybook.service.UserService;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -14,10 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.UUID;
-
-import javax.validation.Valid;
 
 import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZE;
 
@@ -88,9 +87,8 @@ public class RoleController {
         return modelAndView;
     }
 
-    @PostMapping("/update")
-    public String updateRole(@Valid @ModelAttribute("role") CreateRoleRequest request,
-                             BindingResult bindingResult, Model model, Principal principal) {
+    @PostMapping("/update/{id}")
+    public String updateRole(@Valid @ModelAttribute("role") UpdateRoleRequest request, @PathVariable UUID id, BindingResult bindingResult, Model model, Principal principal) {
         try {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("pageTitle", "Update Role");
@@ -98,7 +96,7 @@ public class RoleController {
                 model.addAttribute("role", request);
                 return "role/update-role";
             }
-            roleService.updateRole(request);
+            roleService.updateRole(request, id);
             return "redirect:/roles";
         } catch (Exception e) {
             return "redirect:/roles";
