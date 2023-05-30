@@ -1,6 +1,9 @@
 ## BorrowMyBook
 ### Description
 
+### Credentials
+>> ID- superadmin@gmail.com, Pass- super
+
 ### Technology
 * Language: Java 17
 * Build Tool: Gradle
