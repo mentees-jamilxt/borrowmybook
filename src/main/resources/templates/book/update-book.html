@@ -43,11 +43,9 @@
                 <div class="col-lg-8 offset-lg-2">
                     <div class="card p-3">
                         <h3 class="text-center my-3">Book Details</h3>
-                        <form method="POST" th:action="@{/books}" th:object="${book}">
+                        <form method="POST" th:action="@{'/books/update/' + ${book.id}}" th:object="${book}">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <input th:field="*{id}" th:value="${book.id}" type="hidden">
-                                </div>
+
                                 <div class="form-group">
                                     <label for="title">Book Title</label>
                                     <input class="form-control" id="title" name="title" placeholder="Enter Book Title" th:field="*{name}"

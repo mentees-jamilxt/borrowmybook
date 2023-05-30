@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper {
-    Book toDomain(BookEntity bookEntity);
+    Book entityToDomain(BookEntity bookEntity);
 
-    BookEntity toEntity(CreateBookRequest request);
+    BookEntity domainToResponse(CreateBookRequest request);
 }

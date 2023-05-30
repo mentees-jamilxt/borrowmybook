@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.Book;
 import mentees.jamilxt.borrowmybook.model.domain.BookCategory;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateBookRequest;
+import mentees.jamilxt.borrowmybook.model.dto.request.UpdateBookRequest;
 import mentees.jamilxt.borrowmybook.model.enums.BookStatus;
 import mentees.jamilxt.borrowmybook.service.BookCategoryService;
 import mentees.jamilxt.borrowmybook.service.BookService;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.model.IModel;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -35,7 +37,7 @@ public class BookController {
     @GetMapping
     public ModelAndView getBooks(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("book/list");
-        Page<Book> books = bookService.getBooks(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+        Page<Book> books = bookService.getAll(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         modelAndView.addObject("pageTitle", "Book List");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("books", books);
@@ -79,7 +81,7 @@ public class BookController {
                 model.addAttribute("status", BookStatus.values());
                 return "book/new-book";
             }
-            bookService.createBook(request);
+            bookService.createOne(request);
             return "redirect:/books";
         } catch (Exception exception) {
             return "redirect:/books/create";
@@ -99,10 +101,20 @@ public class BookController {
         return modelAndView;
     }
 
-    @PostMapping("/update")
-    public String updateBook(@ModelAttribute CreateBookRequest request) {
-        bookService.updateBook(request);
-        return "redirect:/books";
+    @PostMapping("/update/{id}")
+    public String updateBook(@Valid @ModelAttribute("book") UpdateBookRequest request, @PathVariable UUID id, BindingResult bindingResult, Principal principal, Model model) {
+        try {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("pageTitle", "Update Book");
+                model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
+                model.addAttribute("book", request);
+                return "book/update-book";
+            }
+            bookService.updateOne(request, id);
+            return "redirect:/books";
+        } catch (Exception e) {
+            return "redirect:/books";
+        }
     }
 
     @GetMapping("{id}/delete")
