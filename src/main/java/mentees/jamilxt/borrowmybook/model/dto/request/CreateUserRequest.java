@@ -17,8 +17,7 @@ import org.springframework.beans.factory.annotation.Required;
 @Getter
 @Setter
 public class CreateUserRequest {
-	private UUID id;
-	
+
 	@NotEmpty(message = "First name is required.")
 	@Size(min = 2, max = 20, message = "First name must be between 2 to 20 characters.")
 	private String firstName;
