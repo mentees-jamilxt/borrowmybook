@@ -31,7 +31,7 @@ public class RoleController {
     @GetMapping
     public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("role/list");
-        Page<Role> roles = roleService.getRoles(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+        Page<Role> roles = roleService.getAll(PageRequest.of(page, DEFAULT_PAGE_SIZE));
         modelAndView.addObject("pageTitle", "Role List");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("roles", roles);
@@ -43,7 +43,7 @@ public class RoleController {
     @GetMapping("/{id}/")
     public ModelAndView getRole(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("role/single");
-        Role role = roleService.getRole(id);
+        Role role = roleService.getOne(id);
         modelAndView.addObject("pageTitle", "Role Details");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("role", role);
@@ -80,7 +80,7 @@ public class RoleController {
     @GetMapping("/{id}/update")
     public ModelAndView updateRolePage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("role/update-role");
-        var role = roleService.getRole(id);
+        var role = roleService.getOne(id);
         modelAndView.addObject("pageTitle", "Update Role");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("role", role);
@@ -96,7 +96,7 @@ public class RoleController {
                 model.addAttribute("role", request);
                 return "role/update-role";
             }
-            roleService.updateRole(request, id);
+            roleService.updateOne(request, id);
             return "redirect:/roles";
         } catch (Exception e) {
             return "redirect:/roles";

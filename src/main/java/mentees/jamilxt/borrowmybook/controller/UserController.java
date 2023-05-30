@@ -59,7 +59,7 @@ public class UserController {
         modelAndView.addObject("pageTitle", "Add User");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("user", createUserRequest);
-        modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
+        modelAndView.addObject("roles", roleService.getAll(Pageable.unpaged()));
         return modelAndView;
     }
 
@@ -71,7 +71,7 @@ public class UserController {
                 model.addAttribute("pageTitle", "Add User");
                 model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
                 model.addAttribute("user", request);
-                model.addAttribute("roles", roleService.getRoles(Pageable.unpaged()));
+                model.addAttribute("roles", roleService.getAll(Pageable.unpaged()));
                 return "user/new-user";
             }
 
@@ -95,7 +95,7 @@ public class UserController {
         modelAndView.addObject("pageTitle", "Update User");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("user", user);
-        modelAndView.addObject("roles", roleService.getRoles(Pageable.unpaged()));
+        modelAndView.addObject("roles", roleService.getAll(Pageable.unpaged()));
         return modelAndView;
     }
 
@@ -106,7 +106,7 @@ public class UserController {
                 model.addAttribute("pageTitle", "Update User");
                 model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
                 model.addAttribute("user", request);
-                model.addAttribute("roles", roleService.getRoles(Pageable.unpaged()));
+                model.addAttribute("roles", roleService.getAll(Pageable.unpaged()));
                 return "user/update-user";
             }
 

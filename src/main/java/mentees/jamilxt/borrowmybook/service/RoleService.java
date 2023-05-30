@@ -25,21 +25,23 @@ public class RoleService {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
 
-    public Page<Role> getRoles(Pageable pageable) {
+    public Page<Role> getAll(Pageable pageable) {
         return roleRepository.findAll(pageable).map(roleMapper::toDomain);
     }
 
-    public Role getRole(UUID id) {
+    public Role getOne(UUID id) {
         var roleEntity = roleRepository.findById(id).orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND));
         return roleMapper.toDomain(roleEntity);
     }
 
-    public void createRole(CreateRoleRequest request) {
+    public UUID createRole(CreateRoleRequest request) {
         var roleEntity = roleMapper.toEntity(request);
-        roleRepository.save(roleEntity);
+        roleEntity.setId(UUID.randomUUID());
+        var savedEntity = roleRepository.save(roleEntity);
+        return savedEntity.getId();
     }
 
-    public void updateRole(UpdateRoleRequest request, UUID id) {
+    public void updateOne(UpdateRoleRequest request, UUID id) {
         var roleEntity = roleRepository.findById(id).orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND));
         roleEntity.setName(request.getName());
         roleEntity.setDescription(request.getDescription());
