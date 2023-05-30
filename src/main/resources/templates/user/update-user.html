@@ -43,63 +43,57 @@
                 <div class="col-lg-8 offset-lg-2">
                     <div class="card p-3">
                         <h3 class="text-center my-3">User Details</h3>
-                        <form method="POST" th:action="@{/users/update}" th:object="${user}">
+                        <form method="POST" th:action="@{'/users/update/' + ${user.id}}" th:object="${user}">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <input th:field="*{id}" th:value="${user.id}" type="hidden">
-                                </div>
 
                                 <div class="form-group">
                                     <label for="firstName">First Name</label>
                                     <input
-                                    	type="text"
-                                        class="form-control"
-                                        id="firstName"
-                                        name="firstName"
-                                        th:field="*{firstName}"
-                                        th:value="${user.firstName}"
-                                        placeholder="Enter First Name"
-                                        th:classappend="${#fields.hasErrors('firstName') ? 'is-invalid' : ''}"    
+                                            class="form-control"
+                                            id="firstName"
+                                            name="firstName"
+                                            placeholder="Enter First Name"
+                                            th:classappend="${#fields.hasErrors('firstName') ? 'is-invalid' : ''}"
+                                            th:field="*{firstName}"
+                                            th:value="${user.firstName}"
+                                            type="text"
                                     >
-                                    
-                                    <div class="invalid-feedback" style="font-size: 15px" th:each="error : ${#fields.errors('firstName')}" th:text="${error}">
-                                    
+                                    <div class="invalid-feedback" style="font-size: 15px"
+                                         th:each="error : ${#fields.errors('firstName')}" th:text="${error}">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="lastName">Last Name</label>
                                     <input
-                                    	type="text" 
-                                    	class="form-control"
-                                        id="lastName"
-                                        name="lastName"
-                                        th:field="*{lastName}"
-                                        th:value="${user.lastName}"
-                                        placeholder="Enter Last Name"   
-                                        th:classappend="${#fields.hasErrors('lastName') ? 'is-invalid' : ''}"
+                                            class="form-control"
+                                            id="lastName"
+                                            name="lastName"
+                                            placeholder="Enter Last Name"
+                                            th:classappend="${#fields.hasErrors('lastName') ? 'is-invalid' : ''}"
+                                            th:field="*{lastName}"
+                                            th:value="${user.lastName}"
+                                            type="text"
                                     >
-                                    
-                                    <div class="invalid-feedback" style="font-size: 15px" th:each="error : ${#fields.errors('lastName')}" th:text="${error}">
-                                    
+                                    <div class="invalid-feedback" style="font-size: 15px"
+                                         th:each="error : ${#fields.errors('lastName')}" th:text="${error}">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input
-                                    	type="email"
-                                        class="form-control"
-                                        id="email"
-                                        name="email"
-                                        th:field="*{email}"
-                                        th:value="${user.email}"
-                                        placeholder="Enter Email" 
-                                        th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+                                            class="form-control"
+                                            id="email"
+                                            name="email"
+                                            placeholder="Enter Email"
+                                            th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+                                            th:field="*{email}"
+                                            th:value="${user.email}"
+                                            type="email"
                                     >
-                                    
-                                    <div class="invalid-feedback" style="font-size: 15px" th:each="error : ${#fields.errors('email')}" th:text="${error}">
-                                    
+                                    <div class="invalid-feedback" style="font-size: 15px"
+                                         th:each="error : ${#fields.errors('email')}" th:text="${error}">
                                     </div>
                                 </div>
 
@@ -108,16 +102,16 @@
                                     <div class="col-sm-8">
                                         <th:block th:each="role : ${roles}">
                                             <div class="form-check">
-											    <input 
-											    	type="radio" 
-											    	class="form-check-input"
-											    	id="roles"
-											    	name="roles"
-											    	th:field="*{roles}"
-											    	th:value="${role.id}"
-											    >
-											    <label class="form-check-label" th:text="${role.name}"></label>
-											</div>
+                                                <input
+                                                        class="form-check-input"
+                                                        id="roles"
+                                                        name="roles"
+                                                        th:field="*{roles}"
+                                                        th:value="${role.id}"
+                                                        type="radio"
+                                                >
+                                                <label class="form-check-label" th:text="${role.name}"></label>
+                                            </div>
                                         </th:block>
                                     </div>
                                 </div>
