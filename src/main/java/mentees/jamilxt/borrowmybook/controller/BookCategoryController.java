@@ -2,9 +2,10 @@ package mentees.jamilxt.borrowmybook.controller;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.constant.AppConstant;
-import mentees.jamilxt.borrowmybook.model.dto.response.ResponseMessage;
 import mentees.jamilxt.borrowmybook.model.domain.BookCategory;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateBookCategoryRequest;
+import mentees.jamilxt.borrowmybook.model.dto.request.UpdateBookCategoryRequest;
+import mentees.jamilxt.borrowmybook.model.dto.response.ResponseMessage;
 import mentees.jamilxt.borrowmybook.service.BookCategoryService;
 import mentees.jamilxt.borrowmybook.service.UserService;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ public class BookCategoryController {
     @GetMapping
     public ModelAndView getBookCategories(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("bookcategory/list");
-        Page<BookCategory> bookCategories = bookCategoryService.getBookCategories(PageRequest.of(page, AppConstant.DEFAULT_PAGE_SIZE));
+        Page<BookCategory> bookCategories = bookCategoryService.getAll(PageRequest.of(page, AppConstant.DEFAULT_PAGE_SIZE));
         modelAndView.addObject("pageTitle", "View Book Categories");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("bookCategories", bookCategories);
@@ -42,7 +43,7 @@ public class BookCategoryController {
     @GetMapping("/{id}")
     public ModelAndView getBookCategory(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("bookcategory/single");
-        BookCategory bookCategory = bookCategoryService.getBookCategory(id);
+        BookCategory bookCategory = bookCategoryService.getOne(id);
         modelAndView.addObject("pageTitle", "Book Category Details");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("bookCategory", bookCategory);
@@ -60,8 +61,7 @@ public class BookCategoryController {
     }
 
     @PostMapping
-    public String createBookCategory(@Valid @ModelAttribute("bookCategory") CreateBookCategoryRequest request,
-                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, Principal principal) {
+    public String createBookCategory(@Valid @ModelAttribute("bookCategory") CreateBookCategoryRequest request, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, Principal principal) {
         try {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("pageTitle", "Add Category");
@@ -69,7 +69,7 @@ public class BookCategoryController {
                 model.addAttribute("bookCategory", request);
                 return "bookcategory/new-category";
             }
-            bookCategoryService.createBookCategory(request);
+            bookCategoryService.createOne(request);
             return "redirect:/book-categories";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("responseMessage", new ResponseMessage("alert-danger", "Something went wrong. " + e.getMessage()));
@@ -80,7 +80,7 @@ public class BookCategoryController {
     @GetMapping("/{id}/update")
     public ModelAndView viewUpdateBookCategoryPage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("bookcategory/update-category");
-        BookCategory bookCategory = bookCategoryService.getBookCategory(id);
+        BookCategory bookCategory = bookCategoryService.getOne(id);
         modelAndView.addObject("bookCategory", bookCategory);
         modelAndView.addObject("pageTitle", "Update Book Category");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
@@ -88,9 +88,8 @@ public class BookCategoryController {
     }
 
 
-    @PostMapping("/update")
-    public String updateBookCategory(@Valid @ModelAttribute("bookCategory") CreateBookCategoryRequest request,
-                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, Principal principal) {
+    @PostMapping("/update/{id}")
+    public String updateBookCategory(@Valid @ModelAttribute("bookCategory") UpdateBookCategoryRequest request, @PathVariable UUID id, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, Principal principal) {
         try {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("pageTitle", "Update Book Category");
@@ -98,11 +97,11 @@ public class BookCategoryController {
                 model.addAttribute("bookCategory", request);
                 return "bookcategory/update-category";
             }
-            bookCategoryService.updateBookCategory(request);
+            bookCategoryService.updateBookCategory(request, id);
             return "redirect:/book-categories";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("responseMessage", new ResponseMessage("alert-danger", "Something went wrong. " + e.getMessage()));
-            return "redirect:/book-categories/" + request.getId() + "/update";
+            return "redirect:/book-categories/update" + id;
         }
     }
 

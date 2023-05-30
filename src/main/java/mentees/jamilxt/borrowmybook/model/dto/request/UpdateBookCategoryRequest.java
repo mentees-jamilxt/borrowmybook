@@ -3,14 +3,13 @@ package mentees.jamilxt.borrowmybook.model.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @Setter
 @Getter
-public class CreateBookCategoryRequest {
+public class UpdateBookCategoryRequest {
 
     @NotEmpty(message = "Please enter a Category name.")
     @Size(min = 4, max = 50, message = "Category name must be between 4 to 50 characters in length.")

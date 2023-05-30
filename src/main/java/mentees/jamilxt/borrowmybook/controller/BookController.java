@@ -58,7 +58,7 @@ public class BookController {
     public ModelAndView createBookPage(Principal principal) {
         var modelAndView = new ModelAndView("book/new-book");
         var createBookRequest = new CreateBookRequest();
-        Page<BookCategory> bookCategories = bookCategoryService.getBookCategories(Pageable.unpaged());
+        Page<BookCategory> bookCategories = bookCategoryService.getAll(Pageable.unpaged());
         modelAndView.addObject("categories", bookCategories);
         modelAndView.addObject("status", BookStatus.values());
         modelAndView.addObject("pageTitle", "Add Book");
@@ -69,7 +69,7 @@ public class BookController {
 
     @PostMapping
     public String createBook(@Valid @ModelAttribute("book") CreateBookRequest request, BindingResult bindingResult, Model model, Principal principal) {
-        Page<BookCategory> bookCategories = bookCategoryService.getBookCategories(Pageable.unpaged());
+        Page<BookCategory> bookCategories = bookCategoryService.getAll(Pageable.unpaged());
         try {
             if (bindingResult.hasErrors()) {
                 model.addAttribute("pageTitle", "Add Book");
@@ -90,7 +90,7 @@ public class BookController {
     public ModelAndView updateBookPage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("book/update-book");
         var book = bookService.getBook(id);
-        Page<BookCategory> bookCategories = bookCategoryService.getBookCategories(Pageable.unpaged());
+        Page<BookCategory> bookCategories = bookCategoryService.getAll(Pageable.unpaged());
         modelAndView.addObject("categories", bookCategories);
         modelAndView.addObject("status", BookStatus.values());
         modelAndView.addObject("pageTitle", "Update Book");
