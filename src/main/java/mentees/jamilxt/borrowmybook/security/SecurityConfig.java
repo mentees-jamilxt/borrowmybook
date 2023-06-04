@@ -3,14 +3,17 @@ package mentees.jamilxt.borrowmybook.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -19,7 +22,7 @@ import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_TOKEN_VA
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter { // TODO: use SecurityFilterChain
+public class SecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
 
@@ -28,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter { // TODO: u
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
@@ -35,13 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter { // TODO: u
         return authenticationProvider;
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider());
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         String[] staticResources = {"/css/**", "/images/**", "/fonts/**", "/scripts/**", "/plugins/**", "/frontimages/**", "/frontlayout/**",
                 " /resources/**", "/js/**", "/login", "/api/**", "/", "/static/**", "/dist/css/**", "/dist/js/**", "/dist/img/**", "/dist/**"};
@@ -73,15 +77,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter { // TODO: u
 
         http.addFilterAfter(new LoggedInUserFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.csrf().disable();
+        return http.build();
+
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**");
-        web.ignoring().antMatchers("/scripts/**");
-        web.ignoring().antMatchers("/images/**");
-        web.ignoring().antMatchers("/js/**");
-        web.ignoring().antMatchers("/webjars/**");
-    }
+//    @Bean
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/css/**");
+//        web.ignoring().antMatchers("/scripts/**");
+//        web.ignoring().antMatchers("/images/**");
+//        web.ignoring().antMatchers("/js/**");
+//        web.ignoring().antMatchers("/webjars/**");
+//    }
 }
