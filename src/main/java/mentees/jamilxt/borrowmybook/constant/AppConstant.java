@@ -1,6 +1,12 @@
 package mentees.jamilxt.borrowmybook.constant;
 
 public final class AppConstant {
+
+    public static final String SUPER_ADMIN_FIRST_NAME = "Super";
+    public static final String SUPER_ADMIN_LAST_NAME = "Admin";
+    public static final String SUPER_ADMIN_EMAIL = "super_admin@jamilxt.com";
+    public static final String SUPER_ADMIN_PASSWORD = "1234";
+    public static final String SUPER_ADMIN_ROLE = "Super Admin";
     public static final String DEFAULT_SYSTEM = "SYSTEM";
     public static final String ANONYMOUS_USER = "ANONYMOUS";
     public static final int DEFAULT_PAGE_SIZE = 10;
