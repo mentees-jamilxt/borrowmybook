@@ -43,7 +43,7 @@ public class UserService {
         Page<UserEntity> userEntityPage;
         Map<String, Object> specificParameters = AppUtils.getSpecificParameters(paginationArgs.getParameters());
         if (!specificParameters.isEmpty()) {
-            Specification<UserEntity> userSpecification = UserSpecification.userSpecification(specificParameters);
+            Specification<UserEntity> userSpecification = UserSpecification.getSpecification(specificParameters);
             userEntityPage = userRepository.findAll(userSpecification, pageable);
         }
         else {

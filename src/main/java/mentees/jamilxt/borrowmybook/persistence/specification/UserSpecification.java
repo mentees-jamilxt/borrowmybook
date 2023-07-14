@@ -17,7 +17,7 @@ public final class UserSpecification {
 
     private UserSpecification() {}
 
-    public static Specification<UserEntity> userSpecification(Map<String, Object> specificParameters) {
+    public static Specification<UserEntity> getSpecification(Map<String, Object> specificParameters) {
         return ((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             for (Map.Entry<String, Object> entry : specificParameters.entrySet()) {
