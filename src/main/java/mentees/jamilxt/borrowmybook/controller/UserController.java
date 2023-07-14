@@ -79,7 +79,6 @@ public class UserController {
                 throw new Exception("Please select a role and submit again.");
             }
 
-            request.setEnable(true);
             userService.createUser(request);
             return "redirect:/users";
         } catch (Exception e) {
