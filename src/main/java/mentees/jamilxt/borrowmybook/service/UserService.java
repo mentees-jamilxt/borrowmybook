@@ -1,20 +1,27 @@
 package mentees.jamilxt.borrowmybook.service;
 
 import lombok.RequiredArgsConstructor;
+import mentees.jamilxt.borrowmybook.constant.AppUtils;
 import mentees.jamilxt.borrowmybook.exception.custom.AlreadyExistsException;
 import mentees.jamilxt.borrowmybook.exception.custom.NotFoundException;
 import mentees.jamilxt.borrowmybook.mapper.UserMapper;
 import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
 import mentees.jamilxt.borrowmybook.model.dto.request.UpdateUserRequest;
+import mentees.jamilxt.borrowmybook.model.pagination.PaginationArgs;
 import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import mentees.jamilxt.borrowmybook.persistence.repository.UserRepository;
+import mentees.jamilxt.borrowmybook.persistence.specification.UserSpecification;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -25,6 +32,27 @@ public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll().stream().map(userMapper::toDomain).toList();
+    }
+
+    public Page<User> getAllPaginatedUsers(PaginationArgs paginationArgs) {
+        Pageable pageable = AppUtils.getPageable(paginationArgs);
+
+        Page<UserEntity> userEntityPage;
+        Map<String, Object> specificParameters = AppUtils.getSpecificParameters(paginationArgs.getParameters());
+        if (!specificParameters.isEmpty()) {
+            Specification<UserEntity> userSpecification = UserSpecification.userSpecification(specificParameters);
+            userEntityPage = userRepository.findAll(userSpecification, pageable);
+        }
+        else {
+            userEntityPage = userRepository.findAll(pageable);
+        }
+
+        List<User> users = userEntityPage.stream().map(userMapper::toDomain).toList();
+        return new PageImpl<>(users, pageable, userEntityPage.getTotalElements());
+    }
 
     public Page<User> getUsers(Pageable pageable) {
         return userRepository.findAll(pageable).map(userMapper::toDomain);

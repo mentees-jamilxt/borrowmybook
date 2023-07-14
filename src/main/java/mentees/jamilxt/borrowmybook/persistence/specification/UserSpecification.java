@@ -1,6 +1,5 @@
 package mentees.jamilxt.borrowmybook.persistence.specification;
 
-import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.persistence.entity.RoleEntity;
 import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,7 +17,7 @@ public final class UserSpecification {
 
     private UserSpecification() {}
 
-    public Specification<User> userSpecification(Map<String, Object> specificParameters) {
+    public static Specification<UserEntity> userSpecification(Map<String, Object> specificParameters) {
         return ((root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             for (Map.Entry<String, Object> entry : specificParameters.entrySet()) {

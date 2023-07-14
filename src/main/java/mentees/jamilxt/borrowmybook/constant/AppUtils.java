@@ -12,7 +12,7 @@ public final class AppUtils {
 
     private AppUtils() {}
 
-    public Pageable getPageable(PaginationArgs paginationArgs) {
+    public static Pageable getPageable(PaginationArgs paginationArgs) {
         int pageNo = paginationArgs.getPageNo();
         int pageSize = paginationArgs.getPageSize();
         String sortBy = paginationArgs.getSortBy();
@@ -32,7 +32,7 @@ public final class AppUtils {
         return PageRequest.of(pageNo, pageSize);
     }
 
-    public Map<String, Object> getSpecificParameters(Map<String, Object> parameters) {
+    public static Map<String, Object> getSpecificParameters(Map<String, Object> parameters) {
         parameters.remove(AppConstant.PAGE_NO);
         parameters.remove(AppConstant.PAGE_SIZE);
         parameters.remove(AppConstant.SORT_BY);
