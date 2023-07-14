@@ -16,6 +16,7 @@ public final class AppConstant {
     public static final String PAGE_SIZE = "pageSize";
     public static final String SORT_BY = "sortBy";
     public static final String ASC_OR_DESC = "ascOrDesc";
+    public static final String PARAMETERS = "parameters";
     public static final String DEFAULT_PAGE_NO = "0";
     public static final int DEFAULT_PAGE_SIZE = 10;
     public static final String DEFAULT_SORT_BY_VALUE = "createdAt";

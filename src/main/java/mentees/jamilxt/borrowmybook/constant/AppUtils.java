@@ -6,6 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.Map;
+
 public final class AppUtils {
 
     private AppUtils() {}
@@ -28,5 +30,14 @@ public final class AppUtils {
             return PageRequest.of(pageNo, pageSize, sort);
         }
         return PageRequest.of(pageNo, pageSize);
+    }
+
+    public Map<String, Object> getSpecificParameters(Map<String, Object> parameters) {
+        parameters.remove(AppConstant.PAGE_NO);
+        parameters.remove(AppConstant.PAGE_SIZE);
+        parameters.remove(AppConstant.SORT_BY);
+        parameters.remove(AppConstant.ASC_OR_DESC);
+        parameters.remove(AppConstant.PARAMETERS);
+        return parameters;
     }
 }
