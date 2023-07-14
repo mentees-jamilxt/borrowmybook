@@ -113,7 +113,8 @@ public class UserController {
                 throw new Exception("Please select a role and submit again.");
             }
 
-            userService.updateUser(request, id);
+            request.setId(id);
+            userService.updateUser(request);
             return "redirect:/users";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("responseMessage", new ResponseMessage("alert-danger", "Something went wrong. " + e.getMessage()));

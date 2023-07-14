@@ -8,6 +8,8 @@ public final class AppConstant {
     public static final String SUPER_ADMIN_PASSWORD = "1234";
     public static final String SUPER_ADMIN_ROLE_NAME = "Super Admin";
     public static final String SUPER_ADMIN_ROLE_DESCRIPTION = "Role for Super Admin.";
+    public static final String CONSUMER_ROLE_NAME = "User";
+    public static final String CONSUMER_ROLE_DESCRIPTION = "Role for general user.";
     public static final String DEFAULT_SYSTEM = "SYSTEM";
     public static final String ANONYMOUS_USER = "ANONYMOUS";
     public static final int DEFAULT_PAGE_SIZE = 10;

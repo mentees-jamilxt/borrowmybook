@@ -7,6 +7,7 @@ import mentees.jamilxt.borrowmybook.mapper.UserMapper;
 import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
 import mentees.jamilxt.borrowmybook.model.dto.request.UpdateUserRequest;
+import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import mentees.jamilxt.borrowmybook.persistence.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Service
 public class UserService {
     private static final String USER_NOT_FOUND = "User not found";
+    private static final String USER_ALREADY_EXISTS = "User already exists with email: ";
     private final UserMapper userMapper;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -28,8 +30,8 @@ public class UserService {
         return userRepository.findAll(pageable).map(userMapper::toDomain);
     }
 
-    public User getUserById(UUID id) {
-        var userEntity = userRepository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+    public User getUserById(UUID userId) {
+        var userEntity = userRepository.findById(userId).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         return userMapper.toDomain(userEntity);
     }
 
@@ -40,23 +42,7 @@ public class UserService {
 
     public User getLoggedInUser(Principal principal) {
         String username = principal.getName();
-        User user = getUserByUsername(username);
-        return user;
-    }
-
-    public void createUser(CreateUserRequest request) {
-        this.validateCreatingUser(request);
-        var userEntity = userMapper.toEntity(request);
-        String encodedPassword = encodePasswordUsingString(request.getPassword());
-        userEntity.setPassword(encodedPassword);
-        userRepository.save(userEntity);
-    }
-
-    private void validateCreatingUser(CreateUserRequest request) {
-        boolean userExist = userRepository.existsByEmail(request.getEmail());
-        if (userExist) {
-            throw new AlreadyExistsException("User already exists with email " + request.getEmail() + ".");
-        }
+        return getUserByUsername(username);
     }
 
     public UUID getLoggedInUserId(Principal principal) {
@@ -65,8 +51,36 @@ public class UserService {
         return user.getId();
     }
 
-    public void updateUser(UpdateUserRequest request, UUID id) {
-        var userEntity = userRepository.findById(id).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+    private Boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    private Boolean existsByEmailAndIdNot(String email, UUID userId) {
+        return userRepository.existsByEmailAndIdNot(email, userId);
+    }
+
+    private User saveUser(UserEntity userEntity) {
+        var savedUserEntity = userRepository.save(userEntity);
+        return userMapper.toDomain(savedUserEntity);
+    }
+
+    public User createUser(CreateUserRequest request) {
+        if (existsByEmail(request.getEmail())) {
+            throw new AlreadyExistsException(USER_ALREADY_EXISTS + request.getEmail());
+        }
+
+        var userEntity = userMapper.toEntity(request);
+        String encodedPassword = encodePasswordUsingString(request.getPassword());
+        userEntity.setPassword(encodedPassword);
+        return saveUser(userEntity);
+    }
+
+    public void updateUser(UpdateUserRequest request) {
+        var userEntity = userRepository.findById(request.getId()).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+        if (existsByEmailAndIdNot(request.getEmail(), request.getId())) {
+            throw new AlreadyExistsException(USER_ALREADY_EXISTS + request.getEmail());
+        }
+
         userEntity.setFirstName(request.getFirstName());
         userEntity.setLastName(request.getLastName());
         userEntity.setEmail(request.getEmail());
@@ -80,8 +94,9 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-    public void deleteUser(UUID id) {
-        userRepository.deleteById(id);
+    public void deleteUser(UUID userId) {
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow(()-> new NotFoundException(USER_NOT_FOUND));
+        userRepository.delete(userEntity);
     }
 
     public String encodePasswordUsingString(String password) {
@@ -89,7 +104,6 @@ public class UserService {
     }
 
     public long countTotalUser() {
-        long totalUser = userRepository.count();
-        return totalUser;
+        return userRepository.count();
     }
 }

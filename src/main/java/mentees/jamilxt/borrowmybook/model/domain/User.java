@@ -15,8 +15,8 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private Boolean isEnabled;
 	private Boolean isVerified;
-	private Boolean isBanned;
 	private String password;
 	private Set<RoleEntity> roles = new HashSet<>();
 

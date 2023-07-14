@@ -19,8 +19,8 @@ public class UserEntity extends BaseEntity {
 	private String lastName;
 	private String email;
 	private String password;
+	private Boolean isEnabled = true;
 	private Boolean isVerified = false;
-	private Boolean isBanned = false;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_roles",

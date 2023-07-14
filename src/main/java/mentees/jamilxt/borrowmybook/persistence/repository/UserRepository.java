@@ -12,5 +12,7 @@ import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {
     Optional<UserEntity> findByEmail(String email);
 
-    boolean existsByEmail(String email);
+    Boolean existsByEmail(String email);
+
+    Boolean existsByEmailAndIdNot(String email, UUID userId);
 }

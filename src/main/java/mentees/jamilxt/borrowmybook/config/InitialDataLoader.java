@@ -32,13 +32,23 @@ public class InitialDataLoader implements ApplicationListener<ApplicationContext
         String superAdminPassword = AppConstant.SUPER_ADMIN_PASSWORD;
         String superAdminRoleName = AppConstant.SUPER_ADMIN_ROLE_NAME;
         String superAdminRoleDescription = AppConstant.SUPER_ADMIN_ROLE_DESCRIPTION;
+        String consumerRoleName = AppConstant.CONSUMER_ROLE_NAME;
+        String consumerRoleDescription = AppConstant.CONSUMER_ROLE_DESCRIPTION;
 
         if (!roleRepository.existsByName(superAdminRoleName)) {
-            RoleEntity role = new RoleEntity();
-            role.setName(superAdminRoleName);
-            role.setDescription(superAdminRoleDescription);
+            RoleEntity superAdminRole = new RoleEntity();
+            superAdminRole.setName(superAdminRoleName);
+            superAdminRole.setDescription(superAdminRoleDescription);
 
-            roleRepository.save(role);
+            roleRepository.save(superAdminRole);
+        }
+
+        if (!roleRepository.existsByName(consumerRoleName)) {
+            RoleEntity consumerRole = new RoleEntity();
+            consumerRole.setName(consumerRoleName);
+            consumerRole.setDescription(consumerRoleDescription);
+
+            roleRepository.save(consumerRole);
         }
 
         if (userRepository.existsByEmail(superAdminEmail)) {
@@ -56,7 +66,8 @@ public class InitialDataLoader implements ApplicationListener<ApplicationContext
         user.setLastName(superAdminLastName);
         user.setEmail(superAdminEmail);
         user.setPassword(passwordEncoder.encode(superAdminPassword));
-        user.setEnable(true);
+        user.setIsEnabled(true);
+        user.setIsVerified(true);
         user.setRoles(roles);
 
         userRepository.save(user);
