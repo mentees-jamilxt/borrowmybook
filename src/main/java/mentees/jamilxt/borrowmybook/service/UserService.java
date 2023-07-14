@@ -9,7 +9,9 @@ import mentees.jamilxt.borrowmybook.model.domain.User;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateUserRequest;
 import mentees.jamilxt.borrowmybook.model.dto.request.UpdateUserRequest;
 import mentees.jamilxt.borrowmybook.model.pagination.PaginationArgs;
+import mentees.jamilxt.borrowmybook.persistence.entity.RoleEntity;
 import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
+import mentees.jamilxt.borrowmybook.persistence.repository.RoleRepository;
 import mentees.jamilxt.borrowmybook.persistence.repository.UserRepository;
 import mentees.jamilxt.borrowmybook.persistence.specification.UserSpecification;
 import org.springframework.data.domain.Page;
@@ -20,17 +22,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
     private static final String USER_NOT_FOUND = "User not found";
+    private static final String ROLE_NOT_FOUND = "Role not found";
     private static final String USER_ALREADY_EXISTS = "User already exists with email: ";
     private final UserMapper userMapper;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
@@ -97,23 +99,44 @@ public class UserService {
             throw new AlreadyExistsException(USER_ALREADY_EXISTS + request.getEmail());
         }
 
+        if (request.getRoleIds().isEmpty()) {
+            throw new NotFoundException("No Role found! Please select a role and submit again.");
+        }
+
+        Set<RoleEntity> roles = new HashSet<>();
+        request.getRoleIds().forEach((roleId)->{
+            RoleEntity roleEntity = roleRepository.findById(roleId).orElseThrow(()-> new NotFoundException(ROLE_NOT_FOUND));
+            roles.add(roleEntity);
+        });
+
         var userEntity = userMapper.toEntity(request);
+        userEntity.setRoles(roles);
         String encodedPassword = encodePasswordUsingString(request.getPassword());
         userEntity.setPassword(encodedPassword);
         return saveUser(userEntity);
     }
 
-    public void updateUser(UpdateUserRequest request) {
+    public User updateUser(UpdateUserRequest request) {
         var userEntity = userRepository.findById(request.getId()).orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         if (existsByEmailAndIdNot(request.getEmail(), request.getId())) {
             throw new AlreadyExistsException(USER_ALREADY_EXISTS + request.getEmail());
         }
 
+        if (request.getRoleIds().isEmpty()) {
+            throw new NotFoundException("No Role found! Please select a role and submit again.");
+        }
+
+        Set<RoleEntity> roles = new HashSet<>();
+        request.getRoleIds().forEach((roleId)->{
+            RoleEntity roleEntity = roleRepository.findById(roleId).orElseThrow(()-> new NotFoundException(ROLE_NOT_FOUND));
+            roles.add(roleEntity);
+        });
+
         userEntity.setFirstName(request.getFirstName());
         userEntity.setLastName(request.getLastName());
         userEntity.setEmail(request.getEmail());
-        userEntity.setRoles(request.getRoles());
-        userRepository.save(userEntity);
+        userEntity.setRoles(roles);
+        return saveUser(userEntity);
     }
 
     public void updateUserPassword(String userName, String password) {

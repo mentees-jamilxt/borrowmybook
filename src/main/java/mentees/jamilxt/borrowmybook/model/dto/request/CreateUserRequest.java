@@ -34,5 +34,5 @@ public class CreateUserRequest {
 	@Size(min = 4, max = 32, message = "Password must be between 4 to 32 characters.")
 	private String password;
 	
-	private Set<RoleEntity> roles = new HashSet<>();
+	private Set<UUID> roleIds = new HashSet<>();
 }

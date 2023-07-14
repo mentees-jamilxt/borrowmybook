@@ -21,6 +21,8 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.UUID;
 
+import static mentees.jamilxt.borrowmybook.constant.AppConstant.DEFAULT_PAGE_SIZE;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "/book-categories")
@@ -31,7 +33,7 @@ public class BookCategoryController {
     @GetMapping
     public ModelAndView getBookCategories(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("bookcategory/list");
-        Page<BookCategory> bookCategories = bookCategoryService.getAll(PageRequest.of(page, AppConstant.DEFAULT_PAGE_SIZE));
+        Page<BookCategory> bookCategories = bookCategoryService.getAll(PageRequest.of(page, Integer.parseInt(DEFAULT_PAGE_SIZE)));
         modelAndView.addObject("pageTitle", "View Book Categories");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("bookCategories", bookCategories);

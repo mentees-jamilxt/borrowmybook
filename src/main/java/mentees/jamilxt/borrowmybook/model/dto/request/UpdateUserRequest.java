@@ -2,7 +2,6 @@ package mentees.jamilxt.borrowmybook.model.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
-import mentees.jamilxt.borrowmybook.persistence.entity.RoleEntity;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -31,5 +30,5 @@ public class UpdateUserRequest {
 	@Email(message = "Enter a valid email address.")
 	private String email;
 
-	private Set<RoleEntity> roles = new HashSet<>();
+	private Set<UUID> roleIds = new HashSet<>();
 }

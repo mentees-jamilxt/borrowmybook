@@ -33,7 +33,7 @@ public class UserController {
     @GetMapping
     public ModelAndView getUsers(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("user/list");
-        Page<User> users = userService.getUsers(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+        Page<User> users = userService.getUsers(PageRequest.of(page, Integer.parseInt(DEFAULT_PAGE_SIZE)));
         modelAndView.addObject("pageTitle", "View Users");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("users", users);
@@ -75,7 +75,7 @@ public class UserController {
                 return "user/new-user";
             }
 
-            if (request.getRoles().isEmpty()) {
+            if (request.getRoleIds().isEmpty()) {
                 throw new Exception("Please select a role and submit again.");
             }
 
@@ -91,9 +91,14 @@ public class UserController {
     public ModelAndView viewUpdateUserPage(@PathVariable UUID id, Principal principal) {
         var modelAndView = new ModelAndView("user/update-user");
         User user = userService.getUserById(id);
+        UpdateUserRequest request = new UpdateUserRequest();
+        request.setId(user.getId());
+        request.setEmail(user.getEmail());
+        request.setFirstName(user.getFirstName());
+        request.setLastName(user.getLastName());
         modelAndView.addObject("pageTitle", "Update User");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", request);
         modelAndView.addObject("roles", roleService.getAll(Pageable.unpaged()));
         return modelAndView;
     }
@@ -101,7 +106,7 @@ public class UserController {
     @PostMapping("/update/{id}")
     public String updateUser(@Valid @ModelAttribute("user") UpdateUserRequest request, @PathVariable UUID id, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model, Principal principal) {
         try {
-            if (bindingResult.hasFieldErrors("id") || bindingResult.hasFieldErrors("firstName") || bindingResult.hasFieldErrors("lastName") || bindingResult.hasFieldErrors("email")) {
+            if (bindingResult.hasErrors()) {
                 model.addAttribute("pageTitle", "Update User");
                 model.addAttribute("loggedInUser", userService.getLoggedInUser(principal));
                 model.addAttribute("user", request);
@@ -109,16 +114,12 @@ public class UserController {
                 return "user/update-user";
             }
 
-            if (request.getRoles().isEmpty()) {
-                throw new Exception("Please select a role and submit again.");
-            }
-
             request.setId(id);
             userService.updateUser(request);
             return "redirect:/users";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("responseMessage", new ResponseMessage("alert-danger", "Something went wrong. " + e.getMessage()));
-            return "redirect:/users/update" + id;
+            return "redirect:/users/" + id + "/update";
         }
     }
 

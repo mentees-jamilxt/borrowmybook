@@ -9,9 +9,7 @@ import javax.persistence.criteria.Predicate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class UserSpecification {
 
@@ -24,7 +22,7 @@ public final class UserSpecification {
                 String filterBy = entry.getKey();
                 String filterWith = entry.getValue().toString();
 
-                if (filterWith != null && filterWith.isEmpty()) {
+                if (filterWith != null && !filterWith.isEmpty()) {
                     Class<?> type = root.get(filterBy).getJavaType();
 
                     if (type.equals(Long.class)) {
@@ -34,7 +32,10 @@ public final class UserSpecification {
                         predicates.add(criteriaBuilder.equal(root.get(filterBy), Boolean.valueOf(filterWith)));
                     }
                     else if (type.equals(String.class)) {
-                        predicates.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(filterBy)), filterWith.toUpperCase()));
+                        predicates.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(filterBy)), "%" + filterWith.toUpperCase() + "%"));
+                    }
+                    else if (type.equals(UUID.class)) {
+                        predicates.add(criteriaBuilder.equal(root.get(filterBy), UUID.fromString(filterWith)));
                     }
                     else if (type.equals(LocalDateTime.class)) {
                         LocalDate localDate = LocalDate.parse(filterWith);
@@ -42,14 +43,10 @@ public final class UserSpecification {
                         LocalDateTime endDateTime = LocalDateTime.of(localDate, LocalTime.MAX);
                         predicates.add(criteriaBuilder.between(root.get(filterBy), startDateTime, endDateTime));
                     }
-                    else if (type.isEnum()) {
-                        Enum<?> enumValue = Enum.valueOf((Class<Enum>) type, filterWith);
-                        predicates.add(criteriaBuilder.equal(root.get(filterBy), enumValue));
-                    }
-                    else if (type.equals(RoleEntity.class)) {
-                        Join<UserEntity, RoleEntity> roleJoin = root.join("roles");
-                        predicates.add(criteriaBuilder.equal(roleJoin.get("id"), Long.valueOf(filterWith)));
-                    }
+//                    else if (type.isEnum()) {
+//                        Enum<?> enumValue = Enum.valueOf((Class<Enum>) type, filterWith);
+//                        predicates.add(criteriaBuilder.equal(root.get(filterBy), enumValue));
+//                    }
                     else {
                         predicates.add(criteriaBuilder.equal(root.get(filterBy), filterWith));
                     }
