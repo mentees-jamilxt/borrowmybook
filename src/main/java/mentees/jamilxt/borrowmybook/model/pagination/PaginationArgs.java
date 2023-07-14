@@ -11,9 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PaginationArgs {
 
-    private Long pageNo;
+    private int pageNo;
 
-    private Long pageSize;
+    private int pageSize;
 
     private String sortBy;
 
