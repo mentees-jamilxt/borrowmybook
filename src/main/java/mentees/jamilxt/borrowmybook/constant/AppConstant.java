@@ -6,7 +6,8 @@ public final class AppConstant {
     public static final String SUPER_ADMIN_LAST_NAME = "Admin";
     public static final String SUPER_ADMIN_EMAIL = "super_admin@jamilxt.com";
     public static final String SUPER_ADMIN_PASSWORD = "1234";
-    public static final String SUPER_ADMIN_ROLE = "Super Admin";
+    public static final String SUPER_ADMIN_ROLE_NAME = "Super Admin";
+    public static final String SUPER_ADMIN_ROLE_DESCRIPTION = "Role for Super Admin.";
     public static final String DEFAULT_SYSTEM = "SYSTEM";
     public static final String ANONYMOUS_USER = "ANONYMOUS";
     public static final int DEFAULT_PAGE_SIZE = 10;
