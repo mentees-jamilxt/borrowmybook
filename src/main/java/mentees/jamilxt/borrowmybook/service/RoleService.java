@@ -5,6 +5,7 @@ import mentees.jamilxt.borrowmybook.exception.custom.NotFoundException;
 import mentees.jamilxt.borrowmybook.mapper.RoleMapper;
 import mentees.jamilxt.borrowmybook.model.domain.Role;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateRoleRequest;
+import mentees.jamilxt.borrowmybook.model.dto.request.UpdateRoleRequest;
 import mentees.jamilxt.borrowmybook.persistence.entity.UserEntity;
 import mentees.jamilxt.borrowmybook.persistence.repository.RoleRepository;
 import mentees.jamilxt.borrowmybook.persistence.repository.UserRepository;
@@ -24,22 +25,24 @@ public class RoleService {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
 
-    public Page<Role> getRoles(Pageable pageable) {
+    public Page<Role> getAll(Pageable pageable) {
         return roleRepository.findAll(pageable).map(roleMapper::toDomain);
     }
 
-    public Role getRole(UUID id) {
+    public Role getOne(UUID id) {
         var roleEntity = roleRepository.findById(id).orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND));
         return roleMapper.toDomain(roleEntity);
     }
 
-    public void createRole(CreateRoleRequest request) {
+    public UUID createRole(CreateRoleRequest request) {
         var roleEntity = roleMapper.toEntity(request);
-        roleRepository.save(roleEntity);
+        roleEntity.setId(UUID.randomUUID());
+        var savedEntity = roleRepository.save(roleEntity);
+        return savedEntity.getId();
     }
 
-    public void updateRole(CreateRoleRequest request) {
-        var roleEntity = roleRepository.findById(request.getId()).orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND));
+    public void updateOne(UpdateRoleRequest request, UUID id) {
+        var roleEntity = roleRepository.findById(id).orElseThrow(() -> new NotFoundException(ROLE_NOT_FOUND));
         roleEntity.setName(request.getName());
         roleEntity.setDescription(request.getDescription());
         roleRepository.save(roleEntity);

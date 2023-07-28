@@ -5,6 +5,8 @@ import mentees.jamilxt.borrowmybook.exception.custom.NotFoundException;
 import mentees.jamilxt.borrowmybook.mapper.BookMapper;
 import mentees.jamilxt.borrowmybook.model.domain.Book;
 import mentees.jamilxt.borrowmybook.model.dto.request.CreateBookRequest;
+import mentees.jamilxt.borrowmybook.model.dto.request.UpdateBookRequest;
+import mentees.jamilxt.borrowmybook.persistence.entity.BookEntity;
 import mentees.jamilxt.borrowmybook.persistence.repository.BookRepository;
 
 import org.springframework.data.domain.Page;
@@ -20,22 +22,33 @@ public class BookService {
     private final BookMapper bookMapper;
     private final BookRepository bookRepository;
 
-    public Page<Book> getBooks(Pageable pageable) {
-        return bookRepository.findAll(pageable).map(bookMapper::toDomain);
+    public Page<Book> getAll(Pageable pageable) {
+        var entities = bookRepository.findAll(pageable);
+        return entities.map(bookMapper::entityToDomain);
     }
 
     public Book getBook(UUID id) {
         var bookEntity = bookRepository.findById(id).orElseThrow(() -> new NotFoundException(BOOK_NOT_FOUND));
-        return bookMapper.toDomain(bookEntity);
+        return bookMapper.entityToDomain(bookEntity);
     }
 
-    public void createBook(CreateBookRequest request) {
-        var bookEntity = bookMapper.toEntity(request);
-        bookRepository.save(bookEntity);
+    public UUID createOne(CreateBookRequest request) {
+        var bookEntity = bookMapper.domainToResponse(request);
+        bookEntity.setId(UUID.randomUUID());
+        var savedBook = bookRepository.save(bookEntity);
+        return savedBook.getId();
     }
 
-    public void updateBook(CreateBookRequest request) {
-        var bookEntity = bookRepository.findById(request.getId()).orElseThrow(() -> new NotFoundException(BOOK_NOT_FOUND));
+    public void deleteBook(UUID id) {
+        bookRepository.deleteById(id);
+    }
+    
+    public long countTotalBook() {
+        return bookRepository.count();
+    }
+
+    public void updateOne(UpdateBookRequest request, UUID id) {
+        var bookEntity = bookRepository.findById(id).orElseThrow(() -> new NotFoundException(BOOK_NOT_FOUND));
         bookEntity.setName(request.getName());
         bookEntity.setAuthor(request.getAuthor());
         bookEntity.setPrice(request.getPrice());
@@ -44,14 +57,5 @@ public class BookService {
         bookEntity.setStatus(request.getStatus());
         bookEntity.setIsbnNumber(request.getIsbnNumber());
         bookRepository.save(bookEntity);
-    }
-
-    public void deleteBook(UUID id) {
-        bookRepository.deleteById(id);
-    }
-    
-    public long countTotalBook() {
-    	long totalBook = bookRepository.count();
-    	return totalBook;
     }
 }
