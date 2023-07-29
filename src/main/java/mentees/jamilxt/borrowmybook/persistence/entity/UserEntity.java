@@ -2,13 +2,13 @@ package mentees.jamilxt.borrowmybook.persistence.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import mentees.jamilxt.borrowmybook.constant.EntityConstant;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,8 +18,10 @@ public class UserEntity extends BaseEntity {
 	private String firstName;
 	private String lastName;
 	private String email;
+	@JsonIgnore
 	private String password;
-	private boolean isEnable;
+	private Boolean isEnabled = true;
+	private Boolean isVerified = false;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_roles",

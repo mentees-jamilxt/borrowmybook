@@ -1,4 +1,4 @@
-package mentees.jamilxt.borrowmybook.controller;
+package mentees.jamilxt.borrowmybook.controller.web;
 
 import java.security.Principal;
 

@@ -1,4 +1,4 @@
-package mentees.jamilxt.borrowmybook.controller;
+package mentees.jamilxt.borrowmybook.controller.web;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.Book;
@@ -37,7 +37,7 @@ public class BookController {
     @GetMapping
     public ModelAndView getBooks(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("book/list");
-        Page<Book> books = bookService.getAll(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+        Page<Book> books = bookService.getAll(PageRequest.of(page, Integer.parseInt(DEFAULT_PAGE_SIZE)));
         modelAndView.addObject("pageTitle", "Book List");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("books", books);

@@ -1,4 +1,4 @@
-package mentees.jamilxt.borrowmybook.controller;
+package mentees.jamilxt.borrowmybook.controller.web;
 
 import lombok.RequiredArgsConstructor;
 import mentees.jamilxt.borrowmybook.model.domain.Role;
@@ -31,7 +31,7 @@ public class RoleController {
     @GetMapping
     public ModelAndView getRoles(@RequestParam(defaultValue = "0") int page, Principal principal) {
         var modelAndView = new ModelAndView("role/list");
-        Page<Role> roles = roleService.getAll(PageRequest.of(page, DEFAULT_PAGE_SIZE));
+        Page<Role> roles = roleService.getAll(PageRequest.of(page, Integer.parseInt(DEFAULT_PAGE_SIZE)));
         modelAndView.addObject("pageTitle", "Role List");
         modelAndView.addObject("loggedInUser", userService.getLoggedInUser(principal));
         modelAndView.addObject("roles", roles);
